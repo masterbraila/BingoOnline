@@ -1,0 +1,5 @@
+/* TEST: This style will make all table cells in the ticket area bright magenta. If you see this, CSS is loading. */
+.ticket-table td {
+    background: magenta !important;
+    color: black !important;
+}

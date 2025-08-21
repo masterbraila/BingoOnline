@@ -27,12 +27,24 @@
                                     @for (int j = 0; j < 9; j++)
                                     {
                                         var row = grid * 3 + i;
-                                        var value = ticket.Numbers[row][j];
-                                        bool isCalled = value.HasValue && calledNumbers.Contains(value.Value);
-                                        bool isMarked = marked[row, j];
-                                        <td @onclick="() => MarkCell(row, j)" style="cursor:pointer; background:@(isMarked ? "#90ee90" : isCalled ? "#e0f7fa" : "#fff")">
-                                            @(value.HasValue ? value.Value.ToString() : "")
-                                        </td>
+                                        var col = j; // capture for closure
+                                        int? value = null;
+                                        bool isMarked = false;
+                                        if (ticket?.Numbers != null && ticket.Numbers.Length > row && ticket.Numbers[row] != null && ticket.Numbers[row].Length > col)
+                                        {
+                                            value = ticket.Numbers[row][col];
+                                            isMarked = marked[row, col];
+                                        }
+                                        if (value.HasValue)
+                                        {
+                                            <td @onclick="() => MarkCell(row, col)" style="cursor:pointer;" class="@(isMarked ? "marked" : null)">
+                                                @value.Value
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
                                     }
                                 </tr>
                             }
@@ -113,8 +125,18 @@ else
         await BingoHub.ConnectAsync(playerName);
         BingoHub.OnTicketReceived += (t) =>
         {
+            bool isNewTicket = ticket == null || !JsonSerializer.Serialize(ticket).Equals(JsonSerializer.Serialize(t));
             ticket = t;
-            marked = new bool[15, 9];
+            if (ticket?.Numbers != null)
+            {
+                for (int i = 0; i < ticket.Numbers.Length; i++)
+                {
+                    if (ticket.Numbers[i] == null)
+                        ticket.Numbers[i] = new int?[9];
+                }
+            }
+            if (isNewTicket)
+                marked = new bool[15, 9];
             // Save ticket to session storage
             var ticketJson = JsonSerializer.Serialize(ticket);
             jsRuntime.InvokeVoidAsync("bingoNameSession.setTicket", ticketJson);
@@ -143,6 +165,14 @@ else
                 try
                 {
                     ticket = JsonSerializer.Deserialize<BingoTicket>(ticketJson);
+                    if (ticket?.Numbers != null)
+                    {
+                        for (int i = 0; i < ticket.Numbers.Length; i++)
+                        {
+                            if (ticket.Numbers[i] == null)
+                                ticket.Numbers[i] = new int?[9];
+                        }
+                    }
                 }
                 catch { /* ignore deserialization errors */ }
             }
@@ -151,11 +181,20 @@ else
 
     private async void MarkCell(int row, int col)
     {
-        if (ticket?.Numbers[row][col] is int value && calledNumbers.Contains(value))
-        {
-            marked[row, col] = true;
-            await CheckForWin(row);
-        }
+        Console.WriteLine($"MarkCell called: row={row}, col={col}");
+        if (ticket == null || ticket.Numbers == null || marked == null)
+            return;
+        if (row < 0 || row >= ticket.Numbers.Length || col < 0 || col >= 9)
+            return;
+        if (ticket.Numbers[row] == null || ticket.Numbers[row].Length <= col)
+            return;
+        if (ticket.Numbers[row][col] is not int value)
+            return;
+        if (marked[row, col])
+            return;
+        marked[row, col] = true;
+        await CheckForWin(row);
+        StateHasChanged();
     }
 
     private async Task CheckForWin(int row)
@@ -173,10 +212,10 @@ else
                 break;
             }
         }
-        if (lineWin && !lineWinNotified[row] && hubConnection != null)
+        if (lineWin && !lineWinNotified[row] && BingoHub.HubConnection != null)
         {
             lineWinNotified[row] = true;
-            await hubConnection.InvokeAsync("LineWin", grid, rowInGrid, playerName);
+            await BingoHub.HubConnection.InvokeAsync("LineWin", grid, rowInGrid, playerName);
         }
         // Check for full house
         bool fullHouse = true;
@@ -193,10 +232,10 @@ else
             }
             if (!fullHouse) break;
         }
-        if (fullHouse && !fullHouseNotified[grid] && hubConnection != null)
+        if (fullHouse && !fullHouseNotified[grid] && BingoHub.HubConnection != null)
         {
             fullHouseNotified[grid] = true;
-            await hubConnection.InvokeAsync("FullHouseWin", grid, playerName);
+            await BingoHub.HubConnection.InvokeAsync("FullHouseWin", grid, playerName);
         }
     }
 

@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\css\\app.css"
     },
     {
+      "Id": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\wwwroot\\css\\test-highlight.css",
+      "PackagePath": "staticwebassets\\css\\test-highlight.css"
+    },
+    {
       "Id": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\wwwroot\\favicon.png",
       "PackagePath": "staticwebassets\\favicon.png"
     },
