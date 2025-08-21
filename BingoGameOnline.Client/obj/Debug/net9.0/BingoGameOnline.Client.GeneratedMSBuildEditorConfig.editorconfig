@@ -13,41 +13,41 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = browser
 build_property.RootNamespace = BingoGameOnline.Client
 build_property.RootNamespace = BingoGameOnline.Client
-build_property.ProjectDir = D:\Aplicatii\BingoGameOnline\BingoGameOnline.Client\
+build_property.ProjectDir = D:\GitHub\BingoOnline\BingoGameOnline.Client\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = false
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\Aplicatii\BingoGameOnline\BingoGameOnline.Client
+build_property.MSBuildProjectDirectory = D:\GitHub\BingoOnline\BingoGameOnline.Client
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[D:/Aplicatii/BingoGameOnline/BingoGameOnline.Client/App.razor]
+[D:/GitHub/BingoOnline/BingoGameOnline.Client/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Aplicatii/BingoGameOnline/BingoGameOnline.Client/Pages/AdminTickets.razor]
+[D:/GitHub/BingoOnline/BingoGameOnline.Client/Pages/AdminTickets.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5UaWNrZXRzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Aplicatii/BingoGameOnline/BingoGameOnline.Client/Pages/Home.razor]
+[D:/GitHub/BingoOnline/BingoGameOnline.Client/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Aplicatii/BingoGameOnline/BingoGameOnline.Client/Pages/MyTicket.razor]
+[D:/GitHub/BingoOnline/BingoGameOnline.Client/Pages/MyTicket.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTXlUaWNrZXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Aplicatii/BingoGameOnline/BingoGameOnline.Client/_Imports.razor]
+[D:/GitHub/BingoOnline/BingoGameOnline.Client/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Aplicatii/BingoGameOnline/BingoGameOnline.Client/Layout/MainLayout.razor]
+[D:/GitHub/BingoOnline/BingoGameOnline.Client/Layout/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-wwpsodd4af
 
-[D:/Aplicatii/BingoGameOnline/BingoGameOnline.Client/Layout/NavMenu.razor]
+[D:/GitHub/BingoOnline/BingoGameOnline.Client/Layout/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-nm87x0pyut

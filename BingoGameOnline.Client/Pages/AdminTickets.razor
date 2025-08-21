@@ -4,27 +4,32 @@
 @inject IJSRuntime jsRuntime
 @inject NavigationManager Navigation
 
-<PageTitle>Admin Area</PageTitle>
-
-<h3>Admin Area</h3>
-<h2 style="margin-bottom: 24px;">Bingo Online</h2>
-
-@if (!isAdmin)
+@if (!isAdmin && !showPasswordDialog)
 {
     <div class="alert alert-danger">
         Access Denied. Admin password required.<br />
         You will be redirected to Home page in 5 seconds.
     </div>
-    @if (!redirectScheduled)
-    {
-        <script>
-            setTimeout(function() {
-                window.location.href = '/';
-            }, 5000);
-        </script>
-    }
 }
-else
+else if (showPasswordDialog)
+{
+    <div class="modal show d-block" tabindex="-1" style="background:rgba(0,0,0,0.5);">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Admin Login</h5>
+                </div>
+                <div class="modal-body">
+                    <input type="password" @bind="enteredPassword" class="form-control" placeholder="Enter admin password" @onkeydown="OnPasswordKeyDown" autofocus />
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" @onclick="CheckPassword">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (isAdmin)
 {
     <select @bind="selectedConnectionId" class="form-select" style="width: auto; display: inline-block; margin-right: 8px;">
         <option value="">-- Select Player --</option>
@@ -65,26 +70,35 @@ else
         </div>
     }
 
+    <br /><br />
     <h3>Drawn Numbers</h3>
     <div style="margin-bottom: 16px;">
         <button class="btn btn-primary" @onclick="CallNumber" style="margin-right: 8px;">Call Number</button>
         <button class="btn btn-primary" @onclick="NewGame">New Game</button>
     </div>
     <div style="margin-bottom: 16px;">
-        <span>Drawn Numbers: </span>
-        <span>
-            @if (drawnNumbers.Count == 0)
-            {
-                <span>None</span>
-            }
-            else
-            {
-                @foreach (var n in drawnNumbers.OrderBy(x => x))
-                {
-                    <span style="display:inline-block;width:32px;text-align:center;">@n</span>
-                }
-            }
+        <span>Draw Number: </span>
+        <span style="display:inline-block;width:32px;text-align:center;">
+            @(drawnNumbers.Count > 0 ? drawnNumbers.Last().ToString() : "-")
         </span>
+    </div>
+    <div style="margin-bottom: 16px;">
+        <table class="numbers-grid" style="margin:auto;">
+            <tbody>
+                @for (int row = 0; row < 9; row++)
+                {
+                    <tr>
+                        @for (int col = 1; col <= 10; col++)
+                        {
+                            int num = row * 10 + col;
+                            if (num > 90) break;
+                            bool isCalled = drawnNumbers.Contains(num);
+                            <td class="@(isCalled ? "called" : null)">@num</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 
     <style>
@@ -98,6 +112,19 @@ else
         border: 1px solid #ccc;
         background: #fff;
     }
+    .numbers-grid td {
+        width: 32px;
+        height: 32px;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 1.1em;
+        border: 1px solid #ccc;
+        background: #fff;
+    }
+    .numbers-grid td.called {
+        background: #e0f7fa;
+        font-weight: bold;
+    }
     </style>
 }
 
@@ -109,8 +136,10 @@ else
     private string confirmationMessage = string.Empty;
     private HashSet<int> drawnNumbers = new();
     private bool isAdmin = false;
-    private bool redirectScheduled = false;
     private string adminPassword = "letmein"; // Change this to your desired password
+    private System.Threading.Timer? redirectTimer;
+    private bool showPasswordDialog = false;
+    private string enteredPassword = string.Empty;
 
     private async Task NewGame()
     {
@@ -124,57 +153,83 @@ else
         isAdmin = await jsRuntime.InvokeAsync<bool>("bingoNameSession.isAdmin");
         if (!isAdmin)
         {
-            var result = await jsRuntime.InvokeAsync<string>("prompt", "Enter admin password:");
-            if (result == adminPassword)
-            {
-                await jsRuntime.InvokeVoidAsync("bingoNameSession.setAdmin");
-                isAdmin = true;
-            }
-            else
-            {
-                redirectScheduled = true;
-            }
+            showPasswordDialog = true;
         }
         if (isAdmin)
         {
-            hubConnection = new HubConnectionBuilder()
-                .WithUrl("http://localhost:5247/bingoHub")
-                .WithAutomaticReconnect()
-                .Build();
-            await hubConnection.StartAsync();
-            hubConnection.On<BingoTicket>("ReceiveTicket", (ticket) =>
+            await InitializeHub();
+        }
+    }
+
+    private async Task CheckPassword()
+    {
+        if (enteredPassword == adminPassword)
+        {
+            await jsRuntime.InvokeVoidAsync("bingoNameSession.setAdmin");
+            isAdmin = true;
+            showPasswordDialog = false;
+            enteredPassword = string.Empty;
+            await InitializeHub();
+            StateHasChanged();
+        }
+        else
+        {
+            showPasswordDialog = false;
+            // Start a timer to redirect after 5 seconds
+            redirectTimer = new System.Threading.Timer(_ =>
             {
-                lastTicket = ticket;
-                StateHasChanged();
-            });
-            hubConnection.On<string>("TicketGeneratedAndSent", (message) =>
-            {
-                confirmationMessage = message;
-                StateHasChanged();
-            });
-            hubConnection.On<List<UserInfo>>("UserListUpdated", (updatedUsers) =>
-            {
-                users = updatedUsers ?? new List<UserInfo>();
-                StateHasChanged();
-            });
-            hubConnection.On<int>("NumberCalled", (number) =>
-            {
-                drawnNumbers.Add(number);
-                StateHasChanged();
-            });
-            hubConnection.On("CalledNumbersReset", () =>
-            {
-                drawnNumbers.Clear();
-                StateHasChanged();
-            });
-            hubConnection.On("NewGameStarted", () =>
-            {
-                drawnNumbers.Clear();
-                lastTicket = null;
-                confirmationMessage = string.Empty;
-                StateHasChanged();
-            });
-            await LoadUsers();
+                InvokeAsync(() => Navigation.NavigateTo("/"));
+            }, null, 5000, System.Threading.Timeout.Infinite);
+        }
+    }
+
+    private async Task InitializeHub()
+    {
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl("http://localhost:5247/bingoHub")
+            .WithAutomaticReconnect()
+            .Build();
+        await hubConnection.StartAsync();
+        hubConnection.On<BingoTicket>("ReceiveTicket", (ticket) =>
+        {
+            lastTicket = ticket;
+            StateHasChanged();
+        });
+        hubConnection.On<string>("TicketGeneratedAndSent", (message) =>
+        {
+            confirmationMessage = message;
+            StateHasChanged();
+        });
+        hubConnection.On<List<UserInfo>>("UserListUpdated", (updatedUsers) =>
+        {
+            users = updatedUsers ?? new List<UserInfo>();
+            StateHasChanged();
+        });
+        hubConnection.On<int>("NumberCalled", (number) =>
+        {
+            drawnNumbers.Add(number);
+            StateHasChanged();
+        });
+        hubConnection.On("CalledNumbersReset", () =>
+        {
+            drawnNumbers.Clear();
+            StateHasChanged();
+        });
+        hubConnection.On("NewGameStarted", () =>
+        {
+            drawnNumbers.Clear();
+            lastTicket = null;
+            confirmationMessage = string.Empty;
+            StateHasChanged();
+        });
+        await LoadUsers();
+    }
+
+    private void OnPasswordKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            _ = CheckPassword();
         }
     }
 
