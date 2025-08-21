@@ -1,0 +1,207 @@
+@inject IJSRuntime jsRuntime
+@inject BingoHubService BingoHub
+@page "/myticket"
+@using Microsoft.AspNetCore.SignalR.Client
+@using System.Text.Json
+@using BingoGameOnline.Client.Services
+
+<PageTitle>Bingo Online</PageTitle>
+
+@if (ticket != null)
+{
+    <div class="flex-main">
+        <!-- Left: Ticket -->
+        <div class="ticket-area">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; width: 100%;">
+                <h4 style="margin: 0; text-align: left;">@playerName's Bingo Ticket</h4>
+                <button class="btn btn-secondary" style="margin-left:auto;" onclick="window.print()">Print Ticket</button>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center;">
+                @for (int grid = 0; grid < 5; grid++)
+                {
+                    <table class="table table-bordered ticket-table" style="margin-bottom: 16px;">
+                        <tbody>
+                            @for (int i = 0; i < 3; i++)
+                            {
+                                <tr>
+                                    @for (int j = 0; j < 9; j++)
+                                    {
+                                        var row = grid * 3 + i;
+                                        var value = ticket.Numbers[row][j];
+                                        bool isCalled = value.HasValue && calledNumbers.Contains(value.Value);
+                                        bool isMarked = marked[row, j];
+                                        <td @onclick="() => MarkCell(row, j)" style="cursor:pointer; background:@(isMarked ? "#90ee90" : isCalled ? "#e0f7fa" : "#fff")">
+                                            @(value.HasValue ? value.Value.ToString() : "")
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+        <!-- Right: Called number and 1-90 grid -->
+        <div class="right-area">
+            <div>
+                <h4>Last Called Number</h4>
+                <div class="called-number">
+                    @(calledNumbers.Count > 0 ? calledNumbers.Max().ToString() : "-")
+                </div>
+            </div>
+            <div>
+                <h4>Numbers 1-90</h4>
+                <table class="numbers-grid" style="margin:auto;">
+                    <tbody>
+                        @for (int row = 0; row < 9; row++)
+                        {
+                            <tr>
+                                @for (int col = 1; col <= 10; col++)
+                                {
+                                    int num = row * 10 + col;
+                                    if (num > 90) break;
+                                    bool isCalled = calledNumbers.Contains(num);
+                                    <td class="@(isCalled ? "called" : null)">@num</td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p>Welcome @playerName. There is no ticket assigned to you yet.</p>
+}
+
+@if (!string.IsNullOrEmpty(winMessage))
+{
+    <div class="alert alert-success">@winMessage</div>
+}
+
+@code {
+    private HubConnection? hubConnection;
+    private BingoTicket? ticket;
+    private string playerName = string.Empty;
+    private HashSet<int> calledNumbers = new();
+    private bool[,] marked = new bool[15, 9];
+    private bool[] lineWinNotified = new bool[15];
+    private bool[] fullHouseNotified = new bool[5];
+    private string winMessage = string.Empty;
+    private bool namePrompted = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        playerName = await jsRuntime.InvokeAsync<string>("bingoNameSession.getName") ?? string.Empty;
+        if (string.IsNullOrWhiteSpace(playerName) && !namePrompted)
+        {
+            namePrompted = true;
+            playerName = await jsRuntime.InvokeAsync<string>("prompt", "Enter your name for Bingo:") ?? string.Empty;
+            if (!string.IsNullOrWhiteSpace(playerName))
+            {
+                await jsRuntime.InvokeVoidAsync("bingoNameSession.setName", playerName);
+            }
+            else
+            {
+                playerName = $"User-{Guid.NewGuid().ToString().Substring(0, 8)}";
+                await jsRuntime.InvokeVoidAsync("bingoNameSession.setName", playerName);
+            }
+        }
+        // Connect to SignalR via service
+        await BingoHub.ConnectAsync(playerName);
+        BingoHub.OnTicketReceived += (t) =>
+        {
+            ticket = t;
+            marked = new bool[15, 9];
+            // Save ticket to session storage
+            var ticketJson = JsonSerializer.Serialize(ticket);
+            jsRuntime.InvokeVoidAsync("bingoNameSession.setTicket", ticketJson);
+            StateHasChanged();
+        };
+        BingoHub.OnNewGame += async () =>
+        {
+            ticket = null;
+            calledNumbers.Clear();
+            marked = new bool[15, 9];
+            winMessage = string.Empty;
+            await jsRuntime.InvokeVoidAsync("bingoNameSession.clearTicket");
+            StateHasChanged();
+        };
+        BingoHub.OnNumberCalled += (number) =>
+        {
+            calledNumbers.Add(number);
+            StateHasChanged();
+        };
+        // Try to load ticket from session storage if not set
+        if (ticket == null)
+        {
+            var ticketJson = await jsRuntime.InvokeAsync<string>("bingoNameSession.getTicket");
+            if (!string.IsNullOrWhiteSpace(ticketJson))
+            {
+                try
+                {
+                    ticket = JsonSerializer.Deserialize<BingoTicket>(ticketJson);
+                }
+                catch { /* ignore deserialization errors */ }
+            }
+        }
+    }
+
+    private async void MarkCell(int row, int col)
+    {
+        if (ticket?.Numbers[row][col] is int value && calledNumbers.Contains(value))
+        {
+            marked[row, col] = true;
+            await CheckForWin(row);
+        }
+    }
+
+    private async Task CheckForWin(int row)
+    {
+        int grid = row / 3;
+        int rowInGrid = row % 3;
+        // Check for line win
+        bool lineWin = true;
+        for (int j = 0; j < 9; j++)
+        {
+            var val = ticket?.Numbers[row][j];
+            if (val.HasValue && !marked[row, j])
+            {
+                lineWin = false;
+                break;
+            }
+        }
+        if (lineWin && !lineWinNotified[row] && hubConnection != null)
+        {
+            lineWinNotified[row] = true;
+            await hubConnection.InvokeAsync("LineWin", grid, rowInGrid, playerName);
+        }
+        // Check for full house
+        bool fullHouse = true;
+        for (int r = grid * 3; r < grid * 3 + 3; r++)
+        {
+            for (int j = 0; j < 9; j++)
+            {
+                var val = ticket?.Numbers[r][j];
+                if (val.HasValue && !marked[r, j])
+                {
+                    fullHouse = false;
+                    break;
+                }
+            }
+            if (!fullHouse) break;
+        }
+        if (fullHouse && !fullHouseNotified[grid] && hubConnection != null)
+        {
+            fullHouseNotified[grid] = true;
+            await hubConnection.InvokeAsync("FullHouseWin", grid, playerName);
+        }
+    }
+
+    public void SetHubConnection(HubConnection? connection)
+    {
+        hubConnection = connection;
+    }
+}

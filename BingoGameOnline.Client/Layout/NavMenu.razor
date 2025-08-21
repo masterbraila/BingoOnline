@@ -1,0 +1,43 @@
+﻿@using BingoGameOnline.Client.Services
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <span class="navbar-brand" style="font-size:1.5rem;">Bingo Online</span>
+        <div class="d-flex align-items-center ms-auto">
+            <NavLink class="nav-link btn mx-1 d-flex align-items-center justify-content-center text-center" style="min-width:120px; background-color:#f8f9fa; color:#212529; border:none;" href="/" Match="NavLinkMatch.All">
+                <span class="bi bi-house-door-fill me-2" aria-hidden="true"></span> Home
+            </NavLink>
+            <NavLink class="nav-link btn mx-1 d-flex align-items-center justify-content-center text-center" style="min-width:120px; background-color:#f8f9fa; color:#212529; border:none;" href="myticket">
+                <span class="bi bi-person-badge me-2" aria-hidden="true"></span> My Ticket
+            </NavLink>
+            <NavLink class="nav-link btn mx-1 d-flex align-items-center justify-content-center text-center" style="min-width:120px; background-color:#f8f9fa; color:#212529; border:none;" href="admin/tickets">
+                <span class="bi bi-ticket-perforated me-2" aria-hidden="true"></span> Admin Area
+            </NavLink>
+            <button class="nav-link btn mx-1 d-flex align-items-center justify-content-center text-center" style="min-width:120px; background-color:#f8f9fa; color:#dc3545; border:none;" @onclick="OnDisconnectClicked">
+                <span class="bi bi-x-circle me-2" aria-hidden="true"></span> Disconnect
+            </button>
+        </div>
+    </div>
+</nav>
+
+@code {
+    private bool collapseNavMenu = true;
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+    [Inject] NavigationManager? Navigation { get; set; }
+    [Inject] IJSRuntime? jsRuntime { get; set; }
+    [Inject] BingoGameOnline.Client.Services.BingoHubService BingoHub { get; set; } = default!;
+
+    private async Task OnDisconnectClicked()
+    {
+        if (jsRuntime != null)
+        {
+            await BingoHub.DisconnectAsync();
+            await jsRuntime.InvokeVoidAsync("bingoNameSession.clearName");
+            await jsRuntime.InvokeVoidAsync("bingoNameSession.clearTicket");
+            await jsRuntime.InvokeVoidAsync("bingoNameSession.clearAdmin"); // Clear admin session
+        }
+        Navigation?.NavigateTo("/");
+    }
+}

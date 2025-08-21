@@ -1,0 +1,225 @@
+@page "/admin/tickets"
+@using Microsoft.AspNetCore.SignalR.Client
+@using Microsoft.JSInterop
+@inject IJSRuntime jsRuntime
+@inject NavigationManager Navigation
+
+<PageTitle>Admin Area</PageTitle>
+
+<h3>Admin Area</h3>
+<h2 style="margin-bottom: 24px;">Bingo Online</h2>
+
+@if (!isAdmin)
+{
+    <div class="alert alert-danger">
+        Access Denied. Admin password required.<br />
+        You will be redirected to Home page in 5 seconds.
+    </div>
+    @if (!redirectScheduled)
+    {
+        <script>
+            setTimeout(function() {
+                window.location.href = '/';
+            }, 5000);
+        </script>
+    }
+}
+else
+{
+    <select @bind="selectedConnectionId" class="form-select" style="width: auto; display: inline-block; margin-right: 8px;">
+        <option value="">-- Select Player --</option>
+        @foreach (var user in users)
+        {
+            <option value="@user.ConnectionId">@user.PlayerName (@user.ConnectionId)</option>
+        }
+    </select>
+    <button class="btn btn-primary" @onclick="GenerateAndSendTicket" disabled="@(string.IsNullOrWhiteSpace(selectedConnectionId))" style="margin-right: 8px;">Generate & Send Ticket</button>
+    <button class="btn btn-primary" @onclick="LoadUsers" style="margin-right: 8px;">Refresh Users</button>
+
+    @if (!string.IsNullOrEmpty(confirmationMessage))
+    {
+        <div class="alert alert-success">@confirmationMessage</div>
+    }
+
+    @if (lastTicket != null)
+    {
+        <h4>Last Generated Ticket</h4>
+        <div style="display: flex; flex-wrap: wrap; gap: 24px;">
+            @for (int grid = 0; grid < 5; grid++)
+            {
+                <table class="table table-bordered ticket-table" style="margin-bottom: 16px;">
+                    <tbody>
+                        @for (int i = 0; i < 3; i++)
+                        {
+                            <tr>
+                                @for (int j = 0; j < 9; j++)
+                                {
+                                    var value = lastTicket.Numbers[grid * 3 + i][j];
+                                    <td>@(value.HasValue ? value.Value.ToString() : "")</td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    }
+
+    <h3>Drawn Numbers</h3>
+    <div style="margin-bottom: 16px;">
+        <button class="btn btn-primary" @onclick="CallNumber" style="margin-right: 8px;">Call Number</button>
+        <button class="btn btn-primary" @onclick="NewGame">New Game</button>
+    </div>
+    <div style="margin-bottom: 16px;">
+        <span>Drawn Numbers: </span>
+        <span>
+            @if (drawnNumbers.Count == 0)
+            {
+                <span>None</span>
+            }
+            else
+            {
+                @foreach (var n in drawnNumbers.OrderBy(x => x))
+                {
+                    <span style="display:inline-block;width:32px;text-align:center;">@n</span>
+                }
+            }
+        </span>
+    </div>
+
+    <style>
+    .ticket-table td {
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 1.2em;
+        font-weight: bold;
+        border: 1px solid #ccc;
+        background: #fff;
+    }
+    </style>
+}
+
+@code {
+    private HubConnection? hubConnection;
+    private string selectedConnectionId = string.Empty;
+    private BingoTicket? lastTicket;
+    private List<UserInfo> users = new();
+    private string confirmationMessage = string.Empty;
+    private HashSet<int> drawnNumbers = new();
+    private bool isAdmin = false;
+    private bool redirectScheduled = false;
+    private string adminPassword = "letmein"; // Change this to your desired password
+
+    private async Task NewGame()
+    {
+        if (hubConnection != null)
+        {
+            await hubConnection.InvokeAsync("NewGame");
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        isAdmin = await jsRuntime.InvokeAsync<bool>("bingoNameSession.isAdmin");
+        if (!isAdmin)
+        {
+            var result = await jsRuntime.InvokeAsync<string>("prompt", "Enter admin password:");
+            if (result == adminPassword)
+            {
+                await jsRuntime.InvokeVoidAsync("bingoNameSession.setAdmin");
+                isAdmin = true;
+            }
+            else
+            {
+                redirectScheduled = true;
+            }
+        }
+        if (isAdmin)
+        {
+            hubConnection = new HubConnectionBuilder()
+                .WithUrl("http://localhost:5247/bingoHub")
+                .WithAutomaticReconnect()
+                .Build();
+            await hubConnection.StartAsync();
+            hubConnection.On<BingoTicket>("ReceiveTicket", (ticket) =>
+            {
+                lastTicket = ticket;
+                StateHasChanged();
+            });
+            hubConnection.On<string>("TicketGeneratedAndSent", (message) =>
+            {
+                confirmationMessage = message;
+                StateHasChanged();
+            });
+            hubConnection.On<List<UserInfo>>("UserListUpdated", (updatedUsers) =>
+            {
+                users = updatedUsers ?? new List<UserInfo>();
+                StateHasChanged();
+            });
+            hubConnection.On<int>("NumberCalled", (number) =>
+            {
+                drawnNumbers.Add(number);
+                StateHasChanged();
+            });
+            hubConnection.On("CalledNumbersReset", () =>
+            {
+                drawnNumbers.Clear();
+                StateHasChanged();
+            });
+            hubConnection.On("NewGameStarted", () =>
+            {
+                drawnNumbers.Clear();
+                lastTicket = null;
+                confirmationMessage = string.Empty;
+                StateHasChanged();
+            });
+            await LoadUsers();
+        }
+    }
+
+    private async Task LoadUsers()
+    {
+        if (hubConnection != null)
+        {
+            var result = await hubConnection.InvokeAsync<List<UserInfo>>("GetConnectedUsers");
+            users = result ?? new List<UserInfo>();
+            StateHasChanged();
+        }
+    }
+
+    private async Task GenerateAndSendTicket()
+    {
+        if (hubConnection != null && !string.IsNullOrWhiteSpace(selectedConnectionId))
+        {
+            confirmationMessage = string.Empty;
+            await hubConnection.InvokeAsync("GenerateAndSendTicket", selectedConnectionId);
+        }
+    }
+
+    private async Task CallNumber()
+    {
+        if (hubConnection != null)
+        {
+            await hubConnection.InvokeAsync("CallNumber");
+        }
+    }
+
+    private async Task ResetNumbers()
+    {
+        if (hubConnection != null)
+        {
+            await hubConnection.InvokeAsync("ResetCalledNumbers");
+        }
+    }
+
+    public class BingoTicket
+    {
+        public int?[][] Numbers { get; set; } = new int?[15][];
+    }
+    public class UserInfo
+    {
+        public string ConnectionId { get; set; } = string.Empty;
+        public string PlayerName { get; set; } = string.Empty;
+    }
+}
