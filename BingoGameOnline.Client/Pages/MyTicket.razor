@@ -1,9 +1,11 @@
 @inject IJSRuntime jsRuntime
 @inject BingoHubService BingoHub
+@inject NavigationManager NavigationManager
 @page "/myticket"
 @using Microsoft.AspNetCore.SignalR.Client
 @using System.Text.Json
 @using BingoGameOnline.Client.Services
+@using Microsoft.AspNetCore.Components.Web
 
 <PageTitle>Bingo Online</PageTitle>
 
@@ -85,7 +87,17 @@
 }
 else
 {
-    <p>Welcome @playerName. There is no ticket assigned to you yet.</p>
+    if(string.IsNullOrWhiteSpace(playerName))
+    {
+        <div class="alert alert-danger">
+            You need to assign a name to play Bingo.<br />
+            You will be redirected to Home page in 5 seconds...
+        </div>
+    }
+    else
+    {
+        <p>Welcome @playerName. There is no ticket assigned to you yet.</p>
+    }
 }
 
 @if (!string.IsNullOrEmpty(winMessage))
@@ -117,8 +129,12 @@ else
             }
             else
             {
-                playerName = $"User-{Guid.NewGuid().ToString().Substring(0, 8)}";
-                await jsRuntime.InvokeVoidAsync("bingoNameSession.setName", playerName);
+                await jsRuntime.InvokeVoidAsync("bingoNameSession.clearName");
+                await InvokeAsync(StateHasChanged);
+                // Defer navigation to after render to avoid rendering issues
+                await Task.Delay(3000);
+                await InvokeAsync(() => NavigationManager.NavigateTo("/", forceLoad: true));
+                return;
             }
         }
         // Connect to SignalR via service
