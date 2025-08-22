@@ -239,7 +239,7 @@ else if (isAdmin)
     private async Task InitializeHub()
     {
         hubConnection = new HubConnectionBuilder()
-            .WithUrl("http://localhost:5247/bingoHub")
+            .WithUrl(Navigation.ToAbsoluteUri("/bingoHub"))
             .WithAutomaticReconnect()
             .Build();
         await hubConnection.StartAsync();

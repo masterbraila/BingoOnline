@@ -23,8 +23,11 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+
 app.UseHttpsRedirection();
 app.UseCors();
+app.UseBlazorFrameworkFiles();
+app.UseStaticFiles();
 
 var summaries = new[]
 {
@@ -47,6 +50,10 @@ app.MapGet("/weatherforecast", () =>
 
 // Map the SignalR hub
 app.MapHub<BingoGameOnline.Server.Hubs.BingoHub>("/bingoHub");
+
+
+// Add Blazor fallback so SPA routes work
+app.MapFallbackToFile("index.html");
 
 app.Run();
 

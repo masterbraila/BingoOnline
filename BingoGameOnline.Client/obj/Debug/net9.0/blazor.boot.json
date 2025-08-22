@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "BingoGameOnline.Client",
   "resources": {
-    "hash": "sha256-dqDd8FGAtOjS4fqBKubSDQ2hLaioI3p22nm24Bgx/FM=",
+    "hash": "sha256-BlnH1jtHgxG7KU8XQcSYIMP5aNQsvsHe6+DUoOXsztY=",
     "fingerprinting": {
       "Microsoft.AspNetCore.Authorization.tnyc7xpluy.wasm": "Microsoft.AspNetCore.Authorization.wasm",
       "Microsoft.AspNetCore.Components.t32damlu4o.wasm": "Microsoft.AspNetCore.Components.wasm",
@@ -210,8 +210,8 @@
       "icudt_CJK.tjcz0u77k5.dat": "icudt_CJK.dat",
       "icudt_EFIGS.tptq2av103.dat": "icudt_EFIGS.dat",
       "icudt_no_CJK.lfu7j35m59.dat": "icudt_no_CJK.dat",
-      "BingoGameOnline.Client.mtb0q60az0.wasm": "BingoGameOnline.Client.wasm",
-      "BingoGameOnline.Client.vajbdxt21e.pdb": "BingoGameOnline.Client.pdb"
+      "BingoGameOnline.Client.er02kdfb8q.wasm": "BingoGameOnline.Client.wasm",
+      "BingoGameOnline.Client.co8verl5sq.pdb": "BingoGameOnline.Client.pdb"
     },
     "jsModuleNative": {
       "dotnet.native.hmanx9razn.js": "sha256-d7UNSArplVrX3arY2Kmhxp1wN79ng8hLqIBrkiQ9Gbo="
@@ -430,10 +430,10 @@
       "WindowsBase.377bly7twj.wasm": "sha256-0VmBdMjdc0nZGHDSfaGirT6y3mJTM0qx8eqCUC/rpiE=",
       "mscorlib.o0184ey5ia.wasm": "sha256-2GxNKZQJVJvYMUxSTuXa5V2qxawSMMHZtwG33SKVCZU=",
       "netstandard.hb3h2rr8mk.wasm": "sha256-DWn9+RH/ElZQ6imlYqVwZvir1KTzNwY18AzGmnyiymU=",
-      "BingoGameOnline.Client.mtb0q60az0.wasm": "sha256-JhIU0rERHtj/ZeajRGt/W8kdBBnPbs/ZgKl+TB0FWnE="
+      "BingoGameOnline.Client.er02kdfb8q.wasm": "sha256-WggL3q4nCXVVz9FmnXQQLI6s/JJ4REoieSGwo1Y4zI8="
     },
     "pdb": {
-      "BingoGameOnline.Client.vajbdxt21e.pdb": "sha256-iShhOs1FsC3x3sguNyktBf/7+2oKt++tnUPRHxNkYoU="
+      "BingoGameOnline.Client.co8verl5sq.pdb": "sha256-VBjcaMc02kj8hs/8fWdPLJKLJoD9mWOuZIJLM9YA+/U="
     }
   },
   "cacheBootResources": true,

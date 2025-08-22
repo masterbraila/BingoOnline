@@ -1,0 +1,11 @@
+D:\GitHub\BingoOnline\publish\BingoGameOnline.Server.exe
+D:\GitHub\BingoOnline\publish\appsettings.Development.json
+D:\GitHub\BingoOnline\publish\appsettings.json
+D:\GitHub\BingoOnline\publish\BingoGameOnline.Server.dll
+D:\GitHub\BingoOnline\publish\BingoGameOnline.Server.deps.json
+D:\GitHub\BingoOnline\publish\BingoGameOnline.Server.runtimeconfig.json
+D:\GitHub\BingoOnline\publish\BingoGameOnline.Server.pdb
+D:\GitHub\BingoOnline\publish\Microsoft.AspNetCore.OpenApi.dll
+D:\GitHub\BingoOnline\publish\Microsoft.OpenApi.dll
+D:\GitHub\BingoOnline\publish\Newtonsoft.Json.dll
+D:\GitHub\BingoOnline\publish\System.Net.WebSockets.WebSocketProtocol.dll

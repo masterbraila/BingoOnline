@@ -1,25 +1,34 @@
 using Microsoft.AspNetCore.SignalR.Client;
+
+using Microsoft.AspNetCore.Components;
 using System.Text.Json;
 
 namespace BingoGameOnline.Client.Services
 {
     public class BingoHubService
     {
-        public HubConnection? HubConnection { get; private set; }
+    private readonly NavigationManager _navigationManager;
+    public HubConnection? HubConnection { get; private set; }
         public string PlayerName { get; private set; } = string.Empty;
-        public string Room { get; private set; } = "default";
+    public string Room { get; private set; } = "default";
         public event Action<BingoTicket?>? OnTicketReceived;
         public event Action? OnNewGame;
         public event Action? OnDisconnected;
         public event Action<int>? OnNumberCalled;
+
+        public BingoHubService(NavigationManager navigationManager)
+        {
+            _navigationManager = navigationManager;
+        }
 
         public async Task ConnectAsync(string playerName)
         {
             if (HubConnection != null && HubConnection.State == HubConnectionState.Connected)
                 return;
             PlayerName = playerName;
+            var hubUrl = _navigationManager.ToAbsoluteUri("/bingoHub").ToString();
             HubConnection = new HubConnectionBuilder()
-                .WithUrl("http://localhost:5247/bingoHub")
+                .WithUrl(hubUrl)
                 .WithAutomaticReconnect()
                 .Build();
             RegisterHandlers();

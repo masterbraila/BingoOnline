@@ -13,4 +13,7 @@
     <SourceRoot Include="C:\Users\maste\.nuget\packages\" />
     <SourceRoot Include="C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
   </ItemGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgMicrosoft_AspNetCore_Components_WebAssembly_Server Condition=" '$(PkgMicrosoft_AspNetCore_Components_WebAssembly_Server)' == '' ">C:\Users\maste\.nuget\packages\microsoft.aspnetcore.components.webassembly.server\9.0.8</PkgMicrosoft_AspNetCore_Components_WebAssembly_Server>
+  </PropertyGroup>
 </Project>
