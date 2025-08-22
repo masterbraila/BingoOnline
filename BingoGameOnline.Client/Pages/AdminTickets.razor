@@ -31,76 +31,93 @@ else if (showPasswordDialog)
 }
 else if (isAdmin)
 {
-    <select @bind="selectedConnectionId" class="form-select" style="width: auto; display: inline-block; margin-right: 8px;">
-        <option value="">-- Select Player --</option>
-        @foreach (var user in users)
-        {
-            <option value="@user.ConnectionId">@user.PlayerName (@user.ConnectionId)</option>
-        }
-    </select>
-    <button class="btn btn-primary" @onclick="GenerateAndSendTicket" disabled="@(string.IsNullOrWhiteSpace(selectedConnectionId))" style="margin-right: 8px;">Generate & Send Ticket</button>
-    <button class="btn btn-primary" @onclick="LoadUsers" style="margin-right: 8px;">Refresh Users</button>
+    <div style="display: flex; gap: 32px; align-items: flex-start;">
+        <!-- Left side: controls and called numbers -->
+        <div style="flex: 1 1 0; min-width: 350px;">
+            <select @onchange="OnSelectedUserChanged" class="form-select" style="width: auto; display: inline-block; margin-right: 8px;">
+                <option value="">-- Select Player --</option>
+                @foreach (var user in users)
+                {
+                    <option value="@user.ConnectionId">@user.PlayerName</option>
+                }
+            </select>
+            <button class="btn btn-primary" @onclick="GenerateAndSendTicket" disabled="@(string.IsNullOrWhiteSpace(selectedConnectionId))" style="margin-right: 8px;">Generate & Send Ticket</button>
+            <button class="btn btn-primary" @onclick="LoadUsers" style="margin-right: 8px;">Refresh Users</button>
 
-    @if (!string.IsNullOrEmpty(confirmationMessage))
-    {
-        <div class="alert alert-success">@confirmationMessage</div>
-    }
-
-    @if (lastTicket != null)
-    {
-        <h4>Last Generated Ticket</h4>
-        <div style="display: flex; flex-wrap: wrap; gap: 24px;">
-            @for (int grid = 0; grid < 5; grid++)
+            @if (!string.IsNullOrEmpty(confirmationMessage))
             {
-                <table class="table table-bordered ticket-table" style="margin-bottom: 16px;">
+                <div class="alert alert-success">@confirmationMessage</div>
+            }
+
+            <br /><br />
+            <h3>Drawn Numbers</h3>
+            <div style="margin-bottom: 16px;">
+                <button class="btn btn-primary" @onclick="CallNumber" style="margin-right: 8px;">Call Number</button>
+                <button class="btn btn-primary" @onclick="NewGame">New Game</button>
+            </div>
+            <div style="margin-bottom: 16px;">
+                <span>Draw Number: </span>
+                <span style="display:inline-block;width:32px;text-align:center;">
+                    @(drawnNumbers.Count > 0 ? drawnNumbers.Last().ToString() : "-")
+                </span>
+            </div>
+            <div style="margin-bottom: 16px;">
+                <table class="numbers-grid" style="margin:auto;">
                     <tbody>
-                        @for (int i = 0; i < 3; i++)
+                        @for (int row = 0; row < 9; row++)
                         {
                             <tr>
-                                @for (int j = 0; j < 9; j++)
+                                @for (int col = 1; col <= 10; col++)
                                 {
-                                    var value = lastTicket.Numbers[grid * 3 + i][j];
-                                    <td>@(value.HasValue ? value.Value.ToString() : "")</td>
+                                    int num = row * 10 + col;
+                                    if (num > 90) break;
+                                    bool isCalled = drawnNumbers.Contains(num);
+                                    <td class="@(isCalled ? "called" : null)">@num</td>
                                 }
                             </tr>
                         }
                     </tbody>
                 </table>
+            </div>
+        </div>
+        <!-- Right side: selected user's ticket -->
+        <div style="flex: 1 1 0; min-width: 350px;">
+            @if (!string.IsNullOrWhiteSpace(selectedConnectionId))
+            {
+                <h4>@(users.FirstOrDefault(u => u.ConnectionId == selectedConnectionId)?.PlayerName ?? "Player")'s Ticket</h4>
+                @if (selectedUserTicket != null)
+                {
+                    <div style="display: flex; flex-wrap: wrap; gap: 24px;">
+                        @for (int grid = 0; grid < 5; grid++)
+                        {
+                            <table class="table table-bordered ticket-table" style="margin-bottom: 16px;">
+                                <tbody>
+                                    @for (int i = 0; i < 3; i++)
+                                    {
+                                        <tr>
+                                            @for (int j = 0; j < 9; j++)
+                                            {
+                                                var value = selectedUserTicket.Numbers[grid * 3 + i][j];
+                                                <td>@(value.HasValue ? value.Value.ToString() : "")</td>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info">No ticket found for this user.</div>
+                }
+            }
+            else
+            {
+                <div class="alert alert-secondary">Select a player to view their ticket.</div>
             }
         </div>
-    }
-
-    <br /><br />
-    <h3>Drawn Numbers</h3>
-    <div style="margin-bottom: 16px;">
-        <button class="btn btn-primary" @onclick="CallNumber" style="margin-right: 8px;">Call Number</button>
-        <button class="btn btn-primary" @onclick="NewGame">New Game</button>
     </div>
-    <div style="margin-bottom: 16px;">
-        <span>Draw Number: </span>
-        <span style="display:inline-block;width:32px;text-align:center;">
-            @(drawnNumbers.Count > 0 ? drawnNumbers.Last().ToString() : "-")
-        </span>
-    </div>
-    <div style="margin-bottom: 16px;">
-        <table class="numbers-grid" style="margin:auto;">
-            <tbody>
-                @for (int row = 0; row < 9; row++)
-                {
-                    <tr>
-                        @for (int col = 1; col <= 10; col++)
-                        {
-                            int num = row * 10 + col;
-                            if (num > 90) break;
-                            bool isCalled = drawnNumbers.Contains(num);
-                            <td class="@(isCalled ? "called" : null)">@num</td>
-                        }
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-
     <style>
     .ticket-table td {
         width: 40px;
@@ -132,6 +149,25 @@ else if (isAdmin)
     private HubConnection? hubConnection;
     private string selectedConnectionId = string.Empty;
     private BingoTicket? lastTicket;
+    private BingoTicket? selectedUserTicket;
+    // Fetch the selected user's ticket when selection changes
+    private async Task OnSelectedUserChanged(ChangeEventArgs e)
+    {
+        selectedConnectionId = e.Value?.ToString() ?? string.Empty;
+        selectedUserTicket = null;
+        if (!string.IsNullOrWhiteSpace(selectedConnectionId) && hubConnection != null)
+        {
+            // Try to fetch the ticket for the selected user from the server
+            try
+            {
+                selectedUserTicket = await hubConnection.InvokeAsync<BingoTicket>("GetUserTicket", selectedConnectionId);
+            }
+            catch
+            {
+                selectedUserTicket = null;
+            }
+        }
+    }
     private List<UserInfo> users = new();
     private string confirmationMessage = string.Empty;
     private HashSet<int> drawnNumbers = new();
@@ -239,6 +275,11 @@ else if (isAdmin)
         {
             var result = await hubConnection.InvokeAsync<List<UserInfo>>("GetConnectedUsers");
             users = result ?? new List<UserInfo>();
+            // Optionally refresh the selected user's ticket if a user is selected
+            if (!string.IsNullOrWhiteSpace(selectedConnectionId))
+            {
+                await OnSelectedUserChanged(new ChangeEventArgs { Value = selectedConnectionId });
+            }
             StateHasChanged();
         }
     }

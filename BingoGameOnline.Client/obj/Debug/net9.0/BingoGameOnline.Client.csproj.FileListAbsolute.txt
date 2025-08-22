@@ -1122,10 +1122,10 @@ d:\GitHub\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\BingoGameOnline.Cl
 d:\GitHub\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\ref\BingoGameOnline.Client.dll
 D:\GitHub\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\compressed\liitdkpmya-yeqk5rndsp.gz
 D:\GitHub\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\compressed\qk401cj76p-gyobdznpty.gz
-D:\GitHub\BingoOnline\BingoGameOnline.Client\bin\Debug\net9.0\wwwroot\_framework\BingoGameOnline.Client.p3rli9c9co.pdb
-D:\GitHub\BingoOnline\BingoGameOnline.Client\bin\Debug\net9.0\wwwroot\_framework\BingoGameOnline.Client.afauw8jvop.wasm
-D:\GitHub\BingoOnline\BingoGameOnline.Client\bin\Debug\net9.0\wwwroot\_framework\BingoGameOnline.Client.p3rli9c9co.pdb.gz
-D:\GitHub\BingoOnline\BingoGameOnline.Client\bin\Debug\net9.0\wwwroot\_framework\BingoGameOnline.Client.afauw8jvop.wasm.gz
-D:\GitHub\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\compressed\nkazvdopac-afauw8jvop.gz
-D:\GitHub\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\compressed\gklxfwha5t-p3rli9c9co.gz
-D:\GitHub\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\compressed\pnjsltu4ob-7szt384mlm.gz
+D:\GitHub\BingoOnline\BingoGameOnline.Client\bin\Debug\net9.0\wwwroot\_framework\BingoGameOnline.Client.waa2iedbs2.pdb
+D:\GitHub\BingoOnline\BingoGameOnline.Client\bin\Debug\net9.0\wwwroot\_framework\BingoGameOnline.Client.v0jeccsu8k.wasm
+D:\GitHub\BingoOnline\BingoGameOnline.Client\bin\Debug\net9.0\wwwroot\_framework\BingoGameOnline.Client.waa2iedbs2.pdb.gz
+D:\GitHub\BingoOnline\BingoGameOnline.Client\bin\Debug\net9.0\wwwroot\_framework\BingoGameOnline.Client.v0jeccsu8k.wasm.gz
+D:\GitHub\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\compressed\nkazvdopac-v0jeccsu8k.gz
+D:\GitHub\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\compressed\gklxfwha5t-waa2iedbs2.gz
+D:\GitHub\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\compressed\pnjsltu4ob-t3l4shqfk3.gz

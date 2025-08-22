@@ -9,6 +9,8 @@ namespace BingoGameOnline.Server.Hubs
     {
         private static Dictionary<string, string> ConnectedUsers = new(); // connectionId -> playerName
         private static HashSet<int> CalledNumbers = new();
+        // Store each user's current ticket by connectionId
+        private static Dictionary<string, BingoTicket> UserTickets = new();
         private static Random rng = new();
 
         public override async Task OnConnectedAsync()
@@ -66,15 +68,24 @@ namespace BingoGameOnline.Server.Hubs
                 await Clients.Caller.SendAsync("TicketGenerationFailed", "Failed to generate a valid ticket after several attempts.");
                 return;
             }
-            await Clients.Client(playerConnectionId).SendAsync("ReceiveTicket", ticket);
+                // Store the ticket for the user
+                UserTickets[playerConnectionId] = ticket;
+                await Clients.Client(playerConnectionId).SendAsync("ReceiveTicket", ticket);
             string userName = ConnectedUsers.ContainsKey(playerConnectionId) ? ConnectedUsers[playerConnectionId] : playerConnectionId;
             await Clients.Caller.SendAsync("TicketGeneratedAndSent", $"Ticket generated successful for user {userName}");
+        }
+        // Admin: Get a user's current ticket (numbers only, not marks)
+        public Task<BingoTicket?> GetUserTicket(string connectionId)
+        {
+            UserTickets.TryGetValue(connectionId, out var ticket);
+            return Task.FromResult(ticket);
         }
 
         // Admin: Get list of connected users
         public Task<List<UserInfo>> GetConnectedUsers()
         {
             var list = new List<UserInfo>();
+            UserTickets.Remove(Context.ConnectionId);
             foreach (var kvp in ConnectedUsers)
                 list.Add(new UserInfo { ConnectionId = kvp.Key, PlayerName = kvp.Value });
             return Task.FromResult(list);
