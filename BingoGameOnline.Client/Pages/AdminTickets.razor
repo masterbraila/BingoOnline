@@ -70,7 +70,7 @@ else if (isAdmin)
             <div style="margin-bottom: 16px;">
                 <span>Draw Number: </span>
                 <span style="display:inline-block;width:32px;text-align:center;">
-                    @(drawnNumbers.Count > 0 ? drawnNumbers.Last().ToString() : "-")
+                    @(drawnNumbers.Count > 0 ? drawnNumbers[drawnNumbers.Count - 1].ToString() : "-")
                 </span>
             </div>
             <div style="margin-bottom: 16px;">
@@ -182,7 +182,7 @@ else if (isAdmin)
     }
     private List<UserInfo> users = new();
     private string confirmationMessage = string.Empty;
-    private HashSet<int> drawnNumbers = new();
+    private List<int> drawnNumbers = new();
     private bool isAdmin = false;
     private string adminPassword = "letmein"; // Change this to your desired password
     private System.Threading.Timer? redirectTimer;
@@ -238,11 +238,19 @@ else if (isAdmin)
 
     private async Task InitializeHub()
     {
+        // Use the correct server port for SignalR hub connection in development
+    var hubUrl = Navigation.ToAbsoluteUri("/bingoHub").ToString();
         hubConnection = new HubConnectionBuilder()
-            .WithUrl(Navigation.ToAbsoluteUri("/bingoHub"))
+            .WithUrl(hubUrl)
             .WithAutomaticReconnect()
             .Build();
         await hubConnection.StartAsync();
+        // Sync full called numbers list on connect/reconnect
+        hubConnection.On<int[]>("CalledNumbersSync", (numbers) =>
+        {
+            drawnNumbers = numbers.ToList();
+            StateHasChanged();
+        });
         hubConnection.On<BingoTicket>("ReceiveTicket", (ticket) =>
         {
             lastTicket = ticket;
@@ -260,7 +268,8 @@ else if (isAdmin)
         });
         hubConnection.On<int>("NumberCalled", (number) =>
         {
-            drawnNumbers.Add(number);
+            if (!drawnNumbers.Contains(number))
+                drawnNumbers.Add(number);
             StateHasChanged();
         });
         hubConnection.On("CalledNumbersReset", () =>
@@ -276,6 +285,7 @@ else if (isAdmin)
             StateHasChanged();
         });
         await LoadUsers();
+    // ...existing code...
     }
 
     private void OnPasswordKeyDown(KeyboardEventArgs e)

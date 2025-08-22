@@ -7,8 +7,8 @@ namespace BingoGameOnline.Server.Hubs
 {
     public class BingoHub : Hub
     {
-        private static Dictionary<string, string> ConnectedUsers = new(); // connectionId -> playerName
-        private static HashSet<int> CalledNumbers = new();
+    private static Dictionary<string, string> ConnectedUsers = new(); // connectionId -> playerName
+    private static List<int> CalledNumbers = new();
         // Store each user's current ticket by connectionId
         private static Dictionary<string, BingoTicket> UserTickets = new();
         private static Random rng = new();
@@ -16,6 +16,8 @@ namespace BingoGameOnline.Server.Hubs
         public override async Task OnConnectedAsync()
         {
             await base.OnConnectedAsync();
+            // Send the current list of called numbers to any connecting client (admin or user)
+            await Clients.Caller.SendAsync("CalledNumbersSync", CalledNumbers.ToArray());
             await BroadcastUserList();
         }
 
@@ -32,6 +34,8 @@ namespace BingoGameOnline.Server.Hubs
             ConnectedUsers[Context.ConnectionId] = playerName;
             await Groups.AddToGroupAsync(Context.ConnectionId, room);
             await Clients.Group(room).SendAsync("PlayerJoined", playerName);
+            // Send the current list of called numbers to the joining user
+            await Clients.Caller.SendAsync("CalledNumbersSync", CalledNumbers.ToArray());
             await BroadcastUserList();
         }
 

@@ -6,7 +6,7 @@
 @using System.Text.Json
 @using BingoGameOnline.Client.Services
 @using Microsoft.AspNetCore.Components.Web
-@using Microsoft.AspNetCore.Components 
+@using Microsoft.AspNetCore.Components
 
 <PageTitle>Bingo Online</PageTitle>
 
@@ -61,7 +61,7 @@
             <div>
                 <h4>Last Called Number</h4>
                 <div class="called-number">
-                    @(calledNumbers.Count > 0 ? calledNumbers.Max().ToString() : "-")
+                    @(calledNumbers.Count > 0 ? calledNumbers[calledNumbers.Count - 1].ToString() : "-")
                 </div>
             </div>
             <div>
@@ -110,7 +110,7 @@ else
     private HubConnection? hubConnection;
     private BingoTicket? ticket;
     private string playerName = string.Empty;
-    private HashSet<int> calledNumbers = new();
+    private List<int> calledNumbers = new();
     private bool[,] marked = new bool[15, 9];
     private bool[] lineWinNotified = new bool[15];
     private bool[] fullHouseNotified = new bool[5];
@@ -140,6 +140,8 @@ else
         }
         // Connect to SignalR via service
         await BingoHub.ConnectAsync(playerName);
+        // Clear previous event handlers to avoid duplicates
+        BingoHub.ClearEventHandlers();
         BingoHub.OnTicketReceived += (t) =>
         {
             bool isNewTicket = ticket == null || !JsonSerializer.Serialize(ticket).Equals(JsonSerializer.Serialize(t));
@@ -168,9 +170,19 @@ else
             await jsRuntime.InvokeVoidAsync("bingoNameSession.clearTicket");
             StateHasChanged();
         };
+        // Subscribe to CalledNumbersSync event from server
+        if (BingoHub.HubConnection != null)
+        {
+            BingoHub.HubConnection.On<int[]>("CalledNumbersSync", (numbers) =>
+            {
+                calledNumbers = numbers.ToList();
+                StateHasChanged();
+            });
+        }
         BingoHub.OnNumberCalled += (number) =>
         {
-            calledNumbers.Add(number);
+            if (!calledNumbers.Contains(number))
+                calledNumbers.Add(number);
             StateHasChanged();
         };
         // Try to load ticket from session storage if not set

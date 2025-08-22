@@ -5,16 +5,25 @@ using System.Text.Json;
 
 namespace BingoGameOnline.Client.Services
 {
-    public class BingoHubService
-    {
-    private readonly NavigationManager _navigationManager;
-    public HubConnection? HubConnection { get; private set; }
-        public string PlayerName { get; private set; } = string.Empty;
-    public string Room { get; private set; } = "default";
-        public event Action<BingoTicket?>? OnTicketReceived;
-        public event Action? OnNewGame;
-        public event Action? OnDisconnected;
-        public event Action<int>? OnNumberCalled;
+        public class BingoHubService
+        {
+            private readonly NavigationManager _navigationManager;
+            public HubConnection? HubConnection { get; private set; }
+            public string PlayerName { get; private set; } = string.Empty;
+            public string Room { get; private set; } = "default";
+            public event Action<BingoTicket?>? OnTicketReceived;
+            public event Action? OnNewGame;
+            public event Action? OnDisconnected;
+            public event Action<int>? OnNumberCalled;
+
+            // Helper to clear all event handlers (for safe re-subscription)
+            public void ClearEventHandlers()
+            {
+                OnTicketReceived = null;
+                OnNewGame = null;
+                OnDisconnected = null;
+                OnNumberCalled = null;
+            }
 
         public BingoHubService(NavigationManager navigationManager)
         {
@@ -26,6 +35,7 @@ namespace BingoGameOnline.Client.Services
             if (HubConnection != null && HubConnection.State == HubConnectionState.Connected)
                 return;
             PlayerName = playerName;
+            // Use the correct server port for SignalR hub connection in development
             var hubUrl = _navigationManager.ToAbsoluteUri("/bingoHub").ToString();
             HubConnection = new HubConnectionBuilder()
                 .WithUrl(hubUrl)
