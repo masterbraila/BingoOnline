@@ -301,145 +301,8 @@
       ]
     },
     {
-      "Route": "_framework/BingoGameOnline.Client.pdb",
-      "AssetFile": "_framework/BingoGameOnline.Client.waa2iedbs2.pdb",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "37624"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "application/octet-stream"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"qHrY6PiejYwpHldOWf5L/N8VQU7uOyABH7ogX9PEAzE=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 08:18:10 GMT"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-qHrY6PiejYwpHldOWf5L/N8VQU7uOyABH7ogX9PEAzE="
-        }
-      ]
-    },
-    {
-      "Route": "_framework/BingoGameOnline.Client.pdb",
-      "AssetFile": "_framework/BingoGameOnline.Client.waa2iedbs2.pdb.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000036844626"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "27140"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "application/octet-stream"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"WylSVdsWail2bVFPA2mW4BPkLOCFwFoXHlH5NHUmD8o=\""
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"qHrY6PiejYwpHldOWf5L/N8VQU7uOyABH7ogX9PEAzE=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 08:18:10 GMT"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-qHrY6PiejYwpHldOWf5L/N8VQU7uOyABH7ogX9PEAzE="
-        }
-      ]
-    },
-    {
-      "Route": "_framework/BingoGameOnline.Client.pdb.gz",
-      "AssetFile": "_framework/BingoGameOnline.Client.waa2iedbs2.pdb.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "27140"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "application/octet-stream"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"WylSVdsWail2bVFPA2mW4BPkLOCFwFoXHlH5NHUmD8o=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 08:18:10 GMT"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-WylSVdsWail2bVFPA2mW4BPkLOCFwFoXHlH5NHUmD8o="
-        }
-      ]
-    },
-    {
-      "Route": "_framework/BingoGameOnline.Client.v0jeccsu8k.wasm",
-      "AssetFile": "_framework/BingoGameOnline.Client.v0jeccsu8k.wasm",
+      "Route": "_framework/BingoGameOnline.Client.mtb0q60az0.wasm",
+      "AssetFile": "_framework/BingoGameOnline.Client.mtb0q60az0.wasm",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -452,7 +315,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "51477"
+          "Value": "51989"
         },
         {
           "Name": "Content-Type",
@@ -460,21 +323,21 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"z9Om3Oah/WFqKgTbj7Q8nuIxdKt3HYbYQKQF2J97Fj0=\""
+          "Value": "\"JhIU0rERHtj/ZeajRGt/W8kdBBnPbs/ZgKl+TB0FWnE=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 08:18:10 GMT"
+          "Value": "Fri, 22 Aug 2025 08:24:21 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "v0jeccsu8k"
+          "Value": "mtb0q60az0"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-z9Om3Oah/WFqKgTbj7Q8nuIxdKt3HYbYQKQF2J97Fj0="
+          "Value": "sha256-JhIU0rERHtj/ZeajRGt/W8kdBBnPbs/ZgKl+TB0FWnE="
         },
         {
           "Name": "label",
@@ -483,13 +346,13 @@
       ]
     },
     {
-      "Route": "_framework/BingoGameOnline.Client.v0jeccsu8k.wasm",
-      "AssetFile": "_framework/BingoGameOnline.Client.v0jeccsu8k.wasm.gz",
+      "Route": "_framework/BingoGameOnline.Client.mtb0q60az0.wasm",
+      "AssetFile": "_framework/BingoGameOnline.Client.mtb0q60az0.wasm.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000049176297"
+          "Quality": "0.000048718698"
         }
       ],
       "ResponseHeaders": [
@@ -507,7 +370,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "20334"
+          "Value": "20525"
         },
         {
           "Name": "Content-Type",
@@ -515,15 +378,15 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"2jvoNHexVLnW7TRzhK+XphAsVi/zQx5JlhgTgIDM4OY=\""
+          "Value": "\"XfRRmQxjZgZRUplsFeT0mwqS8iHlBH8GlXp0JmPl90U=\""
         },
         {
           "Name": "ETag",
-          "Value": "W/\"z9Om3Oah/WFqKgTbj7Q8nuIxdKt3HYbYQKQF2J97Fj0=\""
+          "Value": "W/\"JhIU0rERHtj/ZeajRGt/W8kdBBnPbs/ZgKl+TB0FWnE=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 08:18:10 GMT"
+          "Value": "Fri, 22 Aug 2025 08:24:21 GMT"
         },
         {
           "Name": "Vary",
@@ -533,11 +396,11 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "v0jeccsu8k"
+          "Value": "mtb0q60az0"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-z9Om3Oah/WFqKgTbj7Q8nuIxdKt3HYbYQKQF2J97Fj0="
+          "Value": "sha256-JhIU0rERHtj/ZeajRGt/W8kdBBnPbs/ZgKl+TB0FWnE="
         },
         {
           "Name": "label",
@@ -546,8 +409,8 @@
       ]
     },
     {
-      "Route": "_framework/BingoGameOnline.Client.v0jeccsu8k.wasm.gz",
-      "AssetFile": "_framework/BingoGameOnline.Client.v0jeccsu8k.wasm.gz",
+      "Route": "_framework/BingoGameOnline.Client.mtb0q60az0.wasm.gz",
+      "AssetFile": "_framework/BingoGameOnline.Client.mtb0q60az0.wasm.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -564,7 +427,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "20334"
+          "Value": "20525"
         },
         {
           "Name": "Content-Type",
@@ -572,11 +435,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"2jvoNHexVLnW7TRzhK+XphAsVi/zQx5JlhgTgIDM4OY=\""
+          "Value": "\"XfRRmQxjZgZRUplsFeT0mwqS8iHlBH8GlXp0JmPl90U=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 08:18:10 GMT"
+          "Value": "Fri, 22 Aug 2025 08:24:21 GMT"
         },
         {
           "Name": "Vary",
@@ -586,11 +449,11 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "v0jeccsu8k"
+          "Value": "mtb0q60az0"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-2jvoNHexVLnW7TRzhK+XphAsVi/zQx5JlhgTgIDM4OY="
+          "Value": "sha256-XfRRmQxjZgZRUplsFeT0mwqS8iHlBH8GlXp0JmPl90U="
         },
         {
           "Name": "label",
@@ -599,8 +462,8 @@
       ]
     },
     {
-      "Route": "_framework/BingoGameOnline.Client.waa2iedbs2.pdb",
-      "AssetFile": "_framework/BingoGameOnline.Client.waa2iedbs2.pdb",
+      "Route": "_framework/BingoGameOnline.Client.pdb",
+      "AssetFile": "_framework/BingoGameOnline.Client.vajbdxt21e.pdb",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -609,11 +472,11 @@
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Length",
-          "Value": "37624"
+          "Value": "37904"
         },
         {
           "Name": "Content-Type",
@@ -621,36 +484,173 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"qHrY6PiejYwpHldOWf5L/N8VQU7uOyABH7ogX9PEAzE=\""
+          "Value": "\"iShhOs1FsC3x3sguNyktBf/7+2oKt++tnUPRHxNkYoU=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 08:18:10 GMT"
+          "Value": "Fri, 22 Aug 2025 08:24:20 GMT"
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "waa2iedbs2"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-qHrY6PiejYwpHldOWf5L/N8VQU7uOyABH7ogX9PEAzE="
-        },
-        {
-          "Name": "label",
-          "Value": "_framework/BingoGameOnline.Client.pdb"
+          "Value": "sha256-iShhOs1FsC3x3sguNyktBf/7+2oKt++tnUPRHxNkYoU="
         }
       ]
     },
     {
-      "Route": "_framework/BingoGameOnline.Client.waa2iedbs2.pdb",
-      "AssetFile": "_framework/BingoGameOnline.Client.waa2iedbs2.pdb.gz",
+      "Route": "_framework/BingoGameOnline.Client.pdb",
+      "AssetFile": "_framework/BingoGameOnline.Client.vajbdxt21e.pdb.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000036844626"
+          "Quality": "0.000036532349"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "27372"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/octet-stream"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Tr2hRDMLq4Keaus9E9qjjI9azHWYYX9IJSxAeI90CyA=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"iShhOs1FsC3x3sguNyktBf/7+2oKt++tnUPRHxNkYoU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 22 Aug 2025 08:24:21 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-iShhOs1FsC3x3sguNyktBf/7+2oKt++tnUPRHxNkYoU="
+        }
+      ]
+    },
+    {
+      "Route": "_framework/BingoGameOnline.Client.pdb.gz",
+      "AssetFile": "_framework/BingoGameOnline.Client.vajbdxt21e.pdb.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "27372"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/octet-stream"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Tr2hRDMLq4Keaus9E9qjjI9azHWYYX9IJSxAeI90CyA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 22 Aug 2025 08:24:21 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Tr2hRDMLq4Keaus9E9qjjI9azHWYYX9IJSxAeI90CyA="
+        }
+      ]
+    },
+    {
+      "Route": "_framework/BingoGameOnline.Client.vajbdxt21e.pdb",
+      "AssetFile": "_framework/BingoGameOnline.Client.vajbdxt21e.pdb",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "37904"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/octet-stream"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"iShhOs1FsC3x3sguNyktBf/7+2oKt++tnUPRHxNkYoU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 22 Aug 2025 08:24:20 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "vajbdxt21e"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-iShhOs1FsC3x3sguNyktBf/7+2oKt++tnUPRHxNkYoU="
+        },
+        {
+          "Name": "label",
+          "Value": "_framework/BingoGameOnline.Client.pdb"
+        }
+      ]
+    },
+    {
+      "Route": "_framework/BingoGameOnline.Client.vajbdxt21e.pdb",
+      "AssetFile": "_framework/BingoGameOnline.Client.vajbdxt21e.pdb.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000036532349"
         }
       ],
       "ResponseHeaders": [
@@ -668,7 +668,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "27140"
+          "Value": "27372"
         },
         {
           "Name": "Content-Type",
@@ -676,15 +676,15 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"WylSVdsWail2bVFPA2mW4BPkLOCFwFoXHlH5NHUmD8o=\""
+          "Value": "\"Tr2hRDMLq4Keaus9E9qjjI9azHWYYX9IJSxAeI90CyA=\""
         },
         {
           "Name": "ETag",
-          "Value": "W/\"qHrY6PiejYwpHldOWf5L/N8VQU7uOyABH7ogX9PEAzE=\""
+          "Value": "W/\"iShhOs1FsC3x3sguNyktBf/7+2oKt++tnUPRHxNkYoU=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 08:18:10 GMT"
+          "Value": "Fri, 22 Aug 2025 08:24:21 GMT"
         },
         {
           "Name": "Vary",
@@ -694,11 +694,11 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "waa2iedbs2"
+          "Value": "vajbdxt21e"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-qHrY6PiejYwpHldOWf5L/N8VQU7uOyABH7ogX9PEAzE="
+          "Value": "sha256-iShhOs1FsC3x3sguNyktBf/7+2oKt++tnUPRHxNkYoU="
         },
         {
           "Name": "label",
@@ -707,8 +707,8 @@
       ]
     },
     {
-      "Route": "_framework/BingoGameOnline.Client.waa2iedbs2.pdb.gz",
-      "AssetFile": "_framework/BingoGameOnline.Client.waa2iedbs2.pdb.gz",
+      "Route": "_framework/BingoGameOnline.Client.vajbdxt21e.pdb.gz",
+      "AssetFile": "_framework/BingoGameOnline.Client.vajbdxt21e.pdb.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -725,7 +725,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "27140"
+          "Value": "27372"
         },
         {
           "Name": "Content-Type",
@@ -733,11 +733,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"WylSVdsWail2bVFPA2mW4BPkLOCFwFoXHlH5NHUmD8o=\""
+          "Value": "\"Tr2hRDMLq4Keaus9E9qjjI9azHWYYX9IJSxAeI90CyA=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 08:18:10 GMT"
+          "Value": "Fri, 22 Aug 2025 08:24:21 GMT"
         },
         {
           "Name": "Vary",
@@ -747,11 +747,11 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "waa2iedbs2"
+          "Value": "vajbdxt21e"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-WylSVdsWail2bVFPA2mW4BPkLOCFwFoXHlH5NHUmD8o="
+          "Value": "sha256-Tr2hRDMLq4Keaus9E9qjjI9azHWYYX9IJSxAeI90CyA="
         },
         {
           "Name": "label",
@@ -761,7 +761,7 @@
     },
     {
       "Route": "_framework/BingoGameOnline.Client.wasm",
-      "AssetFile": "_framework/BingoGameOnline.Client.v0jeccsu8k.wasm",
+      "AssetFile": "_framework/BingoGameOnline.Client.mtb0q60az0.wasm",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -774,7 +774,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "51477"
+          "Value": "51989"
         },
         {
           "Name": "Content-Type",
@@ -782,28 +782,28 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"z9Om3Oah/WFqKgTbj7Q8nuIxdKt3HYbYQKQF2J97Fj0=\""
+          "Value": "\"JhIU0rERHtj/ZeajRGt/W8kdBBnPbs/ZgKl+TB0FWnE=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 08:18:10 GMT"
+          "Value": "Fri, 22 Aug 2025 08:24:21 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-z9Om3Oah/WFqKgTbj7Q8nuIxdKt3HYbYQKQF2J97Fj0="
+          "Value": "sha256-JhIU0rERHtj/ZeajRGt/W8kdBBnPbs/ZgKl+TB0FWnE="
         }
       ]
     },
     {
       "Route": "_framework/BingoGameOnline.Client.wasm",
-      "AssetFile": "_framework/BingoGameOnline.Client.v0jeccsu8k.wasm.gz",
+      "AssetFile": "_framework/BingoGameOnline.Client.mtb0q60az0.wasm.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000049176297"
+          "Quality": "0.000048718698"
         }
       ],
       "ResponseHeaders": [
@@ -821,7 +821,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "20334"
+          "Value": "20525"
         },
         {
           "Name": "Content-Type",
@@ -829,15 +829,15 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"2jvoNHexVLnW7TRzhK+XphAsVi/zQx5JlhgTgIDM4OY=\""
+          "Value": "\"XfRRmQxjZgZRUplsFeT0mwqS8iHlBH8GlXp0JmPl90U=\""
         },
         {
           "Name": "ETag",
-          "Value": "W/\"z9Om3Oah/WFqKgTbj7Q8nuIxdKt3HYbYQKQF2J97Fj0=\""
+          "Value": "W/\"JhIU0rERHtj/ZeajRGt/W8kdBBnPbs/ZgKl+TB0FWnE=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 08:18:10 GMT"
+          "Value": "Fri, 22 Aug 2025 08:24:21 GMT"
         },
         {
           "Name": "Vary",
@@ -847,13 +847,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-z9Om3Oah/WFqKgTbj7Q8nuIxdKt3HYbYQKQF2J97Fj0="
+          "Value": "sha256-JhIU0rERHtj/ZeajRGt/W8kdBBnPbs/ZgKl+TB0FWnE="
         }
       ]
     },
     {
       "Route": "_framework/BingoGameOnline.Client.wasm.gz",
-      "AssetFile": "_framework/BingoGameOnline.Client.v0jeccsu8k.wasm.gz",
+      "AssetFile": "_framework/BingoGameOnline.Client.mtb0q60az0.wasm.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -870,7 +870,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "20334"
+          "Value": "20525"
         },
         {
           "Name": "Content-Type",
@@ -878,11 +878,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"2jvoNHexVLnW7TRzhK+XphAsVi/zQx5JlhgTgIDM4OY=\""
+          "Value": "\"XfRRmQxjZgZRUplsFeT0mwqS8iHlBH8GlXp0JmPl90U=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 08:18:10 GMT"
+          "Value": "Fri, 22 Aug 2025 08:24:21 GMT"
         },
         {
           "Name": "Vary",
@@ -892,7 +892,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-2jvoNHexVLnW7TRzhK+XphAsVi/zQx5JlhgTgIDM4OY="
+          "Value": "sha256-XfRRmQxjZgZRUplsFeT0mwqS8iHlBH8GlXp0JmPl90U="
         }
       ]
     },
@@ -59923,17 +59923,17 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"2SNjcR0odP9tRvAf1Lm7YrmATtjhaipoONJiZSArHho=\""
+          "Value": "\"of6jGajGDF0C1ts7Ar8L/70AePYWHevb7hiHkytgL4s=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 08:18:10 GMT"
+          "Value": "Fri, 22 Aug 2025 08:24:21 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-2SNjcR0odP9tRvAf1Lm7YrmATtjhaipoONJiZSArHho="
+          "Value": "sha256-of6jGajGDF0C1ts7Ar8L/70AePYWHevb7hiHkytgL4s="
         }
       ]
     },
@@ -59944,7 +59944,7 @@
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000077645780"
+          "Quality": "0.000077657840"
         }
       ],
       "ResponseHeaders": [
@@ -59962,7 +59962,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "12878"
+          "Value": "12876"
         },
         {
           "Name": "Content-Type",
@@ -59970,15 +59970,15 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"HaJHjwbgsCH62MM3USu+OKSIupdkyKGL8734mVMbi2U=\""
+          "Value": "\"8jRrTVDsyIf9hFiR+/7/bXkrR4uyXThTeeT6RmrDgX4=\""
         },
         {
           "Name": "ETag",
-          "Value": "W/\"2SNjcR0odP9tRvAf1Lm7YrmATtjhaipoONJiZSArHho=\""
+          "Value": "W/\"of6jGajGDF0C1ts7Ar8L/70AePYWHevb7hiHkytgL4s=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 08:17:38 GMT"
+          "Value": "Fri, 22 Aug 2025 08:22:41 GMT"
         },
         {
           "Name": "Vary",
@@ -59988,7 +59988,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-2SNjcR0odP9tRvAf1Lm7YrmATtjhaipoONJiZSArHho="
+          "Value": "sha256-of6jGajGDF0C1ts7Ar8L/70AePYWHevb7hiHkytgL4s="
         }
       ]
     },
@@ -60011,7 +60011,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "12878"
+          "Value": "12876"
         },
         {
           "Name": "Content-Type",
@@ -60019,11 +60019,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"HaJHjwbgsCH62MM3USu+OKSIupdkyKGL8734mVMbi2U=\""
+          "Value": "\"8jRrTVDsyIf9hFiR+/7/bXkrR4uyXThTeeT6RmrDgX4=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Aug 2025 08:17:38 GMT"
+          "Value": "Fri, 22 Aug 2025 08:22:41 GMT"
         },
         {
           "Name": "Vary",
@@ -60033,7 +60033,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-HaJHjwbgsCH62MM3USu+OKSIupdkyKGL8734mVMbi2U="
+          "Value": "sha256-8jRrTVDsyIf9hFiR+/7/bXkrR4uyXThTeeT6RmrDgX4="
         }
       ]
     },

@@ -20,7 +20,19 @@ else if (showPasswordDialog)
                     <h5 class="modal-title">Admin Login</h5>
                 </div>
                 <div class="modal-body">
-                    <input type="password" @bind="enteredPassword" class="form-control" placeholder="Enter admin password" @onkeydown="OnPasswordKeyDown" autofocus />
+                    <div class="input-group">
+                        <input 
+                            class="form-control" 
+                            placeholder="Enter admin password" 
+                            @bind-value="enteredPassword"
+                            @bind-value:event="oninput"
+                            @onkeydown="OnPasswordKeyDown" 
+                            autofocus
+                            type="@(passwordVisible ? "text" : "password")" />
+                        <button class="btn btn-outline-secondary" type="button" @onclick="TogglePasswordVisibility">
+                            <span>@(passwordVisible ? "Hide" : "Show")</span>
+                        </button>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" @onclick="CheckPassword">Login</button>
@@ -176,6 +188,11 @@ else if (isAdmin)
     private System.Threading.Timer? redirectTimer;
     private bool showPasswordDialog = false;
     private string enteredPassword = string.Empty;
+    private bool passwordVisible = false;
+    private void TogglePasswordVisibility()
+    {
+        passwordVisible = !passwordVisible;
+    }
 
     private async Task NewGame()
     {

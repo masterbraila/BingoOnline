@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BingoGameOnline.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eb38622387efd11ca470d8364a5e66993d8d92d4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+deb763f94c8a989ef1282fe29b60b76986bdf292")]
 [assembly: System.Reflection.AssemblyProductAttribute("BingoGameOnline.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BingoGameOnline.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
