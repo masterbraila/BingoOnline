@@ -43,6 +43,14 @@ else if (showPasswordDialog)
 }
 else if (isAdmin)
 {
+    @if (!string.IsNullOrEmpty(lineWinAnnouncement))
+    {
+        <div class="win-message">@lineWinAnnouncement</div>
+    }
+    @if (!string.IsNullOrEmpty(bingoWinAnnouncement))
+    {
+        <div class="win-message">@bingoWinAnnouncement</div>
+    }
     <div style="display: flex; gap: 32px; align-items: flex-start;">
         <!-- Left side: controls and called numbers -->
         <div style="flex: 1 1 0; min-width: 350px;">
@@ -132,6 +140,16 @@ else if (isAdmin)
         </div>
     </div>
     <style>
+    .win-message {
+        background: #43a047;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 6px;
+        padding: 12px 18px;
+        margin-bottom: 10px;
+        font-size: 1.1em;
+        box-shadow: 0 2px 8px rgba(67,160,71,0.08);
+    }
     .ticket-table td {
         width: 40px;
         height: 40px;
@@ -188,6 +206,8 @@ else if (isAdmin)
     }
     private List<UserInfo> users = new();
     private string confirmationMessage = string.Empty;
+    private string lineWinAnnouncement = string.Empty;
+    private string bingoWinAnnouncement = string.Empty;
     private List<int> drawnNumbers = new();
     private bool isAdmin = false;
     private string adminPassword = "letmein"; // Change this to your desired password
@@ -202,6 +222,8 @@ else if (isAdmin)
 
     private async Task NewGame()
     {
+        lineWinAnnouncement = string.Empty;
+        bingoWinAnnouncement = string.Empty;
         if (hubConnection != null)
         {
             await hubConnection.InvokeAsync("NewGame");
@@ -255,6 +277,16 @@ else if (isAdmin)
         hubConnection.On<int[]>("CalledNumbersSync", (numbers) =>
         {
             drawnNumbers = numbers.ToList();
+            StateHasChanged();
+        });
+        hubConnection.On<int, int, string>("LineWinAnnounced", (grid, rowInGrid, winnerName) =>
+        {
+            lineWinAnnouncement = $"{winnerName} has won a line!";
+            StateHasChanged();
+        });
+        hubConnection.On<string>("BingoWinAnnounced", (winnerName) =>
+        {
+            bingoWinAnnouncement = $"{winnerName} has won BINGO!";
             StateHasChanged();
         });
         hubConnection.On<BingoTicket>("ReceiveTicket", (ticket) =>

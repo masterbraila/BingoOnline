@@ -7,11 +7,15 @@ namespace BingoGameOnline.Server.Hubs
 {
     public class BingoHub : Hub
     {
-    private static Dictionary<string, string> ConnectedUsers = new(); // connectionId -> playerName
-    private static List<int> CalledNumbers = new();
+        private static Dictionary<string, string> ConnectedUsers = new(); // connectionId -> playerName
+        private static List<int> CalledNumbers = new();
         // Store each user's current ticket by connectionId
         private static Dictionary<string, BingoTicket> UserTickets = new();
         private static Random rng = new();
+    // Track first line win: value = (grid, rowInGrid, playerName), null if not yet won
+    private static (int grid, int rowInGrid, string playerName)? FirstLineWin = null;
+    // Track BINGO winner per grid: key = grid, value = playerName
+    private static Dictionary<int, string> BingoWinners = new();
 
         public override async Task OnConnectedAsync()
         {
@@ -121,9 +125,42 @@ namespace BingoGameOnline.Server.Hubs
         }
 
         // Called when a user claims a line win
-        public async Task LineWin(int grid, int rowInGrid, string playerName)
+    public async Task<bool> LineWin(int grid, int rowInGrid, string playerName)
         {
-            await Clients.All.SendAsync("LineWinAnnounced", grid, rowInGrid, playerName);
+            bool isFirst = false;
+            lock (typeof(BingoHub))
+            {
+                if (FirstLineWin == null)
+                {
+                    FirstLineWin = (grid, rowInGrid, playerName);
+                    isFirst = true;
+                }
+            }
+            if (isFirst)
+            {
+                await Clients.All.SendAsync("LineWinAnnounced", grid, rowInGrid, playerName);
+            }
+            return isFirst;
+        }
+
+        // Called when a user claims BINGO (full house)
+    public async Task<bool> BingoWin(int grid, string playerName)
+        {
+            bool isFirst;
+            lock (typeof(BingoHub))
+            {
+                isFirst = !BingoWinners.ContainsKey(grid);
+                if (isFirst)
+                {
+                    BingoWinners[grid] = playerName;
+                }
+            }
+            if (isFirst)
+            {
+                await Clients.All.SendAsync("BingoWinAnnounced", playerName);
+                // Optionally, end the game (could broadcast a game-ended event)
+            }
+            return isFirst;
         }
 
         // Called when a user claims a full house win
@@ -136,6 +173,11 @@ namespace BingoGameOnline.Server.Hubs
         public async Task NewGame()
         {
             CalledNumbers.Clear();
+            lock (typeof(BingoHub))
+            {
+                FirstLineWin = null;
+                BingoWinners.Clear();
+            }
             await Clients.All.SendAsync("NewGameStarted");
         }
 

@@ -103,7 +103,21 @@ else
 
 @if (!string.IsNullOrEmpty(winMessage))
 {
-    <div class="alert alert-success">@winMessage</div>
+    <div class="modal show d-block" tabindex="-1" style="background:rgba(0,0,0,0.5);">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Congratulations!</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-success">@winMessage</div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" @onclick="() => winMessage = string.Empty">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
 @code {
@@ -113,7 +127,9 @@ else
     private List<int> calledNumbers = new();
     private bool[,] marked = new bool[15, 9];
     private bool[] lineWinNotified = new bool[15];
+    private bool hasShownLineWinPopup = false;
     private bool[] fullHouseNotified = new bool[5];
+    private bool hasShownBingoWinPopup = false;
     private string winMessage = string.Empty;
     private bool namePrompted = false;
 
@@ -155,7 +171,11 @@ else
                 }
             }
             if (isNewTicket)
+            {
                 marked = new bool[15, 9];
+                lineWinNotified = new bool[15];
+                hasShownLineWinPopup = false;
+            }
             // Save ticket to session storage
             var ticketJson = JsonSerializer.Serialize(ticket);
             jsRuntime.InvokeVoidAsync("bingoNameSession.setTicket", ticketJson);
@@ -167,6 +187,7 @@ else
             calledNumbers.Clear();
             marked = new bool[15, 9];
             winMessage = string.Empty;
+            hasShownLineWinPopup = false;
             await jsRuntime.InvokeVoidAsync("bingoNameSession.clearTicket");
             StateHasChanged();
         };
@@ -177,6 +198,24 @@ else
             {
                 calledNumbers = numbers.ToList();
                 StateHasChanged();
+            });
+            BingoHub.HubConnection.On<int, int, string>("LineWinAnnounced", (grid, rowInGrid, winnerName) =>
+            {
+                if (winnerName == playerName && !hasShownLineWinPopup)
+                {
+                    // Only show if not already shown locally
+                    winMessage = "You won a line!";
+                    hasShownLineWinPopup = true;
+                }
+            });
+            BingoHub.HubConnection.On<string>("BingoWinAnnounced", (winnerName) =>
+            {
+                if (winnerName == playerName && !hasShownBingoWinPopup)
+                {
+                    // Only show if not already shown locally
+                    winMessage = "You have won BINGO!";
+                    hasShownBingoWinPopup = true;
+                }
             });
         }
         BingoHub.OnNumberCalled += (number) =>
@@ -240,10 +279,16 @@ else
                 break;
             }
         }
+        // Only notify the server for the first time this line is completed
         if (lineWin && !lineWinNotified[row] && BingoHub.HubConnection != null)
         {
             lineWinNotified[row] = true;
-            await BingoHub.HubConnection.InvokeAsync("LineWin", grid, rowInGrid, playerName);
+            var isFirst = await BingoHub.HubConnection.InvokeAsync<bool>("LineWin", grid, rowInGrid, playerName);
+            if (isFirst && !hasShownLineWinPopup)
+            {
+                winMessage = "You won a line!";
+                hasShownLineWinPopup = true;
+            }
         }
         // Check for full house
         bool fullHouse = true;
@@ -265,6 +310,37 @@ else
             fullHouseNotified[grid] = true;
             await BingoHub.HubConnection.InvokeAsync("FullHouseWin", grid, playerName);
         }
+            // Check for BINGO (all numbers in a single grid are checked)
+            if (ticket?.Numbers != null)
+            {
+                for (int bingoGrid = 0; bingoGrid < 5; bingoGrid++)
+                {
+                    bool bingo = true;
+                    for (int r = bingoGrid * 3; r < bingoGrid * 3 + 3; r++)
+                    {
+                        for (int j = 0; j < 9; j++)
+                        {
+                            var val = ticket.Numbers[r][j];
+                            if (val.HasValue && !marked[r, j])
+                            {
+                                bingo = false;
+                                break;
+                            }
+                        }
+                        if (!bingo) break;
+                    }
+                    if (bingo && BingoHub.HubConnection != null && !hasShownBingoWinPopup)
+                    {
+                        var isFirstBingo = await BingoHub.HubConnection.InvokeAsync<bool>("BingoWin", bingoGrid, playerName);
+                        if (isFirstBingo)
+                        {
+                            winMessage = "You have won BINGO!";
+                            hasShownBingoWinPopup = true;
+                        }
+                        break;
+                    }
+                }
+            }
     }
 
     public void SetHubConnection(HubConnection? connection)
