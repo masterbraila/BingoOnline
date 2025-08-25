@@ -110,7 +110,8 @@ else if (isAdmin)
                                             @for (int j = 0; j < 9; j++)
                                             {
                                                 var value = selectedUserTicket.Numbers[grid * 3 + i][j];
-                                                <td>@(value.HasValue ? value.Value.ToString() : "")</td>
+                                                bool isCalled = value.HasValue && drawnNumbers.Contains(value.Value);
+                                                <td class="@(isCalled ? "called" : null)">@(value.HasValue ? value.Value.ToString() : "")</td>
                                             }
                                         </tr>
                                     }
@@ -140,6 +141,11 @@ else if (isAdmin)
         font-weight: bold;
         border: 1px solid #ccc;
         background: #fff;
+    }
+    .ticket-table td.called {
+        background: #e0f7fa;
+        color: #1976d2;
+        font-weight: bold;
     }
     .numbers-grid td {
         width: 32px;
