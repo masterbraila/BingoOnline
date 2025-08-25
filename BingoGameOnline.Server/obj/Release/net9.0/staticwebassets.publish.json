@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "8KNidxVkY0AHx+7Zg+vBTW9vU36+muJdHmfmkKunda8=",
+  "Hash": "4liwZc4s0wQK1UhuCLViP1XoOHdU15pWi2og/wjIUUA=",
   "Source": "BingoGameOnline.Server",
   "BasePath": "_content/BingoGameOnline.Server",
   "Mode": "Default",
@@ -53,7 +53,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\bin\\Release\\net9.0\\wwwroot\\_framework\\dotnet.js",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/dotnet#[.{fingerprint}]?.js",
       "AssetKind": "Publish",
@@ -74,7 +74,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\bin\\Release\\net9.0\\wwwroot\\_framework\\dotnet.native.hmanx9razn.js",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/dotnet.native.hmanx9razn.js",
       "AssetKind": "Publish",
@@ -95,7 +95,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\bin\\Release\\net9.0\\wwwroot\\_framework\\dotnet.native.p4lwlf2bu1.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/dotnet.native.p4lwlf2bu1.wasm",
       "AssetKind": "Publish",
@@ -116,7 +116,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\bin\\Release\\net9.0\\wwwroot\\_framework\\dotnet.runtime.o8gq1i8bk6.js",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/dotnet.runtime.o8gq1i8bk6.js",
       "AssetKind": "Publish",
@@ -137,7 +137,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\bin\\Release\\net9.0\\wwwroot\\_framework\\icudt_CJK.tjcz0u77k5.dat",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/icudt_CJK.tjcz0u77k5.dat",
       "AssetKind": "Publish",
@@ -158,7 +158,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\bin\\Release\\net9.0\\wwwroot\\_framework\\icudt_EFIGS.tptq2av103.dat",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/icudt_EFIGS.tptq2av103.dat",
       "AssetKind": "Publish",
@@ -179,7 +179,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\bin\\Release\\net9.0\\wwwroot\\_framework\\icudt_no_CJK.lfu7j35m59.dat",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/icudt_no_CJK.lfu7j35m59.dat",
       "AssetKind": "Publish",
@@ -200,7 +200,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\blazor.publish.boot.json",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/blazor.boot.json",
       "AssetKind": "Publish",
@@ -211,8 +211,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "WasmResource",
       "AssetTraitValue": "manifest",
-      "Fingerprint": "hu4x81a2c3",
-      "Integrity": "yWL64iFLnb5lygzowAMUy0BgbrcNphagy9CWLqsjsDM=",
+      "Fingerprint": "lhi7lwkh68",
+      "Integrity": "p3HWgBJHB1+CyCw8AnDUMnY4ZSUXjknpCEM9Kk1t8wo=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\blazor.publish.boot.json"
@@ -620,7 +620,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\d76myt0syw-hmanx9razn.gz",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/dotnet.native#[.{fingerprint=hmanx9razn}]!.js.gz",
       "AssetKind": "Publish",
@@ -746,7 +746,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\j84mwlk8j5-o8gq1i8bk6.gz",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/dotnet.runtime#[.{fingerprint=o8gq1i8bk6}]!.js.gz",
       "AssetKind": "Publish",
@@ -767,7 +767,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\jp8d3cxpsb-p4lwlf2bu1.gz",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/dotnet.native#[.{fingerprint=p4lwlf2bu1}]!.wasm.gz",
       "AssetKind": "Publish",
@@ -2108,7 +2108,7 @@
       "OriginalItemSpec": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\d9lphb2xzk-kfmaxk8ma1.gz"
     },
     {
-      "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\dfybfmin7s-hu4x81a2c3.br",
+      "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\dfybfmin7s-lhi7lwkh68.br",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
       "ContentRoot": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\",
@@ -2122,14 +2122,14 @@
       "RelatedAsset": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\blazor.publish.boot.json",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "br",
-      "Fingerprint": "eazxogb0xd",
-      "Integrity": "5jhkMOwaDPhUudhYkiDLa5xVBodQSMNfMLmZKzONhv8=",
+      "Fingerprint": "k2c0vpaoxf",
+      "Integrity": "5J/hNCQi9yGkx1CW0VU256w5pBmscyVyUkMrVT9c1VQ=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\dfybfmin7s-hu4x81a2c3.br"
+      "OriginalItemSpec": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\dfybfmin7s-lhi7lwkh68.br"
     },
     {
-      "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\dfybfmin7s-hu4x81a2c3.gz",
+      "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\dfybfmin7s-lhi7lwkh68.gz",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
       "ContentRoot": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\",
@@ -2143,11 +2143,11 @@
       "RelatedAsset": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\blazor.publish.boot.json",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "b9nwg87njk",
-      "Integrity": "QWIlA1Q8IZ2JWgtw5KBviPl0uYItyKMQG+JiEJIBODw=",
+      "Fingerprint": "ghsq345jr1",
+      "Integrity": "TGosRQ3icAOS3IyJ6LDIR4JmlL2lGytfIjw22kWP/B0=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\dfybfmin7s-hu4x81a2c3.gz"
+      "OriginalItemSpec": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\dfybfmin7s-lhi7lwkh68.gz"
     },
     {
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\f4xgukc5lo-hrwsygsryq.br",
@@ -3767,12 +3767,12 @@
       "OriginalItemSpec": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\t4b374f6ma-43atpzeawx.br"
     },
     {
-      "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-fm5vms88fg.br",
+      "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-9c73i7y1tn.br",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
       "ContentRoot": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\",
       "BasePath": "/",
-      "RelativePath": "_framework/BingoGameOnline.Client#[.{fingerprint=fm5vms88fg}]!.wasm.br",
+      "RelativePath": "_framework/BingoGameOnline.Client#[.{fingerprint=9c73i7y1tn}]!.wasm.br",
       "AssetKind": "Publish",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -3781,19 +3781,19 @@
       "RelatedAsset": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\BingoGameOnline.Client.wasm",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "br",
-      "Fingerprint": "r8hrd68yw3",
-      "Integrity": "C5UZc48QdTBsNGcmuK1gwtGFyA1QEDT8HP7Ztwg8u6A=",
+      "Fingerprint": "24droag4ah",
+      "Integrity": "Ivv8FM6a29pDl+KH62ZS9ILlPAHS2J7mx5d2x3Ylnec=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-fm5vms88fg.br"
+      "OriginalItemSpec": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-9c73i7y1tn.br"
     },
     {
-      "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-fm5vms88fg.gz",
+      "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-9c73i7y1tn.gz",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
       "ContentRoot": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\",
       "BasePath": "/",
-      "RelativePath": "_framework/BingoGameOnline.Client#[.{fingerprint=fm5vms88fg}]!.wasm.gz",
+      "RelativePath": "_framework/BingoGameOnline.Client#[.{fingerprint=9c73i7y1tn}]!.wasm.gz",
       "AssetKind": "Publish",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -3802,11 +3802,11 @@
       "RelatedAsset": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\BingoGameOnline.Client.wasm",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "paddc1i3qc",
-      "Integrity": "b2u01Wvn4ELJ86SssjYWIKGS6f0Q0FhQ77p6vF45/3Q=",
+      "Fingerprint": "6bkp9axubc",
+      "Integrity": "7iuF6mRkDL+iF5PQzxR7jYjddhkgssbqt3hi7TZ93B0=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-fm5vms88fg.gz"
+      "OriginalItemSpec": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-9c73i7y1tn.gz"
     },
     {
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\thoa9oimd8-dbz1djrf6r.br",
@@ -4736,7 +4736,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\zqi0ia2uwb-nseotsck93.gz",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/dotnet#[.{fingerprint=nseotsck93}]?.js.gz",
       "AssetKind": "Publish",
@@ -4820,7 +4820,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\BingoGameOnline.Client.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/BingoGameOnline.Client#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -4831,8 +4831,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "WasmResource",
       "AssetTraitValue": "runtime",
-      "Fingerprint": "fm5vms88fg",
-      "Integrity": "yYsCtxFfdM+UT6z675X5NSdqNSUQQLTFg1qQPEgrQJU=",
+      "Fingerprint": "9c73i7y1tn",
+      "Integrity": "6XWhomBgNNF6/9Wd6u+donzia+nEOdoPSB3UzDvcbs8=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\BingoGameOnline.Client.wasm"
@@ -4841,7 +4841,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.AspNetCore.Components.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.AspNetCore.Components#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -4862,7 +4862,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.AspNetCore.Components.Web.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.AspNetCore.Components.Web#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -4883,7 +4883,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.AspNetCore.Components.WebAssembly.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.AspNetCore.Components.WebAssembly#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -4904,7 +4904,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.AspNetCore.Connections.Abstractions.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.AspNetCore.Connections.Abstractions#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -4925,7 +4925,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.AspNetCore.Http.Connections.Client.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.AspNetCore.Http.Connections.Client#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -4946,7 +4946,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.AspNetCore.Http.Connections.Common.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.AspNetCore.Http.Connections.Common#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -4967,7 +4967,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.AspNetCore.SignalR.Client.Core.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.AspNetCore.SignalR.Client.Core#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -4988,7 +4988,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.AspNetCore.SignalR.Client.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.AspNetCore.SignalR.Client#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5009,7 +5009,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.AspNetCore.SignalR.Common.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.AspNetCore.SignalR.Common#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5030,7 +5030,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.AspNetCore.SignalR.Protocols.Json.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.AspNetCore.SignalR.Protocols.Json#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5051,7 +5051,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.Extensions.Configuration.Abstractions.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.Extensions.Configuration.Abstractions#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5072,7 +5072,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.Extensions.Configuration.Json.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.Extensions.Configuration.Json#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5093,7 +5093,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.Extensions.Configuration.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.Extensions.Configuration#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5114,7 +5114,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.Extensions.DependencyInjection.Abstractions.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.Extensions.DependencyInjection.Abstractions#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5135,7 +5135,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.Extensions.DependencyInjection.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.Extensions.DependencyInjection#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5156,7 +5156,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.Extensions.Features.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.Extensions.Features#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5177,7 +5177,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.Extensions.Logging.Abstractions.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.Extensions.Logging.Abstractions#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5198,7 +5198,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.Extensions.Logging.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.Extensions.Logging#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5219,7 +5219,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.Extensions.Options.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.Extensions.Options#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5240,7 +5240,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.Extensions.Primitives.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.Extensions.Primitives#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5261,7 +5261,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.JSInterop.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.JSInterop#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5282,7 +5282,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\Microsoft.JSInterop.WebAssembly.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/Microsoft.JSInterop.WebAssembly#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5303,7 +5303,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Collections.Concurrent.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Collections.Concurrent#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5324,7 +5324,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Collections.Immutable.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Collections.Immutable#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5345,7 +5345,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Collections.NonGeneric.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Collections.NonGeneric#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5366,7 +5366,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Collections.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Collections#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5387,7 +5387,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.ComponentModel.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.ComponentModel#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5408,7 +5408,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Console.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Console#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5429,7 +5429,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Diagnostics.DiagnosticSource.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Diagnostics.DiagnosticSource#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5450,7 +5450,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.IO.Pipelines.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.IO.Pipelines#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5471,7 +5471,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Linq.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Linq#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5492,7 +5492,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Memory.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Memory#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5513,7 +5513,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Net.Http.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Net.Http#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5534,7 +5534,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Net.Primitives.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Net.Primitives#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5555,7 +5555,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Net.Requests.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Net.Requests#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5576,7 +5576,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Net.Security.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Net.Security#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5597,7 +5597,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Net.ServerSentEvents.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Net.ServerSentEvents#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5618,7 +5618,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Net.WebSockets.Client.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Net.WebSockets.Client#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5639,7 +5639,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Net.WebSockets.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Net.WebSockets#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5660,7 +5660,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Private.CoreLib.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Private.CoreLib#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5681,7 +5681,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Private.Uri.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Private.Uri#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5702,7 +5702,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Runtime.InteropServices.JavaScript.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Runtime.InteropServices.JavaScript#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5723,7 +5723,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Runtime.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Runtime#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5744,7 +5744,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Security.Cryptography.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Security.Cryptography#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5765,7 +5765,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Text.Encodings.Web.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Text.Encodings.Web#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5786,7 +5786,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Text.Json.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Text.Json#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5807,7 +5807,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Text.RegularExpressions.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Text.RegularExpressions#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5828,7 +5828,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Threading.Channels.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Threading.Channels#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -5849,7 +5849,7 @@
       "Identity": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\System.Threading.wasm",
       "SourceId": "BingoGameOnline.Client",
       "SourceType": "Project",
-      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish\\wwwroot\\",
+      "ContentRoot": "D:\\GitHub\\BingoOnline\\publish_clean\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "_framework/System.Threading#[.{fingerprint}]!.wasm",
       "AssetKind": "Publish",
@@ -6940,13 +6940,13 @@
   ],
   "Endpoints": [
     {
-      "Route": "_framework/BingoGameOnline.Client.fm5vms88fg.wasm",
-      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-fm5vms88fg.br",
+      "Route": "_framework/BingoGameOnline.Client.9c73i7y1tn.wasm",
+      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-9c73i7y1tn.br",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "br",
-          "Quality": "0.000061781787"
+          "Quality": "0.000061587732"
         }
       ],
       "ResponseHeaders": [
@@ -6964,15 +6964,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "16185"
+          "Value": "16236"
         },
         {
           "Name": "ETag",
-          "Value": "\"C5UZc48QdTBsNGcmuK1gwtGFyA1QEDT8HP7Ztwg8u6A=\""
+          "Value": "\"Ivv8FM6a29pDl+KH62ZS9ILlPAHS2J7mx5d2x3Ylnec=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 25 Aug 2025 08:58:42 GMT"
+          "Value": "Mon, 25 Aug 2025 09:01:16 GMT"
         },
         {
           "Name": "Vary",
@@ -6984,17 +6984,17 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"yYsCtxFfdM+UT6z675X5NSdqNSUQQLTFg1qQPEgrQJU=\""
+          "Value": "W/\"6XWhomBgNNF6/9Wd6u+donzia+nEOdoPSB3UzDvcbs8=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "fm5vms88fg"
+          "Value": "9c73i7y1tn"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-yYsCtxFfdM+UT6z675X5NSdqNSUQQLTFg1qQPEgrQJU="
+          "Value": "sha256-6XWhomBgNNF6/9Wd6u+donzia+nEOdoPSB3UzDvcbs8="
         },
         {
           "Name": "label",
@@ -7003,13 +7003,13 @@
       ]
     },
     {
-      "Route": "_framework/BingoGameOnline.Client.fm5vms88fg.wasm",
-      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-fm5vms88fg.gz",
+      "Route": "_framework/BingoGameOnline.Client.9c73i7y1tn.wasm",
+      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-9c73i7y1tn.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000052075197"
+          "Quality": "0.000052058931"
         }
       ],
       "ResponseHeaders": [
@@ -7027,15 +7027,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "19202"
+          "Value": "19208"
         },
         {
           "Name": "ETag",
-          "Value": "\"b2u01Wvn4ELJ86SssjYWIKGS6f0Q0FhQ77p6vF45/3Q=\""
+          "Value": "\"7iuF6mRkDL+iF5PQzxR7jYjddhkgssbqt3hi7TZ93B0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 25 Aug 2025 08:58:42 GMT"
+          "Value": "Mon, 25 Aug 2025 09:01:16 GMT"
         },
         {
           "Name": "Vary",
@@ -7047,17 +7047,17 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"yYsCtxFfdM+UT6z675X5NSdqNSUQQLTFg1qQPEgrQJU=\""
+          "Value": "W/\"6XWhomBgNNF6/9Wd6u+donzia+nEOdoPSB3UzDvcbs8=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "fm5vms88fg"
+          "Value": "9c73i7y1tn"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-yYsCtxFfdM+UT6z675X5NSdqNSUQQLTFg1qQPEgrQJU="
+          "Value": "sha256-6XWhomBgNNF6/9Wd6u+donzia+nEOdoPSB3UzDvcbs8="
         },
         {
           "Name": "label",
@@ -7066,7 +7066,7 @@
       ]
     },
     {
-      "Route": "_framework/BingoGameOnline.Client.fm5vms88fg.wasm",
+      "Route": "_framework/BingoGameOnline.Client.9c73i7y1tn.wasm",
       "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\webcil\\publish\\BingoGameOnline.Client.wasm",
       "Selectors": [],
       "ResponseHeaders": [
@@ -7088,21 +7088,21 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"yYsCtxFfdM+UT6z675X5NSdqNSUQQLTFg1qQPEgrQJU=\""
+          "Value": "\"6XWhomBgNNF6/9Wd6u+donzia+nEOdoPSB3UzDvcbs8=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 25 Aug 2025 08:58:42 GMT"
+          "Value": "Mon, 25 Aug 2025 09:01:16 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "fm5vms88fg"
+          "Value": "9c73i7y1tn"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-yYsCtxFfdM+UT6z675X5NSdqNSUQQLTFg1qQPEgrQJU="
+          "Value": "sha256-6XWhomBgNNF6/9Wd6u+donzia+nEOdoPSB3UzDvcbs8="
         },
         {
           "Name": "label",
@@ -7111,8 +7111,8 @@
       ]
     },
     {
-      "Route": "_framework/BingoGameOnline.Client.fm5vms88fg.wasm.br",
-      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-fm5vms88fg.br",
+      "Route": "_framework/BingoGameOnline.Client.9c73i7y1tn.wasm.br",
+      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-9c73i7y1tn.br",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7129,7 +7129,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "16185"
+          "Value": "16236"
         },
         {
           "Name": "Content-Type",
@@ -7137,11 +7137,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"C5UZc48QdTBsNGcmuK1gwtGFyA1QEDT8HP7Ztwg8u6A=\""
+          "Value": "\"Ivv8FM6a29pDl+KH62ZS9ILlPAHS2J7mx5d2x3Ylnec=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 25 Aug 2025 08:58:42 GMT"
+          "Value": "Mon, 25 Aug 2025 09:01:16 GMT"
         },
         {
           "Name": "Vary",
@@ -7151,11 +7151,11 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "fm5vms88fg"
+          "Value": "9c73i7y1tn"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-C5UZc48QdTBsNGcmuK1gwtGFyA1QEDT8HP7Ztwg8u6A="
+          "Value": "sha256-Ivv8FM6a29pDl+KH62ZS9ILlPAHS2J7mx5d2x3Ylnec="
         },
         {
           "Name": "label",
@@ -7164,8 +7164,8 @@
       ]
     },
     {
-      "Route": "_framework/BingoGameOnline.Client.fm5vms88fg.wasm.gz",
-      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-fm5vms88fg.gz",
+      "Route": "_framework/BingoGameOnline.Client.9c73i7y1tn.wasm.gz",
+      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-9c73i7y1tn.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7182,7 +7182,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "19202"
+          "Value": "19208"
         },
         {
           "Name": "Content-Type",
@@ -7190,11 +7190,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"b2u01Wvn4ELJ86SssjYWIKGS6f0Q0FhQ77p6vF45/3Q=\""
+          "Value": "\"7iuF6mRkDL+iF5PQzxR7jYjddhkgssbqt3hi7TZ93B0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 25 Aug 2025 08:58:42 GMT"
+          "Value": "Mon, 25 Aug 2025 09:01:16 GMT"
         },
         {
           "Name": "Vary",
@@ -7204,11 +7204,11 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "fm5vms88fg"
+          "Value": "9c73i7y1tn"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-b2u01Wvn4ELJ86SssjYWIKGS6f0Q0FhQ77p6vF45/3Q="
+          "Value": "sha256-7iuF6mRkDL+iF5PQzxR7jYjddhkgssbqt3hi7TZ93B0="
         },
         {
           "Name": "label",
@@ -7218,12 +7218,12 @@
     },
     {
       "Route": "_framework/BingoGameOnline.Client.wasm",
-      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-fm5vms88fg.br",
+      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-9c73i7y1tn.br",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "br",
-          "Quality": "0.000061781787"
+          "Quality": "0.000061587732"
         }
       ],
       "ResponseHeaders": [
@@ -7241,15 +7241,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "16185"
+          "Value": "16236"
         },
         {
           "Name": "ETag",
-          "Value": "\"C5UZc48QdTBsNGcmuK1gwtGFyA1QEDT8HP7Ztwg8u6A=\""
+          "Value": "\"Ivv8FM6a29pDl+KH62ZS9ILlPAHS2J7mx5d2x3Ylnec=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 25 Aug 2025 08:58:42 GMT"
+          "Value": "Mon, 25 Aug 2025 09:01:16 GMT"
         },
         {
           "Name": "Vary",
@@ -7261,24 +7261,24 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"yYsCtxFfdM+UT6z675X5NSdqNSUQQLTFg1qQPEgrQJU=\""
+          "Value": "W/\"6XWhomBgNNF6/9Wd6u+donzia+nEOdoPSB3UzDvcbs8=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-yYsCtxFfdM+UT6z675X5NSdqNSUQQLTFg1qQPEgrQJU="
+          "Value": "sha256-6XWhomBgNNF6/9Wd6u+donzia+nEOdoPSB3UzDvcbs8="
         }
       ]
     },
     {
       "Route": "_framework/BingoGameOnline.Client.wasm",
-      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-fm5vms88fg.gz",
+      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-9c73i7y1tn.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000052075197"
+          "Quality": "0.000052058931"
         }
       ],
       "ResponseHeaders": [
@@ -7296,15 +7296,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "19202"
+          "Value": "19208"
         },
         {
           "Name": "ETag",
-          "Value": "\"b2u01Wvn4ELJ86SssjYWIKGS6f0Q0FhQ77p6vF45/3Q=\""
+          "Value": "\"7iuF6mRkDL+iF5PQzxR7jYjddhkgssbqt3hi7TZ93B0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 25 Aug 2025 08:58:42 GMT"
+          "Value": "Mon, 25 Aug 2025 09:01:16 GMT"
         },
         {
           "Name": "Vary",
@@ -7316,13 +7316,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"yYsCtxFfdM+UT6z675X5NSdqNSUQQLTFg1qQPEgrQJU=\""
+          "Value": "W/\"6XWhomBgNNF6/9Wd6u+donzia+nEOdoPSB3UzDvcbs8=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-yYsCtxFfdM+UT6z675X5NSdqNSUQQLTFg1qQPEgrQJU="
+          "Value": "sha256-6XWhomBgNNF6/9Wd6u+donzia+nEOdoPSB3UzDvcbs8="
         }
       ]
     },
@@ -7349,23 +7349,23 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"yYsCtxFfdM+UT6z675X5NSdqNSUQQLTFg1qQPEgrQJU=\""
+          "Value": "\"6XWhomBgNNF6/9Wd6u+donzia+nEOdoPSB3UzDvcbs8=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 25 Aug 2025 08:58:42 GMT"
+          "Value": "Mon, 25 Aug 2025 09:01:16 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-yYsCtxFfdM+UT6z675X5NSdqNSUQQLTFg1qQPEgrQJU="
+          "Value": "sha256-6XWhomBgNNF6/9Wd6u+donzia+nEOdoPSB3UzDvcbs8="
         }
       ]
     },
     {
       "Route": "_framework/BingoGameOnline.Client.wasm.br",
-      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-fm5vms88fg.br",
+      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-9c73i7y1tn.br",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7382,7 +7382,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "16185"
+          "Value": "16236"
         },
         {
           "Name": "Content-Type",
@@ -7390,11 +7390,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"C5UZc48QdTBsNGcmuK1gwtGFyA1QEDT8HP7Ztwg8u6A=\""
+          "Value": "\"Ivv8FM6a29pDl+KH62ZS9ILlPAHS2J7mx5d2x3Ylnec=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 25 Aug 2025 08:58:42 GMT"
+          "Value": "Mon, 25 Aug 2025 09:01:16 GMT"
         },
         {
           "Name": "Vary",
@@ -7404,13 +7404,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-C5UZc48QdTBsNGcmuK1gwtGFyA1QEDT8HP7Ztwg8u6A="
+          "Value": "sha256-Ivv8FM6a29pDl+KH62ZS9ILlPAHS2J7mx5d2x3Ylnec="
         }
       ]
     },
     {
       "Route": "_framework/BingoGameOnline.Client.wasm.gz",
-      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-fm5vms88fg.gz",
+      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\tcotq6dmhc-9c73i7y1tn.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7427,7 +7427,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "19202"
+          "Value": "19208"
         },
         {
           "Name": "Content-Type",
@@ -7435,11 +7435,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"b2u01Wvn4ELJ86SssjYWIKGS6f0Q0FhQ77p6vF45/3Q=\""
+          "Value": "\"7iuF6mRkDL+iF5PQzxR7jYjddhkgssbqt3hi7TZ93B0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 25 Aug 2025 08:58:42 GMT"
+          "Value": "Mon, 25 Aug 2025 09:01:16 GMT"
         },
         {
           "Name": "Vary",
@@ -7449,7 +7449,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-b2u01Wvn4ELJ86SssjYWIKGS6f0Q0FhQ77p6vF45/3Q="
+          "Value": "sha256-7iuF6mRkDL+iF5PQzxR7jYjddhkgssbqt3hi7TZ93B0="
         }
       ]
     },
@@ -7476,23 +7476,23 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"yWL64iFLnb5lygzowAMUy0BgbrcNphagy9CWLqsjsDM=\""
+          "Value": "\"p3HWgBJHB1+CyCw8AnDUMnY4ZSUXjknpCEM9Kk1t8wo=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 25 Aug 2025 08:58:42 GMT"
+          "Value": "Mon, 25 Aug 2025 09:01:16 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-yWL64iFLnb5lygzowAMUy0BgbrcNphagy9CWLqsjsDM="
+          "Value": "sha256-p3HWgBJHB1+CyCw8AnDUMnY4ZSUXjknpCEM9Kk1t8wo="
         }
       ]
     },
     {
       "Route": "_framework/blazor.boot.json",
-      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\dfybfmin7s-hu4x81a2c3.br",
+      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\dfybfmin7s-lhi7lwkh68.br",
       "Selectors": [
         {
           "Name": "Content-Encoding",
@@ -7519,11 +7519,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"5jhkMOwaDPhUudhYkiDLa5xVBodQSMNfMLmZKzONhv8=\""
+          "Value": "\"5J/hNCQi9yGkx1CW0VU256w5pBmscyVyUkMrVT9c1VQ=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 25 Aug 2025 08:58:42 GMT"
+          "Value": "Mon, 25 Aug 2025 09:01:16 GMT"
         },
         {
           "Name": "Vary",
@@ -7535,24 +7535,24 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"yWL64iFLnb5lygzowAMUy0BgbrcNphagy9CWLqsjsDM=\""
+          "Value": "W/\"p3HWgBJHB1+CyCw8AnDUMnY4ZSUXjknpCEM9Kk1t8wo=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-yWL64iFLnb5lygzowAMUy0BgbrcNphagy9CWLqsjsDM="
+          "Value": "sha256-p3HWgBJHB1+CyCw8AnDUMnY4ZSUXjknpCEM9Kk1t8wo="
         }
       ]
     },
     {
       "Route": "_framework/blazor.boot.json",
-      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\dfybfmin7s-hu4x81a2c3.gz",
+      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\dfybfmin7s-lhi7lwkh68.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000266098989"
+          "Quality": "0.000266169816"
         }
       ],
       "ResponseHeaders": [
@@ -7570,15 +7570,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "3757"
+          "Value": "3756"
         },
         {
           "Name": "ETag",
-          "Value": "\"QWIlA1Q8IZ2JWgtw5KBviPl0uYItyKMQG+JiEJIBODw=\""
+          "Value": "\"TGosRQ3icAOS3IyJ6LDIR4JmlL2lGytfIjw22kWP/B0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 25 Aug 2025 08:58:42 GMT"
+          "Value": "Mon, 25 Aug 2025 09:01:16 GMT"
         },
         {
           "Name": "Vary",
@@ -7590,19 +7590,19 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"yWL64iFLnb5lygzowAMUy0BgbrcNphagy9CWLqsjsDM=\""
+          "Value": "W/\"p3HWgBJHB1+CyCw8AnDUMnY4ZSUXjknpCEM9Kk1t8wo=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-yWL64iFLnb5lygzowAMUy0BgbrcNphagy9CWLqsjsDM="
+          "Value": "sha256-p3HWgBJHB1+CyCw8AnDUMnY4ZSUXjknpCEM9Kk1t8wo="
         }
       ]
     },
     {
       "Route": "_framework/blazor.boot.json.br",
-      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\dfybfmin7s-hu4x81a2c3.br",
+      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\dfybfmin7s-lhi7lwkh68.br",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7627,11 +7627,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"5jhkMOwaDPhUudhYkiDLa5xVBodQSMNfMLmZKzONhv8=\""
+          "Value": "\"5J/hNCQi9yGkx1CW0VU256w5pBmscyVyUkMrVT9c1VQ=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 25 Aug 2025 08:58:42 GMT"
+          "Value": "Mon, 25 Aug 2025 09:01:16 GMT"
         },
         {
           "Name": "Vary",
@@ -7641,13 +7641,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-5jhkMOwaDPhUudhYkiDLa5xVBodQSMNfMLmZKzONhv8="
+          "Value": "sha256-5J/hNCQi9yGkx1CW0VU256w5pBmscyVyUkMrVT9c1VQ="
         }
       ]
     },
     {
       "Route": "_framework/blazor.boot.json.gz",
-      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\dfybfmin7s-hu4x81a2c3.gz",
+      "AssetFile": "D:\\GitHub\\BingoOnline\\BingoGameOnline.Client\\obj\\Release\\net9.0\\compressed\\publish\\dfybfmin7s-lhi7lwkh68.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7664,7 +7664,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "3757"
+          "Value": "3756"
         },
         {
           "Name": "Content-Type",
@@ -7672,11 +7672,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"QWIlA1Q8IZ2JWgtw5KBviPl0uYItyKMQG+JiEJIBODw=\""
+          "Value": "\"TGosRQ3icAOS3IyJ6LDIR4JmlL2lGytfIjw22kWP/B0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 25 Aug 2025 08:58:42 GMT"
+          "Value": "Mon, 25 Aug 2025 09:01:16 GMT"
         },
         {
           "Name": "Vary",
@@ -7686,7 +7686,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-QWIlA1Q8IZ2JWgtw5KBviPl0uYItyKMQG+JiEJIBODw="
+          "Value": "sha256-TGosRQ3icAOS3IyJ6LDIR4JmlL2lGytfIjw22kWP/B0="
         }
       ]
     },
