@@ -210,7 +210,7 @@ else
 
     private async void MarkCell(int row, int col)
     {
-        Console.WriteLine($"MarkCell called: row={row}, col={col}");
+        //Console.WriteLine($"MarkCell called: row={row}, col={col}");
         if (ticket == null || ticket.Numbers == null || marked == null)
             return;
         if (row < 0 || row >= ticket.Numbers.Length || col < 0 || col >= 9)
@@ -219,9 +219,8 @@ else
             return;
         if (ticket.Numbers[row][col] is not int value)
             return;
-        if (marked[row, col])
-            return;
-        marked[row, col] = true;
+        // Toggle the mark (allow unchecking)
+        marked[row, col] = !marked[row, col];
         await CheckForWin(row);
         StateHasChanged();
     }
