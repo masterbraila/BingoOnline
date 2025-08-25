@@ -12,8 +12,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName>ScopedCss</AssetTraitName>
       <AssetTraitValue>ApplicationBundle</AssetTraitValue>
-      <Fingerprint>zdsqs3tugy</Fingerprint>
-      <Integrity>N+qY5bKcTy4Q7gJ7oxAH3os5PR29rfIh5XSFZRRoPKw=</Integrity>
+      <Fingerprint>ag3s5vsixi</Fingerprint>
+      <Integrity>hr5ChJJ2pdzUBtvKKxStIKUuZeqODeh4jjWU6KGAvYk=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\BingoGameOnline.Client.styles.css'))</OriginalItemSpec>

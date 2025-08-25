@@ -1,9 +1,9 @@
 {
   "mainAssemblyName": "BingoGameOnline.Client",
   "resources": {
-    "hash": "sha256-yROIiFHanNLY4UPmairnTk6iOh6pLBlIhcBOKhFAxms=",
+    "hash": "sha256-8RQlbcqQfQnfjvskNxBqOD7G0ltakfCwyPBocMseom4=",
     "fingerprinting": {
-      "BingoGameOnline.Client.gg38enjvhe.wasm": "BingoGameOnline.Client.wasm",
+      "BingoGameOnline.Client.c5tai97vsk.wasm": "BingoGameOnline.Client.wasm",
       "Microsoft.AspNetCore.Components.wm5u4q1in1.wasm": "Microsoft.AspNetCore.Components.wasm",
       "Microsoft.AspNetCore.Components.Web.w4bmtu3415.wasm": "Microsoft.AspNetCore.Components.Web.wasm",
       "Microsoft.AspNetCore.Components.WebAssembly.wj9sdyjgg9.wasm": "Microsoft.AspNetCore.Components.WebAssembly.wasm",
@@ -46,7 +46,7 @@
       "System.Private.CoreLib.zw2pi9jnoy.wasm": "System.Private.CoreLib.wasm",
       "System.Private.Uri.e31g5ee8cz.wasm": "System.Private.Uri.wasm",
       "System.Runtime.InteropServices.JavaScript.kfmaxk8ma1.wasm": "System.Runtime.InteropServices.JavaScript.wasm",
-      "System.Runtime.5b8rezaw6h.wasm": "System.Runtime.wasm",
+      "System.Runtime.d46ykti61r.wasm": "System.Runtime.wasm",
       "System.Security.Cryptography.es9rbpxx73.wasm": "System.Security.Cryptography.wasm",
       "System.Text.Encodings.Web.al99mkbd1m.wasm": "System.Text.Encodings.Web.wasm",
       "System.Text.Json.mtn545p3z7.wasm": "System.Text.Json.wasm",
@@ -80,7 +80,7 @@
       "System.Runtime.InteropServices.JavaScript.kfmaxk8ma1.wasm": "sha256-8N7FNABK/iD1BG3wz1UfDIlGBJjeoRgfPgXdzt3lEng="
     },
     "assembly": {
-      "BingoGameOnline.Client.gg38enjvhe.wasm": "sha256-gML9yfux55vzYNSltCxlDZjJRo7oIyduhuF90p20MgM=",
+      "BingoGameOnline.Client.c5tai97vsk.wasm": "sha256-8AcctUXc/FLUokJETyyEWonYXay2rMwiqPSLl2w9JwE=",
       "Microsoft.AspNetCore.Components.wm5u4q1in1.wasm": "sha256-CDRbGTSZknhUBHkj+m5Ryj/4S6g4LpSqMDzTVwQ9huc=",
       "Microsoft.AspNetCore.Components.Web.w4bmtu3415.wasm": "sha256-IHnudzzHeEPkOFNJnyTZi07ByObCIiSGxpR29TNKMVE=",
       "Microsoft.AspNetCore.Components.WebAssembly.wj9sdyjgg9.wasm": "sha256-XERBU/ZaqLR4gwGjicoUPi0ATH+vYxeCu5KGbSQoG/E=",
@@ -121,7 +121,7 @@
       "System.Net.WebSockets.Client.quymgbop2x.wasm": "sha256-8jWDXU9GrVhLW9UKSrZ3mZe3CLu6pkeOoVJvlAPOaDE=",
       "System.Net.WebSockets.zck1sdb01n.wasm": "sha256-U73rrSBKqG9xd+7/10FCl3aQLKUfKnfBDbJW/YAIK5s=",
       "System.Private.Uri.e31g5ee8cz.wasm": "sha256-imbtbV1TzahnlYzSYj0jqssj1zGCuK0PK1Fi9FRJOP4=",
-      "System.Runtime.5b8rezaw6h.wasm": "sha256-L8P40U2hnMuJ+fGz+4cFpXkw2esAyiggSm0mQnIhZ6U=",
+      "System.Runtime.d46ykti61r.wasm": "sha256-g+TwM23eqY+HGSpPXdGdVyMN7eRxfuUmPhUgpLbZuzo=",
       "System.Security.Cryptography.es9rbpxx73.wasm": "sha256-TqkBYphxQ6l5z4qV+QXiGUL55A5/25XFTzH0RpvYOog=",
       "System.Text.Encodings.Web.al99mkbd1m.wasm": "sha256-MtGY7dagHiHo1JKPBp6uppaXjtNcFQQIy+I3w3vPujY=",
       "System.Text.Json.mtn545p3z7.wasm": "sha256-2g9y3FlXYSpkiDMAxqoZ2Uivi5xv5ihBiWAi82nUAzM=",

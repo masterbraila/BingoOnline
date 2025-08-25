@@ -80,4 +80,10 @@ namespace BingoGameOnline.Client.Services
     {
         public int?[][] Numbers { get; set; } = new int?[15][];
     }
+
+    public class UserInfo
+    {
+        public string ConnectionId { get; set; } = string.Empty;
+        public string PlayerName { get; set; } = string.Empty;
+    }
 }

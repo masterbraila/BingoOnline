@@ -1,8 +1,11 @@
 @page "/admin/tickets"
+@* --- Imports and Dependency Injection --- *@
 @using Microsoft.AspNetCore.SignalR.Client
 @using Microsoft.JSInterop
+@using BingoGameOnline.Client.Services
 @inject IJSRuntime jsRuntime
 @inject NavigationManager Navigation
+@inject AdminBingoHubService AdminHub
 
 @if (!isAdmin && !showPasswordDialog)
 {
@@ -43,20 +46,22 @@ else if (showPasswordDialog)
 }
 else if (isAdmin)
 {
-    @if (!string.IsNullOrEmpty(lineWinAnnouncement))
+    @* --- Section: Win Announcements --- *@
+    @if (!string.IsNullOrEmpty(AdminHub.LineWinAnnouncement))
     {
-        <div class="win-message">@lineWinAnnouncement</div>
+        <div class="win-message">@AdminHub.LineWinAnnouncement</div>
     }
-    @if (!string.IsNullOrEmpty(bingoWinAnnouncement))
+    @if (!string.IsNullOrEmpty(AdminHub.BingoWinAnnouncement))
     {
-        <div class="win-message">@bingoWinAnnouncement</div>
+        <div class="win-message">@AdminHub.BingoWinAnnouncement</div>
     }
+
     <div style="display: flex; gap: 32px; align-items: flex-start;">
-        <!-- Left side: controls and called numbers -->
+        @* --- Section: Left Side Controls and Called Numbers --- *@
         <div style="flex: 1 1 0; min-width: 350px;">
             <select @onchange="OnSelectedUserChanged" class="form-select" style="width: auto; display: inline-block; margin-right: 8px;">
                 <option value="">-- Select Player --</option>
-                @foreach (var user in users)
+                @foreach (var user in AdminHub.Users)
                 {
                     <option value="@user.ConnectionId">@user.PlayerName</option>
                 }
@@ -64,9 +69,9 @@ else if (isAdmin)
             <button class="btn btn-primary" @onclick="GenerateAndSendTicket" disabled="@(string.IsNullOrWhiteSpace(selectedConnectionId))" style="margin-right: 8px;">Generate & Send Ticket</button>
             <button class="btn btn-primary" @onclick="LoadUsers" style="margin-right: 8px;">Refresh Users</button>
 
-            @if (!string.IsNullOrEmpty(confirmationMessage))
+            @if (!string.IsNullOrEmpty(AdminHub.ConfirmationMessage))
             {
-                <div class="alert alert-success">@confirmationMessage</div>
+                <div class="alert alert-success">@AdminHub.ConfirmationMessage</div>
             }
 
             <br /><br />
@@ -78,7 +83,7 @@ else if (isAdmin)
             <div style="margin-bottom: 16px;">
                 <span>Draw Number: </span>
                 <span style="display:inline-block;width:32px;text-align:center;">
-                    @(drawnNumbers.Count > 0 ? drawnNumbers[drawnNumbers.Count - 1].ToString() : "-")
+                    @(AdminHub.DrawnNumbers.Count > 0 ? AdminHub.DrawnNumbers[AdminHub.DrawnNumbers.Count - 1].ToString() : "-")
                 </span>
             </div>
             <div style="margin-bottom: 16px;">
@@ -91,7 +96,7 @@ else if (isAdmin)
                                 {
                                     int num = row * 10 + col;
                                     if (num > 90) break;
-                                    bool isCalled = drawnNumbers.Contains(num);
+                                    bool isCalled = AdminHub.DrawnNumbers.Contains(num);
                                     <td class="@(isCalled ? "called" : null)">@num</td>
                                 }
                             </tr>
@@ -100,11 +105,11 @@ else if (isAdmin)
                 </table>
             </div>
         </div>
-        <!-- Right side: selected user's ticket -->
+        @* --- Section: Right Side - Selected User's Ticket --- *@
         <div style="flex: 1 1 0; min-width: 350px;">
             @if (!string.IsNullOrWhiteSpace(selectedConnectionId))
             {
-                <h4>@(users.FirstOrDefault(u => u.ConnectionId == selectedConnectionId)?.PlayerName ?? "Player")'s Ticket</h4>
+                <h4>@(AdminHub.Users.FirstOrDefault(u => u.ConnectionId == selectedConnectionId)?.PlayerName ?? "Player")'s Ticket</h4>
                 @if (selectedUserTicket != null)
                 {
                     <div style="display: flex; flex-wrap: wrap; gap: 24px;">
@@ -118,7 +123,7 @@ else if (isAdmin)
                                             @for (int j = 0; j < 9; j++)
                                             {
                                                 var value = selectedUserTicket.Numbers[grid * 3 + i][j];
-                                                bool isCalled = value.HasValue && drawnNumbers.Contains(value.Value);
+                                                bool isCalled = value.HasValue && AdminHub.DrawnNumbers.Contains(value.Value);
                                                 <td class="@(isCalled ? "called" : null)">@(value.HasValue ? value.Value.ToString() : "")</td>
                                             }
                                         </tr>
@@ -139,107 +144,26 @@ else if (isAdmin)
             }
         </div>
     </div>
-    <style>
-    .win-message {
-        background: #43a047;
-        color: #fff;
-        font-weight: bold;
-        border-radius: 6px;
-        padding: 12px 18px;
-        margin-bottom: 10px;
-        font-size: 1.1em;
-        box-shadow: 0 2px 8px rgba(67,160,71,0.08);
-    }
-    .ticket-table td {
-        width: 40px;
-        height: 40px;
-        text-align: center;
-        vertical-align: middle;
-        font-size: 1.2em;
-        font-weight: bold;
-        border: 1px solid #ccc;
-        background: #fff;
-    }
-    .ticket-table td.called {
-        background: #e0f7fa;
-        color: #1976d2;
-        font-weight: bold;
-    }
-    .numbers-grid td {
-        width: 32px;
-        height: 32px;
-        text-align: center;
-        vertical-align: middle;
-        font-size: 1.1em;
-        border: 1px solid #ccc;
-        background: #fff;
-    }
-    .numbers-grid td.called {
-        background: #e0f7fa;
-        font-weight: bold;
-    }
-    </style>
+
 }
 
 @code {
-    private HubConnection? hubConnection;
-    private string selectedConnectionId = string.Empty;
-    private BingoTicket? lastTicket;
-    private BingoTicket? selectedUserTicket;
-    // Fetch the selected user's ticket when selection changes
-    private async Task OnSelectedUserChanged(ChangeEventArgs e)
-    {
-        selectedConnectionId = e.Value?.ToString() ?? string.Empty;
-        selectedUserTicket = null;
-        if (!string.IsNullOrWhiteSpace(selectedConnectionId) && hubConnection != null)
-        {
-            // Try to fetch the ticket for the selected user from the server
-            try
-            {
-                selectedUserTicket = await hubConnection.InvokeAsync<BingoTicket>("GetUserTicket", selectedConnectionId);
-            }
-            catch
-            {
-                selectedUserTicket = null;
-            }
-        }
-    }
-    private List<UserInfo> users = new();
-    private string confirmationMessage = string.Empty;
-    private string lineWinAnnouncement = string.Empty;
-    private string bingoWinAnnouncement = string.Empty;
-    private List<int> drawnNumbers = new();
+    // --- Admin Authentication State ---
     private bool isAdmin = false;
     private string adminPassword = "letmein"; // Change this to your desired password
     private System.Threading.Timer? redirectTimer;
     private bool showPasswordDialog = false;
     private string enteredPassword = string.Empty;
     private bool passwordVisible = false;
+
+    // --- AdminHub State ---
+    private string selectedConnectionId = string.Empty;
+    private BingoGameOnline.Client.Services.BingoTicket? selectedUserTicket;
+
+    // --- Section: Admin Authentication Logic ---
     private void TogglePasswordVisibility()
     {
         passwordVisible = !passwordVisible;
-    }
-
-    private async Task NewGame()
-    {
-        lineWinAnnouncement = string.Empty;
-        bingoWinAnnouncement = string.Empty;
-        if (hubConnection != null)
-        {
-            await hubConnection.InvokeAsync("NewGame");
-        }
-    }
-    protected override async Task OnInitializedAsync()
-    {
-        isAdmin = await jsRuntime.InvokeAsync<bool>("bingoNameSession.isAdmin");
-        if (!isAdmin)
-        {
-            showPasswordDialog = true;
-        }
-        if (isAdmin)
-        {
-            await InitializeHub();
-        }
     }
 
     private async Task CheckPassword()
@@ -250,7 +174,7 @@ else if (isAdmin)
             isAdmin = true;
             showPasswordDialog = false;
             enteredPassword = string.Empty;
-            await InitializeHub();
+            await InitializeAdminHub();
             StateHasChanged();
         }
         else
@@ -264,68 +188,6 @@ else if (isAdmin)
         }
     }
 
-    private async Task InitializeHub()
-    {
-        // Use the correct server port for SignalR hub connection in development
-    var hubUrl = Navigation.ToAbsoluteUri("/bingoHub").ToString();
-        hubConnection = new HubConnectionBuilder()
-            .WithUrl(hubUrl)
-            .WithAutomaticReconnect()
-            .Build();
-        await hubConnection.StartAsync();
-        // Sync full called numbers list on connect/reconnect
-        hubConnection.On<int[]>("CalledNumbersSync", (numbers) =>
-        {
-            drawnNumbers = numbers.ToList();
-            StateHasChanged();
-        });
-        hubConnection.On<int, int, string>("LineWinAnnounced", (grid, rowInGrid, winnerName) =>
-        {
-            lineWinAnnouncement = $"{winnerName} has won a line!";
-            StateHasChanged();
-        });
-        hubConnection.On<string>("BingoWinAnnounced", (winnerName) =>
-        {
-            bingoWinAnnouncement = $"{winnerName} has won BINGO!";
-            StateHasChanged();
-        });
-        hubConnection.On<BingoTicket>("ReceiveTicket", (ticket) =>
-        {
-            lastTicket = ticket;
-            StateHasChanged();
-        });
-        hubConnection.On<string>("TicketGeneratedAndSent", (message) =>
-        {
-            confirmationMessage = message;
-            StateHasChanged();
-        });
-        hubConnection.On<List<UserInfo>>("UserListUpdated", (updatedUsers) =>
-        {
-            users = updatedUsers ?? new List<UserInfo>();
-            StateHasChanged();
-        });
-        hubConnection.On<int>("NumberCalled", (number) =>
-        {
-            if (!drawnNumbers.Contains(number))
-                drawnNumbers.Add(number);
-            StateHasChanged();
-        });
-        hubConnection.On("CalledNumbersReset", () =>
-        {
-            drawnNumbers.Clear();
-            StateHasChanged();
-        });
-        hubConnection.On("NewGameStarted", () =>
-        {
-            drawnNumbers.Clear();
-            lastTicket = null;
-            confirmationMessage = string.Empty;
-            StateHasChanged();
-        });
-        await LoadUsers();
-    // ...existing code...
-    }
-
     private void OnPasswordKeyDown(KeyboardEventArgs e)
     {
         if (e.Key == "Enter")
@@ -334,53 +196,66 @@ else if (isAdmin)
         }
     }
 
+    // --- Section: AdminHub Initialization ---
+    protected override async Task OnInitializedAsync()
+    {
+        isAdmin = await jsRuntime.InvokeAsync<bool>("bingoNameSession.isAdmin");
+        if (!isAdmin)
+        {
+            showPasswordDialog = true;
+        }
+        if (isAdmin)
+        {
+            await InitializeAdminHub();
+        }
+    }
+
+    private async Task InitializeAdminHub()
+    {
+        // Connect and subscribe to state changes
+        await AdminHub.ConnectAsync();
+        AdminHub.OnStateChanged += StateHasChanged;
+        AdminHub.OnUsersChanged += StateHasChanged;
+        await AdminHub.LoadUsers();
+    }
+
+    // --- Section: AdminHub Actions ---
+    private async Task NewGame()
+    {
+        await AdminHub.NewGame();
+    }
+
+    private async Task CallNumber()
+    {
+        await AdminHub.CallNumber();
+    }
+
     private async Task LoadUsers()
     {
-        if (hubConnection != null)
+        await AdminHub.LoadUsers();
+        // Optionally refresh the selected user's ticket if a user is selected
+        if (!string.IsNullOrWhiteSpace(selectedConnectionId))
         {
-            var result = await hubConnection.InvokeAsync<List<UserInfo>>("GetConnectedUsers");
-            users = result ?? new List<UserInfo>();
-            // Optionally refresh the selected user's ticket if a user is selected
-            if (!string.IsNullOrWhiteSpace(selectedConnectionId))
-            {
-                await OnSelectedUserChanged(new ChangeEventArgs { Value = selectedConnectionId });
-            }
-            StateHasChanged();
+            await OnSelectedUserChanged(new ChangeEventArgs { Value = selectedConnectionId });
         }
     }
 
     private async Task GenerateAndSendTicket()
     {
-        if (hubConnection != null && !string.IsNullOrWhiteSpace(selectedConnectionId))
+        if (!string.IsNullOrWhiteSpace(selectedConnectionId))
         {
-            confirmationMessage = string.Empty;
-            await hubConnection.InvokeAsync("GenerateAndSendTicket", selectedConnectionId);
+            await AdminHub.GenerateAndSendTicket(selectedConnectionId);
         }
     }
 
-    private async Task CallNumber()
+    // --- Section: User Ticket Management ---
+    private async Task OnSelectedUserChanged(ChangeEventArgs e)
     {
-        if (hubConnection != null)
+        selectedConnectionId = e.Value?.ToString() ?? string.Empty;
+        selectedUserTicket = null;
+        if (!string.IsNullOrWhiteSpace(selectedConnectionId))
         {
-            await hubConnection.InvokeAsync("CallNumber");
+            selectedUserTicket = await AdminHub.GetUserTicket(selectedConnectionId);
         }
-    }
-
-    private async Task ResetNumbers()
-    {
-        if (hubConnection != null)
-        {
-            await hubConnection.InvokeAsync("ResetCalledNumbers");
-        }
-    }
-
-    public class BingoTicket
-    {
-        public int?[][] Numbers { get; set; } = new int?[15][];
-    }
-    public class UserInfo
-    {
-        public string ConnectionId { get; set; } = string.Empty;
-        public string PlayerName { get; set; } = string.Empty;
     }
 }

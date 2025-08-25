@@ -1,0 +1,73 @@
+.ticket-table td[b-b1xfvykbqe] {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.2em;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+.ticket-table td.marked[b-b1xfvykbqe] {
+    background: #ffe082;
+    color: #d84315;
+    font-weight: bold;
+}
+.numbers-grid td[b-b1xfvykbqe] {
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.1em;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+.numbers-grid td.called[b-b1xfvykbqe] {
+    background: #e0f7fa;
+    font-weight: bold;
+}
+.called-number[b-b1xfvykbqe] {
+    font-size: 5em;
+    font-weight: bold;
+    color: #1976d2;
+    background: #e0f7fa;
+    border-radius: 12px;
+    padding: 20px 40px;
+    margin-bottom: 16px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 2px 12px rgba(25, 118, 210, 0.08);
+}
+.flex-main[b-b1xfvykbqe] {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+.ticket-area[b-b1xfvykbqe] {
+    flex: 1 1 0;
+    min-width: 350px;
+}
+.right-area[b-b1xfvykbqe] {
+    flex: 1 1 0;
+    min-width: 350px;
+}
+
+/* Make ticket-header and ticket-grids wider for better appearance */
+.ticket-header[b-b1xfvykbqe] {
+    width: 95%;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 18px;
+}
+.ticket-grids[b-b1xfvykbqe] {
+    width: 95%;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.modal .modal-content[b-b1xfvykbqe] {
+    border-radius: 10px;
+}

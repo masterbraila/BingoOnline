@@ -160,3 +160,98 @@ main[b-wwpsodd4af] {
         overflow-y: auto;
     }
 }
+/* /Pages/AdminTickets.razor.rz.scp.css */
+.win-message[b-nzwklplie2] {
+    background: #43a047;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 12px 18px;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    box-shadow: 0 2px 8px rgba(67,160,71,0.08);
+}
+.ticket-table td[b-nzwklplie2] {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.2em;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+.ticket-table td.called[b-nzwklplie2] {
+    background: #e0f7fa;
+    color: #1976d2;
+    font-weight: bold;
+}
+.numbers-grid td[b-nzwklplie2] {
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.1em;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+.numbers-grid td.called[b-nzwklplie2] {
+    background: #e0f7fa;
+    font-weight: bold;
+}
+/* /Pages/MyTicket.razor.rz.scp.css */
+.ticket-table td[b-b1xfvykbqe] {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.2em;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+.ticket-table td.marked[b-b1xfvykbqe] {
+    background: #ffe082;
+    color: #d84315;
+    font-weight: bold;
+}
+.numbers-grid td[b-b1xfvykbqe] {
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.1em;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+.numbers-grid td.called[b-b1xfvykbqe] {
+    background: #e0f7fa;
+    font-weight: bold;
+}
+.called-number[b-b1xfvykbqe] {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #1976d2;
+    background: #e0f7fa;
+    border-radius: 8px;
+    padding: 12px 24px;
+    margin-bottom: 16px;
+    display: inline-block;
+}
+.flex-main[b-b1xfvykbqe] {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+.ticket-area[b-b1xfvykbqe] {
+    flex: 1 1 0;
+    min-width: 350px;
+}
+.right-area[b-b1xfvykbqe] {
+    flex: 1 1 0;
+    min-width: 350px;
+}
+.modal .modal-content[b-b1xfvykbqe] {
+    border-radius: 10px;
+}

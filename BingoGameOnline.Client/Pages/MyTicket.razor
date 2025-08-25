@@ -15,14 +15,14 @@
     <div class="flex-main">
         <!-- Left: Ticket -->
         <div class="ticket-area">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; width: 100%;">
-                <h4 style="margin: 0; text-align: left;">@playerName's Bingo Ticket</h4>
-                <button class="btn btn-secondary" style="margin-left:auto;" onclick="window.print()">Print Ticket</button>
+            <div class="ticket-header" style="display: flex; align-items: center; justify-content: space-between;">
+                <h4 style="margin: 0;">@playerName's Bingo Ticket</h4>
+                <button class="btn btn-secondary" onclick="window.print()">Print Ticket</button>
             </div>
-            <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center;">
+            <div class="ticket-grids">
                 @for (int grid = 0; grid < 5; grid++)
                 {
-                    <table class="table table-bordered ticket-table" style="margin-bottom: 16px;">
+                    <table class="table table-bordered ticket-table">
                         <tbody>
                             @for (int i = 0; i < 3; i++)
                             {
@@ -65,8 +65,8 @@
                 </div>
             </div>
             <div>
-                <h4>Numbers 1-90</h4>
-                <table class="numbers-grid" style="margin:auto;">
+                <!-- <h4>Numbers 1-90</h4> -->
+                <table class="numbers-grid">
                     <tbody>
                         @for (int row = 0; row < 9; row++)
                         {

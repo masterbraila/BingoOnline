@@ -28,16 +28,8 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/GitHub/BingoOnline/BingoGameOnline.Client/Pages/AdminTickets.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5UaWNrZXRzLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/GitHub/BingoOnline/BingoGameOnline.Client/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/GitHub/BingoOnline/BingoGameOnline.Client/Pages/MyTicket.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTXlUaWNrZXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/GitHub/BingoOnline/BingoGameOnline.Client/_Imports.razor]
@@ -51,3 +43,11 @@ build_metadata.AdditionalFiles.CssScope = b-wwpsodd4af
 [D:/GitHub/BingoOnline/BingoGameOnline.Client/Layout/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-nm87x0pyut
+
+[D:/GitHub/BingoOnline/BingoGameOnline.Client/Pages/AdminTickets.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5UaWNrZXRzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-nzwklplie2
+
+[D:/GitHub/BingoOnline/BingoGameOnline.Client/Pages/MyTicket.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTXlUaWNrZXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-b1xfvykbqe
