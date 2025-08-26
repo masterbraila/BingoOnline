@@ -15,6 +15,9 @@ namespace BingoGameOnline.Client.Services
             public event Action? OnNewGame;
             public event Action? OnDisconnected;
             public event Action<int>? OnNumberCalled;
+            public event Action<List<string>>? OnRoomUserList;
+            public event Action<string, string>? OnRoomMessage;
+            public event Action<List<(string User, string Message)>>? OnRoomChatHistory;
 
             // Helper to clear all event handlers (for safe re-subscription)
             public void ClearEventHandlers()
@@ -23,6 +26,9 @@ namespace BingoGameOnline.Client.Services
                 OnNewGame = null;
                 OnDisconnected = null;
                 OnNumberCalled = null;
+                OnRoomUserList = null;
+                OnRoomMessage = null;
+                OnRoomChatHistory = null;
             }
 
         public BingoHubService(NavigationManager navigationManager)
@@ -72,6 +78,54 @@ namespace BingoGameOnline.Client.Services
                 await HubConnection.DisposeAsync();
                 HubConnection = null;
                 OnDisconnected?.Invoke();
+            }
+        }
+
+        public async Task ConnectToRoomAsync(string room, string playerName)
+        {
+            if (HubConnection != null && HubConnection.State == HubConnectionState.Connected)
+                return;
+            PlayerName = playerName;
+            Room = room;
+            var hubUrl = _navigationManager.ToAbsoluteUri("/bingoHub").ToString();
+            HubConnection = new HubConnectionBuilder()
+                .WithUrl(hubUrl)
+                .WithAutomaticReconnect()
+                .Build();
+            RegisterRoomHandlers();
+            await HubConnection.StartAsync();
+            await HubConnection.InvokeAsync("JoinRoom", room, playerName);
+        }
+
+        private void RegisterRoomHandlers()
+        {
+            if (HubConnection == null) return;
+            HubConnection.On<List<string>>("UserListUpdated", (users) =>
+            {
+                OnRoomUserList?.Invoke(users);
+            });
+            HubConnection.On<string, string>("ReceiveRoomMessage", (user, message) =>
+            {
+                OnRoomMessage?.Invoke(user, message);
+            });
+            HubConnection.On<List<System.ValueTuple<string, string>>>("ChatHistory", (history) =>
+            {
+                OnRoomChatHistory?.Invoke(history.Select(h => (h.Item1, h.Item2)).ToList());
+            });
+        }
+
+        public async Task SendRoomMessage(string room, string user, string message)
+        {
+            if (HubConnection != null && HubConnection.State == HubConnectionState.Connected)
+            {
+                await HubConnection.InvokeAsync("SendRoomMessage", room, user, message);
+            }
+        }
+        public async Task LeaveRoomAsync(string room, string playerName)
+        {
+            if (HubConnection != null && HubConnection.State == HubConnectionState.Connected)
+            {
+                await HubConnection.InvokeAsync("LeaveRoom", room, playerName);
             }
         }
     }

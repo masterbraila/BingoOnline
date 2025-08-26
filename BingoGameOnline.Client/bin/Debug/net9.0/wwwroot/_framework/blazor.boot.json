@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "BingoGameOnline.Client",
   "resources": {
-    "hash": "sha256-ZeVnb9r+TJbuCHHRweN7U6PwSPTe0l4apskLENiRbb8=",
+    "hash": "sha256-7IC5r7KhY/oFVghkOJhaiK4AUSceJCGE68WNqu8wcyA=",
     "fingerprinting": {
       "Microsoft.AspNetCore.Authorization.tnyc7xpluy.wasm": "Microsoft.AspNetCore.Authorization.wasm",
       "Microsoft.AspNetCore.Components.t32damlu4o.wasm": "Microsoft.AspNetCore.Components.wasm",
@@ -34,7 +34,6 @@
       "Microsoft.JSInterop.oafygsa2yv.wasm": "Microsoft.JSInterop.wasm",
       "Microsoft.JSInterop.WebAssembly.c5whsk6cyh.wasm": "Microsoft.JSInterop.WebAssembly.wasm",
       "System.Net.ServerSentEvents.xn93uwwjdi.wasm": "System.Net.ServerSentEvents.wasm",
-      "System.Threading.Channels.oiqcf44u3d.wasm": "System.Threading.Channels.wasm",
       "Microsoft.CSharp.mnvthyn9ga.wasm": "Microsoft.CSharp.wasm",
       "Microsoft.VisualBasic.Core.g11rmyyh65.wasm": "Microsoft.VisualBasic.Core.wasm",
       "Microsoft.VisualBasic.txibwr0y0j.wasm": "Microsoft.VisualBasic.wasm",
@@ -174,6 +173,7 @@
       "System.Text.Encodings.Web.3n7gkal5ar.wasm": "System.Text.Encodings.Web.wasm",
       "System.Text.Json.9wi3ak1857.wasm": "System.Text.Json.wasm",
       "System.Text.RegularExpressions.l6w0dedkpf.wasm": "System.Text.RegularExpressions.wasm",
+      "System.Threading.Channels.oiqcf44u3d.wasm": "System.Threading.Channels.wasm",
       "System.Threading.Overlapped.4q2qrbacz2.wasm": "System.Threading.Overlapped.wasm",
       "System.Threading.Tasks.Dataflow.wzhxi250cz.wasm": "System.Threading.Tasks.Dataflow.wasm",
       "System.Threading.Tasks.Extensions.ctn0pypdat.wasm": "System.Threading.Tasks.Extensions.wasm",
@@ -204,23 +204,23 @@
       "netstandard.hb3h2rr8mk.wasm": "netstandard.wasm",
       "System.Private.CoreLib.fk089ohxy8.wasm": "System.Private.CoreLib.wasm",
       "dotnet.js": "dotnet.js",
-      "dotnet.native.hmanx9razn.js": "dotnet.native.js",
-      "dotnet.native.p4lwlf2bu1.wasm": "dotnet.native.wasm",
-      "dotnet.runtime.o8gq1i8bk6.js": "dotnet.runtime.js",
+      "dotnet.native.50iqa8w3ys.js": "dotnet.native.js",
+      "dotnet.native.pk43x8e436.wasm": "dotnet.native.wasm",
+      "dotnet.runtime.ew19f13umk.js": "dotnet.runtime.js",
       "icudt_CJK.tjcz0u77k5.dat": "icudt_CJK.dat",
       "icudt_EFIGS.tptq2av103.dat": "icudt_EFIGS.dat",
       "icudt_no_CJK.lfu7j35m59.dat": "icudt_no_CJK.dat",
-      "BingoGameOnline.Client.12qglvhio8.wasm": "BingoGameOnline.Client.wasm",
-      "BingoGameOnline.Client.l5i431aqje.pdb": "BingoGameOnline.Client.pdb"
+      "BingoGameOnline.Client.qh936qz167.wasm": "BingoGameOnline.Client.wasm",
+      "BingoGameOnline.Client.o8ng74nzzx.pdb": "BingoGameOnline.Client.pdb"
     },
     "jsModuleNative": {
-      "dotnet.native.hmanx9razn.js": "sha256-d7UNSArplVrX3arY2Kmhxp1wN79ng8hLqIBrkiQ9Gbo="
+      "dotnet.native.50iqa8w3ys.js": "sha256-pQdXuxfVeqYHOwd5HUM2ERd7OnXirj9JTF37b6OdTAc="
     },
     "jsModuleRuntime": {
-      "dotnet.runtime.o8gq1i8bk6.js": "sha256-uD1t4tsPtmIHsx30SC4OztehGGaHVDksFD38rL2e3P4="
+      "dotnet.runtime.ew19f13umk.js": "sha256-Isv/63htfX73xgn3/2cZMtk4S8xBcbmlXRgJMDv4mhI="
     },
     "wasmNative": {
-      "dotnet.native.p4lwlf2bu1.wasm": "sha256-+eNtxSEiakcWrx6VoLGcDvqDWS3/kWe0AtiYmQFwe7E="
+      "dotnet.native.pk43x8e436.wasm": "sha256-6fprjjfQGsopiMetOMnTFT7N83KgQiUia8r8F1s/HUI="
     },
     "icu": {
       "icudt_CJK.tjcz0u77k5.dat": "sha256-SZLtQnRc0JkwqHab0VUVP7T3uBPSeYzxzDnpxPpUnHk=",
@@ -263,7 +263,6 @@
       "Microsoft.JSInterop.oafygsa2yv.wasm": "sha256-8KHde87s03YXh21jjvaLX0OAjPTeWpKn1jV7kf9GrvM=",
       "Microsoft.JSInterop.WebAssembly.c5whsk6cyh.wasm": "sha256-AHeFn5IBMJC1tI8hRNTBa4lyLko5J8AK64JFjeO/vVw=",
       "System.Net.ServerSentEvents.xn93uwwjdi.wasm": "sha256-U44S4EABh4f803jPl8vq+PlGjXcHYvltJhh4dJ+UiJE=",
-      "System.Threading.Channels.oiqcf44u3d.wasm": "sha256-QNCickffj3JWT/Ar9m3tk0Z00osexkK8r+kAX9J3ySg=",
       "Microsoft.CSharp.mnvthyn9ga.wasm": "sha256-fpFq3tiKl2KyIwwxqx00V0KgBM6xAe3+4MacTs9d0c0=",
       "Microsoft.VisualBasic.Core.g11rmyyh65.wasm": "sha256-BDwtMGszyqpVVjJQLJlpzwUZYXvG7ReKXIkB6OiAxVU=",
       "Microsoft.VisualBasic.txibwr0y0j.wasm": "sha256-X9/DgjYY/yytG8fIqL2MB7tBD3j/fo5VFEUVNS0k55Q=",
@@ -402,6 +401,7 @@
       "System.Text.Encodings.Web.3n7gkal5ar.wasm": "sha256-rxag7jG95CJIPItVwi0jFD4uYDp4Et4mCO0TDnvKWE0=",
       "System.Text.Json.9wi3ak1857.wasm": "sha256-aaz5Sd7mVksqUjnovVz2Jk6uG/aiIqrEHXEjE2VXYTU=",
       "System.Text.RegularExpressions.l6w0dedkpf.wasm": "sha256-7Zf4xCGGBpBXPSCuiiXKmanu7zRHi6mFCkgnGutnI28=",
+      "System.Threading.Channels.oiqcf44u3d.wasm": "sha256-QNCickffj3JWT/Ar9m3tk0Z00osexkK8r+kAX9J3ySg=",
       "System.Threading.Overlapped.4q2qrbacz2.wasm": "sha256-tMjHeK6eBKiTACk9o80VBVslLp63fSUX87UI6nReWyI=",
       "System.Threading.Tasks.Dataflow.wzhxi250cz.wasm": "sha256-pDxC37GLOkui01vTJXeLuPD/2LailyJ7eWhQnmM5pmw=",
       "System.Threading.Tasks.Extensions.ctn0pypdat.wasm": "sha256-kMlq6lv4ufplPCoFsR+TF/tRkXgSz8QSurFqS0PXhHU=",
@@ -430,10 +430,10 @@
       "WindowsBase.377bly7twj.wasm": "sha256-0VmBdMjdc0nZGHDSfaGirT6y3mJTM0qx8eqCUC/rpiE=",
       "mscorlib.o0184ey5ia.wasm": "sha256-2GxNKZQJVJvYMUxSTuXa5V2qxawSMMHZtwG33SKVCZU=",
       "netstandard.hb3h2rr8mk.wasm": "sha256-DWn9+RH/ElZQ6imlYqVwZvir1KTzNwY18AzGmnyiymU=",
-      "BingoGameOnline.Client.12qglvhio8.wasm": "sha256-F3eXTHma8veFzw1urUQzLgQTMAaHIv5s9EdazqcSlcw="
+      "BingoGameOnline.Client.qh936qz167.wasm": "sha256-zjCgNLWg+rxrtjD+Y/eQGaxEmd6NpVM31O5AB62jc1I="
     },
     "pdb": {
-      "BingoGameOnline.Client.l5i431aqje.pdb": "sha256-6dturpC//yVEYU1wF3jegxi0cC3CxYDnEOIpdm7uEOs="
+      "BingoGameOnline.Client.o8ng74nzzx.pdb": "sha256-WP9Bxqowp4aI6UjQZhVw4/MEdqheNoynlCC0MJuEqCM="
     }
   },
   "cacheBootResources": true,

@@ -1,0 +1,75 @@
+@page "/play/guestroom"
+@inject NavigationManager Navigation
+@inject BingoGameOnline.Client.Services.BingoHubService BingoHubService
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components
+
+<h3>Room: @roomName (as Guest)</h3>
+@if (!string.IsNullOrEmpty(Error))
+{
+    <div class="alert alert-danger">@Error</div>
+}
+@if (!isConnected)
+{
+    <p>Connecting...</p>
+}
+else
+{
+    <div class="mb-3">
+        <strong>Players in Room:</strong>
+        <ul>
+            @foreach (var user in users)
+            {
+                <li>@user</li>
+            }
+        </ul>
+    </div>
+    <div class="mb-3">
+        <strong>Chat:</strong>
+        <div style="border:1px solid #ccc; height:200px; overflow-y:auto; background:#f8f9fa; padding:8px;">
+            @foreach (var msg in chatMessages)
+            {
+                <div><b>@msg.User:</b> @msg.Message</div>
+            }
+        </div>
+        <EditForm Model="chatModel" OnValidSubmit="SendMessage">
+            <InputText @bind-Value="chatModel.Message" class="form-control mt-2" placeholder="Type a message..." />
+            <button class="btn btn-primary mt-2" type="submit">Send</button>
+        </EditForm>
+    </div>
+}
+
+@code {
+    private string? roomName;
+    private string? playerName;
+    private List<string> users = new();
+    private List<ChatMessage> chatMessages = new();
+    private ChatModel chatModel = new();
+    private string? Error = string.Empty;
+    private bool isConnected = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+        var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
+        roomName = query["roomName"] ?? $"Room{Guid.NewGuid().ToString()[..5]}";
+        playerName = query["name"] ?? $"Guest{Guid.NewGuid().ToString()[..5]}";
+        BingoHubService.OnRoomUserList += (list) => { users = list; StateHasChanged(); };
+        BingoHubService.OnRoomMessage += (user, msg) => { chatMessages.Add(new ChatMessage { User = user, Message = msg }); StateHasChanged(); };
+        BingoHubService.OnRoomChatHistory += (history) => { chatMessages = history.Select(h => new ChatMessage { User = h.User, Message = h.Message }).ToList(); StateHasChanged(); };
+        await BingoHubService.ConnectToRoomAsync($"guestroom_{roomName}", playerName);
+        isConnected = true;
+    }
+
+    private async Task SendMessage()
+    {
+        if (!string.IsNullOrWhiteSpace(chatModel.Message) && isConnected)
+        {
+            await BingoHubService.SendRoomMessage($"guestroom_{roomName}", playerName!, chatModel.Message);
+            chatModel.Message = string.Empty;
+        }
+    }
+
+    public class ChatModel { public string? Message { get; set; } }
+    public class ChatMessage { public string? User { get; set; } public string? Message { get; set; } }
+}

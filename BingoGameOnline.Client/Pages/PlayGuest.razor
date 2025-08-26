@@ -1,0 +1,60 @@
+@page "/play/guest"
+@inject NavigationManager Navigation
+@inject BingoGameOnline.Client.Services.BingoHubService BingoHubService
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components
+
+<h3>Join or Create a Room as Guest</h3>
+<EditForm Model="guestModel" OnValidSubmit="JoinRoom">
+    <InputText @bind-Value="guestModel.RoomId" placeholder="Room ID (number)" class="form-control mb-2" />
+    <InputText @bind-Value="guestModel.Name" placeholder="Your Name (optional)" class="form-control mb-2" />
+    <InputText @bind-Value="guestModel.RoomName" placeholder="Room Name (for create)" class="form-control mb-2" />
+    <button class="btn btn-primary" type="submit">Join/Create Room</button>
+</EditForm>
+@if (!string.IsNullOrEmpty(Error))
+{
+    <div class="alert alert-danger">@Error</div>
+}
+
+@code {
+    private GuestModel guestModel = new();
+    private string? Error;
+
+    protected override void OnInitialized()
+    {
+        var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+        var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
+        var name = query["name"];
+        var roomName = query["roomName"];
+        if (!string.IsNullOrEmpty(name))
+            guestModel.Name = name;
+        if (!string.IsNullOrEmpty(roomName))
+            guestModel.RoomName = roomName;
+    }
+
+    private void JoinRoom()
+    {
+        if (!string.IsNullOrWhiteSpace(guestModel.RoomName))
+        {
+            // Creating a new room as guest
+            Navigation.NavigateTo($"/play/guestroom?name={guestModel.Name ?? $"Guest{Guid.NewGuid().ToString()[..5]}"}&roomName={guestModel.RoomName}");
+        }
+        else if (int.TryParse(guestModel.RoomId, out var roomId))
+        {
+            // Joining an existing room as guest
+            var name = string.IsNullOrWhiteSpace(guestModel.Name) ? $"Guest{Guid.NewGuid().ToString()[..5]}" : guestModel.Name;
+            Navigation.NavigateTo($"/play/{roomId}?guest={name}");
+        }
+        else
+        {
+            Error = "Please enter a valid room ID or room name.";
+        }
+    }
+
+    public class GuestModel
+    {
+        public string? RoomId { get; set; }
+        public string? Name { get; set; }
+        public string? RoomName { get; set; }
+    }
+}

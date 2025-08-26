@@ -1,0 +1,102 @@
+@page "/rooms"
+@inject BingoGameOnline.Client.Services.RoomService RoomService
+@inject NavigationManager Navigation
+@using BingoGameOnline.Client.Models
+
+<h3>Game Rooms</h3>
+
+<EditForm Model="roomModel" OnValidSubmit="CreateRoom">
+    <InputText @bind-Value="roomModel.Name" placeholder="Room name" class="form-control mb-2" />
+    <button class="btn btn-success me-2" type="submit">Create Room</button>
+    <button class="btn btn-secondary" type="button" @onclick="CreateRoomAsGuest">Create as Guest</button>
+</EditForm>
+
+@if (rooms == null)
+{
+    <p>Loading rooms...</p>
+}
+else if (rooms.Count == 0)
+{
+    <p>No rooms available.</p>
+}
+else
+{
+    <ul class="list-group">
+        @foreach (var room in rooms)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>@room.Name (Owner: @room.OwnerUserName)</span>
+                <div>
+                    <button class="btn btn-primary btn-sm me-2" @onclick="() => JoinRoom(room.Id)">Join</button>
+                    <button class="btn btn-secondary btn-sm" @onclick="() => JoinRoomAsGuest(room.Id)">Join as Guest</button>
+                </div>
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    private List<RoomDto>? rooms;
+    private RoomModel roomModel = new();
+    private bool isLoggedIn => !string.IsNullOrEmpty(currentUserName);
+    private string? currentUserName;
+    private string? guestName;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Try to get logged-in username (implement as needed, or leave null for guest)
+        currentUserName = null;
+        await LoadRooms();
+    }
+
+    private async Task LoadRooms()
+    {
+        rooms = await RoomService.ListRooms();
+        StateHasChanged();
+    }
+
+    private async Task CreateRoom()
+    {
+        if (!string.IsNullOrWhiteSpace(roomModel.Name))
+        {
+            if (isLoggedIn)
+            {
+                var success = await RoomService.CreateRoom(roomModel.Name);
+                if (success)
+                {
+                    roomModel.Name = string.Empty;
+                    await LoadRooms();
+                }
+            }
+            else
+            {
+                await CreateRoomAsGuest();
+            }
+        }
+    }
+
+    private async Task CreateRoomAsGuest()
+    {
+        guestName = $"Guest{Guid.NewGuid().ToString()[..5]}";
+        Navigation.NavigateTo($"/play/guest?name={guestName}&roomName={roomModel.Name}");
+        await Task.CompletedTask;
+    }
+
+    private async Task JoinRoom(int roomId)
+    {
+        Navigation.NavigateTo($"/play/{roomId}");
+        await Task.CompletedTask;
+    }
+
+    private async Task JoinRoomAsGuest(int roomId)
+    {
+        guestName = $"Guest{Guid.NewGuid().ToString()[..5]}";
+        Navigation.NavigateTo($"/play/{roomId}?guest={guestName}");
+        await Task.CompletedTask;
+    }
+
+    public class RoomModel
+    {
+        public string? Name { get; set; }
+    }
+}

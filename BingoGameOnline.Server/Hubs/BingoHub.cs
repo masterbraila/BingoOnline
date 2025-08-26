@@ -17,6 +17,11 @@ namespace BingoGameOnline.Server.Hubs
     // Track BINGO winner per grid: key = grid, value = playerName
     private static Dictionary<int, string> BingoWinners = new();
 
+        // Per-room user tracking
+        private static Dictionary<string, HashSet<string>> RoomUsers = new(); // room -> set of player names
+        // Per-room chat history (simple, not persisted)
+        private static Dictionary<string, List<(string User, string Message)>> RoomChats = new(); // room -> chat messages
+
         public override async Task OnConnectedAsync()
         {
             await base.OnConnectedAsync();
@@ -37,10 +42,40 @@ namespace BingoGameOnline.Server.Hubs
         {
             ConnectedUsers[Context.ConnectionId] = playerName;
             await Groups.AddToGroupAsync(Context.ConnectionId, room);
-            await Clients.Group(room).SendAsync("PlayerJoined", playerName);
+            if (!RoomUsers.ContainsKey(room)) RoomUsers[room] = new HashSet<string>();
+            RoomUsers[room].Add(playerName);
+            await Clients.Group(room).SendAsync("UserListUpdated", RoomUsers[room].ToList());
+            // Send chat history to the joining user
+            if (RoomChats.TryGetValue(room, out var chat))
+                await Clients.Caller.SendAsync("ChatHistory", chat);
+            else
+                await Clients.Caller.SendAsync("ChatHistory", new List<(string, string)>());
             // Send the current list of called numbers to the joining user
             await Clients.Caller.SendAsync("CalledNumbersSync", CalledNumbers.ToArray());
             await BroadcastUserList();
+        }
+
+        // Alias for client compatibility
+        public async Task JoinRoom(string room, string playerName)
+        {
+            await JoinGame(room, playerName);
+        }
+
+        public async Task LeaveRoom(string room, string playerName)
+        {
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, room);
+            if (RoomUsers.ContainsKey(room))
+            {
+                RoomUsers[room].Remove(playerName);
+                await Clients.Group(room).SendAsync("UserListUpdated", RoomUsers[room].ToList());
+            }
+        }
+
+        public async Task SendRoomMessage(string room, string user, string message)
+        {
+            if (!RoomChats.ContainsKey(room)) RoomChats[room] = new List<(string, string)>();
+            RoomChats[room].Add((user, message));
+            await Clients.Group(room).SendAsync("ReceiveRoomMessage", user, message);
         }
 
         // Called when a player sends a bingo number

@@ -1,0 +1,69 @@
+@page "/register"
+@inject BingoGameOnline.Client.Services.AuthService AuthService
+@inject NavigationManager Navigation
+
+<h3>Register</h3>
+@if (!string.IsNullOrEmpty(Error))
+{
+    <div class="alert alert-danger">@Error</div>
+}
+@if (PasswordErrors.Count > 0)
+{
+    <ul class="alert alert-warning">
+        @foreach (var err in PasswordErrors)
+        {
+            <li>@err</li>
+        }
+    </ul>
+}
+<EditForm Model="registerModel" OnValidSubmit="HandleRegister">
+    <InputText @bind-Value="registerModel.Username" placeholder="Username" class="form-control mb-2" />
+    <InputText @bind-Value="registerModel.Email" placeholder="Email" class="form-control mb-2" />
+    <InputText @bind-Value="registerModel.Password" placeholder="Password" type="password" class="form-control mb-2" />
+    <button class="btn btn-primary" type="submit">Register</button>
+</EditForm>
+<p>
+    Already have an account? <a href="/login">Login</a>
+</p>
+
+@code {
+    private RegisterModel registerModel = new();
+    private string? Error;
+    private List<string> PasswordErrors = new();
+
+    private bool ValidatePassword(string? password)
+    {
+        PasswordErrors.Clear();
+        if (string.IsNullOrEmpty(password) || password.Length < 6)
+            PasswordErrors.Add("Passwords must be at least 6 characters.");
+        if (password is not null && !password.Any(char.IsUpper))
+            PasswordErrors.Add("Passwords must have at least one uppercase ('A'-'Z').");
+        if (password is not null && !password.Any(char.IsDigit))
+            PasswordErrors.Add("Passwords must have at least one digit ('0'-'9').");
+        if (password is not null && password.All(char.IsLetterOrDigit))
+            PasswordErrors.Add("Passwords must have at least one non alphanumeric character.");
+        return PasswordErrors.Count == 0;
+    }
+
+    private async Task HandleRegister()
+    {
+        if (!ValidatePassword(registerModel.Password))
+            return;
+        var success = await AuthService.Register(registerModel.Username!, registerModel.Email!, registerModel.Password!);
+        if (success)
+        {
+            Navigation.NavigateTo("/");
+        }
+        else
+        {
+            Error = "Registration failed. Please try again.";
+        }
+    }
+
+    public class RegisterModel
+    {
+        public string? Username { get; set; }
+        public string? Email { get; set; }
+        public string? Password { get; set; }
+    }
+}

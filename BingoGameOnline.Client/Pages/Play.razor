@@ -1,0 +1,125 @@
+@page "/play/{roomId:int}"
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components
+@inject NavigationManager Navigation
+@inject BingoGameOnline.Client.Services.RoomService RoomService
+@inject BingoGameOnline.Client.Services.BingoHubService BingoHubService
+
+<h3>@(room != null ? $"Room: {room.Name}" : $"Room {roomId}")</h3>
+
+@if (!string.IsNullOrEmpty(Error))
+{
+    <div class="alert alert-danger">@Error</div>
+}
+
+@if (room == null)
+{
+    <p>Loading room info...</p>
+}
+else
+{
+    <div class="mb-3">
+        <strong>Room Name:</strong> @room.Name <br />
+        <strong>Owner:</strong> @room.OwnerUserName
+    </div>
+    <div class="mb-3">
+        @if (IsOwner)
+        {
+            <button class="btn btn-danger me-2" @onclick="DeleteRoom">Delete Room</button>
+        }
+        <button class="btn btn-secondary" @onclick="LeaveRoom">Leave Room</button>
+    </div>
+    <div class="mb-3">
+        <strong>Players in Room:</strong>
+        <ul>
+            @foreach (var user in users)
+            {
+                <li>@user</li>
+            }
+        </ul>
+    </div>
+    <div class="mb-3">
+        <strong>Chat:</strong>
+        <div style="border:1px solid #ccc; height:200px; overflow-y:auto; background:#f8f9fa; padding:8px;">
+            @foreach (var msg in chatMessages)
+            {
+                <div><b>@msg.User:</b> @msg.Message</div>
+            }
+        </div>
+        <EditForm Model="chatModel" OnValidSubmit="SendMessage">
+            <InputText @bind-Value="chatModel.Message" class="form-control mt-2" placeholder="Type a message..." />
+            <button class="btn btn-primary mt-2" type="submit">Send</button>
+        </EditForm>
+    </div>
+}
+
+@code {
+    [Parameter] public int roomId { get; set; }
+    [Parameter] public string? guest { get; set; }
+    private BingoGameOnline.Client.Models.RoomDto? room;
+    private List<string> users = new();
+    private List<ChatMessage> chatMessages = new();
+    private ChatModel chatModel = new();
+    private string? Error;
+    private string? playerName;
+    private bool isConnected = false;
+    private bool IsOwner => room != null && !string.IsNullOrEmpty(room.OwnerUserName) && playerName == room.OwnerUserName;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadRoom();
+        var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+        var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
+        playerName = query["guest"] ?? playerName;
+        if (string.IsNullOrEmpty(playerName))
+            playerName = $"Guest{Guid.NewGuid().ToString()[..5]}";
+        BingoHubService.OnRoomUserList += (list) => { users = list; StateHasChanged(); };
+        BingoHubService.OnRoomMessage += (user, msg) => { chatMessages.Add(new ChatMessage { User = user, Message = msg }); StateHasChanged(); };
+        BingoHubService.OnRoomChatHistory += (history) => { chatMessages = history.Select(h => new ChatMessage { User = h.User, Message = h.Message }).ToList(); StateHasChanged(); };
+        await BingoHubService.ConnectToRoomAsync($"room_{roomId}", playerName);
+        isConnected = true;
+    }
+
+    private async Task LoadRoom()
+    {
+        var allRooms = await RoomService.ListRooms();
+        room = allRooms.FirstOrDefault(r => r.Id == roomId);
+        if (room == null)
+        {
+            Error = "Room not found.";
+        }
+    }
+
+    private async Task SendMessage()
+    {
+        if (!string.IsNullOrWhiteSpace(chatModel.Message) && isConnected)
+        {
+            await BingoHubService.SendRoomMessage($"room_{roomId}", playerName!, chatModel.Message);
+            chatModel.Message = string.Empty;
+        }
+    }
+
+    private async Task DeleteRoom()
+    {
+        if (room != null)
+        {
+            var success = await RoomService.DeleteRoom(room.Id);
+            if (success)
+            {
+                Navigation.NavigateTo("/rooms");
+            }
+            else
+            {
+                Error = "Failed to delete room.";
+            }
+        }
+    }
+
+    private void LeaveRoom()
+    {
+        Navigation.NavigateTo("/rooms");
+    }
+
+    public class ChatModel { public string? Message { get; set; } }
+    public class ChatMessage { public string? User { get; set; } public string? Message { get; set; } }
+}

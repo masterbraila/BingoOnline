@@ -1,0 +1,43 @@
+@page "/login"
+@inject BingoGameOnline.Client.Services.AuthService AuthService
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+
+<h3>Login</h3>
+@if (!string.IsNullOrEmpty(Error))
+{
+    <div class="alert alert-danger">@Error</div>
+}
+<EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+    <InputText @bind-Value="loginModel.Username" placeholder="Username" class="form-control mb-2" />
+    <InputText @bind-Value="loginModel.Password" placeholder="Password" type="password" class="form-control mb-2" />
+    <button class="btn btn-primary" type="submit">Login</button>
+</EditForm>
+<p>
+    Don't have an account? <a href="/register">Register</a>
+</p>
+
+@code {
+    private LoginModel loginModel = new();
+    private string? Error;
+
+    private async Task HandleLogin()
+    {
+        var success = await AuthService.Login(loginModel.Username!, loginModel.Password!);
+        if (success)
+        {
+            await JS.InvokeVoidAsync("bingoNameSession.setName", loginModel.Username);
+            Navigation.NavigateTo("/");
+        }
+        else
+        {
+            Error = "Invalid username or password.";
+        }
+    }
+
+    public class LoginModel
+    {
+        public string? Username { get; set; }
+        public string? Password { get; set; }
+    }
+}
