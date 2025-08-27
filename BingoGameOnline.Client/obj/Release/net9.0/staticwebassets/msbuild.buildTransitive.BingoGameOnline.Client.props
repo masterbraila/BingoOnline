@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\BingoGameOnline.Client.props" />
-</Project>
