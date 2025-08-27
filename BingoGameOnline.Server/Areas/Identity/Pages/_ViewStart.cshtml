@@ -1,4 +1,10 @@
-
 @{
-    Layout = "/Pages/Shared/_Layout.cshtml";
+    if (Context.Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+    {
+        Layout = null;
+    }
+    else
+    {
+        Layout = "/Pages/Shared/_Layout.cshtml";
+    }
 }

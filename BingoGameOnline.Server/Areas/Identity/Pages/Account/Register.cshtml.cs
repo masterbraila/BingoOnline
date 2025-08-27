@@ -109,38 +109,22 @@ namespace BingoGameOnline.Server.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            bool isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest" || Request.Query["layout"] == "none";
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
                 await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
-                // Remove email logic, or set a dummy email if required by Identity
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-
-                    // var userId = await _userManager.GetUserIdAsync(user);
-                    // var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    // code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    // var callbackUrl = Url.Page(
-                    //     "/Account/ConfirmEmail",
-                    //     pageHandler: null,
-                    //     values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                    //     protocol: Request.Scheme);
-
-                    // await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                    //     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                    // if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    // {
-                    //     return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    // }
-                    // else
-                    // {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
-                    // }
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    if (isAjax)
+                    {
+                        return new JsonResult(new { success = true, redirect = returnUrl });
+                    }
+                    return LocalRedirect(returnUrl);
                 }
                 foreach (var error in result.Errors)
                 {
@@ -149,6 +133,10 @@ namespace BingoGameOnline.Server.Areas.Identity.Pages.Account
             }
 
             // If we got this far, something failed, redisplay form
+            if (isAjax)
+            {
+                return Partial("/Areas/Identity/Pages/Account/Register.cshtml", this);
+            }
             return Page();
         }
 

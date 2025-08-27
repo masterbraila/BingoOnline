@@ -107,31 +107,53 @@ namespace BingoGameOnline.Server.Areas.Identity.Pages.Account
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
+            bool isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest" || Request.Query["layout"] == "none";
+
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    if (isAjax)
+                    {
+                        return new JsonResult(new { success = true, redirect = returnUrl });
+                    }
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
                 {
+                    if (isAjax)
+                    {
+                        return new JsonResult(new { success = false, twoFactor = true });
+                    }
                     return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
                 }
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning("User account locked out.");
+                    if (isAjax)
+                    {
+                        return new JsonResult(new { success = false, lockedOut = true });
+                    }
                     return RedirectToPage("./Lockout");
                 }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    if (isAjax)
+                    {
+                        return Partial("/Areas/Identity/Pages/Account/Login.cshtml", this);
+                    }
                     return Page();
                 }
             }
 
             // If we got this far, something failed, redisplay form
+            if (isAjax)
+            {
+                return Partial("/Areas/Identity/Pages/Account/Login.cshtml", this);
+            }
             return Page();
         }
     }
