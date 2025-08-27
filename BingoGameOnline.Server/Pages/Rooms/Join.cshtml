@@ -1,0 +1,27 @@
+@page "{id:int}"
+@model BingoGameOnline.Server.Pages.Rooms.JoinModel
+@{
+    ViewData["Title"] = "Join Room";
+}
+
+<h1>Join Room</h1>
+
+@if (Model.Room == null)
+{
+    <div class="alert alert-danger">Room not found.</div>
+}
+else
+{
+    <div class="alert alert-success">You have joined the room: <strong>@Model.Room.Name</strong></div>
+    <div class="alert alert-info">Your name in this room: <strong>@Model.DisplayName</strong></div>
+    <h4>Players in this room:</h4>
+    <ul>
+        @foreach (var name in Model.PlayerNames)
+        {
+            <li>@name</li>
+        }
+    </ul>
+    <form method="post">
+        <button type="submit" class="btn btn-danger">Leave Room</button>
+    </form>
+}

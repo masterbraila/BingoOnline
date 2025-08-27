@@ -1,0 +1,40 @@
+@page
+@model BingoGameOnline.Server.Pages.Rooms.IndexModel
+@{
+    ViewData["Title"] = "Rooms";
+}
+
+<h1>Rooms</h1>
+
+<div class="mb-3">
+    <form method="post" style="display:inline">
+        <button type="submit" class="btn btn-primary">Create New Room</button>
+    </form>
+    <form method="get" style="display:inline">
+        <button type="submit" class="btn btn-secondary ms-2">Refresh</button>
+    </form>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Creator</th>
+            <th>Players</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var room in Model.Rooms)
+    {
+        <tr>
+            <td>@room.Name</td>
+            <td>@room.CreatorName</td>
+            <td>@Model.GetPlayerCount(room.Id)</td>
+            <td>
+                <a asp-page="Join" asp-route-id="@room.Id" class="btn btn-success">Join</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

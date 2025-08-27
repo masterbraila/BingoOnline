@@ -9,5 +9,8 @@ namespace BingoGameOnline.Server.Models
             : base(options)
         {
         }
+
+        public DbSet<Room> Rooms { get; set; }
+        public DbSet<RoomPlayer> RoomPlayers { get; set; }
     }
 }
