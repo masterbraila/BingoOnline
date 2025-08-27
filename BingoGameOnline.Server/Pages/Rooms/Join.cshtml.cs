@@ -5,15 +5,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using BingoGameOnline.Server.Hubs;
 
 namespace BingoGameOnline.Server.Pages.Rooms
 {
+    [IgnoreAntiforgeryToken]
     public class JoinModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        public JoinModel(ApplicationDbContext context)
+        private readonly IRoomHubNotifier _notifier;
+        public JoinModel(ApplicationDbContext context, IRoomHubNotifier notifier)
         {
             _context = context;
+            _notifier = notifier;
         }
         public Room? Room { get; set; }
         public string DisplayName { get; set; } = string.Empty;
@@ -60,6 +64,7 @@ namespace BingoGameOnline.Server.Pages.Rooms
                     UserId = userId
                 });
                 await _context.SaveChangesAsync();
+                await _notifier.NotifyPlayerListChanged(id);
             }
             DisplayName = playerName;
             // Get all player names in the room
@@ -86,6 +91,7 @@ namespace BingoGameOnline.Server.Pages.Rooms
             {
                 _context.RoomPlayers.Remove(player);
                 await _context.SaveChangesAsync();
+                await _notifier.NotifyPlayerListChanged(id);
             }
             // If no players left in the room, delete the room
             bool anyPlayersLeft = await _context.RoomPlayers.AnyAsync(rp => rp.RoomId == id);
@@ -96,9 +102,23 @@ namespace BingoGameOnline.Server.Pages.Rooms
                 {
                     _context.Rooms.Remove(room);
                     await _context.SaveChangesAsync();
+                    await _notifier.NotifyRoomChanged();
                 }
             }
             return RedirectToPage("Index");
+        }
+
+        public async Task<IActionResult> OnGetPlayersAsync(int id)
+        {
+            var playerNames = await _context.RoomPlayers
+                .Where(rp => rp.RoomId == id)
+                .Select(rp => rp.Name)
+                .ToListAsync();
+            return new PartialViewResult
+            {
+                ViewName = "_PlayerListPartial",
+                ViewData = new Microsoft.AspNetCore.Mvc.ViewFeatures.ViewDataDictionary<List<string>>(ViewData, playerNames)
+            };
         }
     }
 }

@@ -406,3 +406,7 @@ D:\Aplicatii\BingoOnline\BingoGameOnline.Server\bin\Debug\net9.0\ru\Microsoft.Co
 D:\Aplicatii\BingoOnline\BingoGameOnline.Server\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 D:\Aplicatii\BingoOnline\BingoGameOnline.Server\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 D:\Aplicatii\BingoOnline\BingoGameOnline.Server\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aplicatii\BingoOnline\BingoGameOnline.Server\bin\Debug\net9.0\System.Net.WebSockets.WebSocketProtocol.dll
+D:\Aplicatii\BingoOnline\BingoGameOnline.Server\obj\Debug\net9.0\compressed\thyqa3tvq1-uq9zgxizff.gz
+D:\Aplicatii\BingoOnline\BingoGameOnline.Server\obj\Debug\net9.0\compressed\bzf497h7yw-wgm5yg40tj.gz
+D:\Aplicatii\BingoOnline\BingoGameOnline.Server\obj\Debug\net9.0\compressed\yr2gyu3dlm-6o56u443jj.gz

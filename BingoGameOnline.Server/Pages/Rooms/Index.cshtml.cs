@@ -6,15 +6,18 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
+using BingoGameOnline.Server.Hubs;
 
 namespace BingoGameOnline.Server.Pages.Rooms
 {
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        public IndexModel(ApplicationDbContext context)
+        private readonly IRoomHubNotifier _notifier;
+        public IndexModel(ApplicationDbContext context, IRoomHubNotifier notifier)
         {
             _context = context;
+            _notifier = notifier;
         }
         public IList<Room> Rooms { get; set; } = new List<Room>();
         private List<IGrouping<int, RoomPlayer>> _roomPlayers = new();
@@ -66,7 +69,7 @@ namespace BingoGameOnline.Server.Pages.Rooms
                 UserId = userId
             });
             await _context.SaveChangesAsync();
-            // Redirect to the Join page for the new room
+            // Do NOT notify here; redirect to Join, and let Join/Leave handle notifications
             return RedirectToPage("Join", new { id = room.Id });
         }
         public int GetPlayerCount(int roomId)

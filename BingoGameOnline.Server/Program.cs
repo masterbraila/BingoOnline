@@ -11,6 +11,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 builder.Services.AddSession();
+builder.Services.AddSignalR();
+builder.Services.AddSingleton<BingoGameOnline.Server.Hubs.IRoomHubNotifier, BingoGameOnline.Server.Hubs.RoomHubNotifier>();
 
 var app = builder.Build();
 
@@ -31,5 +33,7 @@ app.UseAuthorization();
 app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();
+app.MapHub<BingoGameOnline.Server.Hubs.RoomHub>("/roomhub");
+app.MapHub<BingoGameOnline.Server.Hubs.ChatHub>("/chathub");
 
 app.Run();
