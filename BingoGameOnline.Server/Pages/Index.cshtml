@@ -61,6 +61,9 @@
 </div>
 
 @section Scripts {
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+<script type="module" src="/js/presence.js"></script>
+<script type="module" src="/js/friendshub.js"></script>
 <script>
 $(function() {
     // Check for Bootstrap modal
@@ -125,6 +128,25 @@ $(function() {
     });
     // Store all friends for filtering
     var allFriends = [];
+    var onlineUserIds = [];
+    var myUserId = null;
+    // Get current user ID for presence
+    $.get('/api/account/me', function(me) {
+        myUserId = me.userId;
+        import('/js/presence.js').then(mod => {
+            mod.startPresenceHub(myUserId, function(onlineIds) {
+                onlineUserIds = onlineIds;
+                console.log('Online user IDs from SignalR:', onlineUserIds);
+                renderFriendsList(allFriends);
+            });
+        });
+    });
+    // Start FriendsHub for real-time friend list updates
+    import('/js/friendshub.js').then(mod => {
+        mod.startFriendsHub(function() {
+            loadFriends();
+        });
+    });
     // Load friends list
     function loadFriends() {
         $.get('/api/friends/list', function(friends) {
@@ -141,9 +163,14 @@ $(function() {
             return;
         }
         friends.forEach(function(f) {
-            var name = f.userName || '(Unknown)';
-            var html = '<li class="list-group-item d-flex justify-content-between align-items-center">';
-            html += '<span>' + name + '</span>';
+            var name = f.userName || f.UserName || '(Unknown)';
+            var friendUserId = f.FriendUserId || f.friendUserId;
+            var userId = f.UserId || f.userId;
+            var otherUserId = (f.direction === 'sent') ? friendUserId : userId;
+            var isOnline = onlineUserIds && onlineUserIds.includes(otherUserId);
+            var dot = isOnline ? '<span class="online-dot me-2" title="Online"></span>' : '<span class="offline-dot me-2" title="Offline"></span>';
+            var html = '<li class="list-group-item d-flex align-items-center">';
+            html += dot + '<span class="friend-username flex-grow-1">' + name + '</span>';
             var direction = f.direction;
             var status = f.status;
             var friendId = f.friendId;
@@ -159,7 +186,7 @@ $(function() {
             $list.append(html);
         });
     }
-    // Approve friend request
+    // Approve friend request (delegated)
     $('#friends-list').on('click', '.approve-friend-btn', function() {
         var friendId = $(this).data('friendid');
         var $btn = $(this);
@@ -173,7 +200,7 @@ $(function() {
                 $btn.prop('disabled', false);
             });
     });
-    // Decline friend request
+    // Decline friend request (delegated)
     $('#friends-list').on('click', '.decline-friend-btn', function() {
         var friendId = $(this).data('friendid');
         var $btn = $(this);
@@ -187,18 +214,20 @@ $(function() {
                 $btn.prop('disabled', false);
             });
     });
-    // Filter friends as you type
-    $('#friend-list-search-box').on('input', function() {
-        var q = $(this).val().trim().toLowerCase();
-        if (!q) {
-            renderFriendsList(allFriends);
-            return;
-        }
-        var filtered = allFriends.filter(function(f) {
-            return f.UserName.toLowerCase().includes(q);
-        });
-        renderFriendsList(filtered);
-    });
+    // Add online/offline dot styles if not present
+    if (!document.getElementById('presence-dot-style')) {
+        var style = document.createElement('style');
+        style.id = 'presence-dot-style';
+        style.innerHTML = `.online-dot { display:inline-block; width:10px; height:10px; border-radius:50%; background:#28a745; margin-right:4px; }\n.offline-dot { display:inline-block; width:10px; height:10px; border-radius:50%; background:#ccc; margin-right:4px; }`;
+        document.head.appendChild(style);
+    }
+    // Add username alignment style
+    if (!document.getElementById('friend-username-style')) {
+        var style = document.createElement('style');
+        style.id = 'friend-username-style';
+        style.innerHTML = `.friend-username { text-align: left; min-width: 0; word-break: break-all; }`;
+        document.head.appendChild(style);
+    }
     // Only run if the friends card is present
     if ($('#friends-list').length) {
         loadFriends();

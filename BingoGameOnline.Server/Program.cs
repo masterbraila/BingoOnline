@@ -44,6 +44,8 @@ app.MapRazorPages()
    .WithStaticAssets();
 app.MapHub<BingoGameOnline.Server.Hubs.RoomHub>("/roomhub");
 app.MapHub<BingoGameOnline.Server.Hubs.ChatHub>("/chathub");
+app.MapHub<BingoGameOnline.Server.Hubs.PresenceHub>("/presencehub");
+app.MapHub<BingoGameOnline.Server.Hubs.FriendsHub>("/friendshub");
 app.MapControllers();
 
 app.Run();

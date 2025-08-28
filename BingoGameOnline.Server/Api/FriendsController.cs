@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.SignalR;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using BingoGameOnline.Server.Hubs;
 
 namespace BingoGameOnline.Server.Api
 {
@@ -16,10 +18,12 @@ namespace BingoGameOnline.Server.Api
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
-        public FriendsController(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
+        private readonly IHubContext<FriendsHub> _friendsHub;
+        public FriendsController(ApplicationDbContext db, UserManager<ApplicationUser> userManager, IHubContext<FriendsHub> friendsHub)
         {
             _db = db;
             _userManager = userManager;
+            _friendsHub = friendsHub;
         }
 
         [HttpGet("list")]
@@ -35,7 +39,9 @@ namespace BingoGameOnline.Server.Api
                                   UserName = u.UserName,
                                   Status = f.Status,
                                   Direction = "sent",
-                                  FriendId = f.Id
+                                  FriendId = f.Id,
+                                  UserId = f.UserId,
+                                  FriendUserId = f.FriendUserId
                               }).ToListAsync();
             // Friends where I received the request
             var received = await (from f in _db.Friends
@@ -45,7 +51,9 @@ namespace BingoGameOnline.Server.Api
                                       UserName = u.UserName,
                                       Status = f.Status,
                                       Direction = "received",
-                                      FriendId = f.Id
+                                      FriendId = f.Id,
+                                      UserId = f.UserId,
+                                      FriendUserId = f.FriendUserId
                                   }).ToListAsync();
             return Ok(sent.Concat(received));
         }
@@ -64,6 +72,8 @@ namespace BingoGameOnline.Server.Api
                 return BadRequest("Already friends or pending");
             _db.Friends.Add(new Friend { UserId = userId!, FriendUserId = friend.Id, Status = FriendStatus.Pending });
             await _db.SaveChangesAsync();
+            // Notify the recipient
+            await _friendsHub.Clients.User(friend.Id).SendAsync("FriendListChanged");
             return Ok();
         }
 
@@ -76,6 +86,8 @@ namespace BingoGameOnline.Server.Api
                 return NotFound();
             friend.Status = FriendStatus.Accepted;
             await _db.SaveChangesAsync();
+            // Notify both users
+            await _friendsHub.Clients.Users(new[] { friend.UserId, friend.FriendUserId }).SendAsync("FriendListChanged");
             return Ok();
         }
 
@@ -88,6 +100,8 @@ namespace BingoGameOnline.Server.Api
                 return NotFound();
             _db.Friends.Remove(friend);
             await _db.SaveChangesAsync();
+            // Notify both users
+            await _friendsHub.Clients.Users(new[] { friend.UserId, friend.FriendUserId }).SendAsync("FriendListChanged");
             return Ok();
         }
 
