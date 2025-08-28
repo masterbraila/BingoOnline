@@ -11,9 +11,17 @@ namespace BingoGameOnline.Server.Models
         public string UserId { get; set; } = string.Empty;
         [Required]
         public string FriendUserId { get; set; } = string.Empty;
+        [Required]
+        public FriendStatus Status { get; set; } = FriendStatus.Pending;
         [ForeignKey("UserId")]
         public ApplicationUser? User { get; set; }
         [ForeignKey("FriendUserId")]
         public ApplicationUser? FriendUser { get; set; }
+    }
+
+    public enum FriendStatus
+    {
+        Pending = 0,
+        Accepted = 1
     }
 }

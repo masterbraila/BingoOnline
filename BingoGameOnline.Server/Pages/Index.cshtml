@@ -14,69 +14,195 @@
     </div>
 }
 
-<div class="text-center">
-    <h1 class="display-4">Bingo Online</h1>
-    <p>Welcome <strong>@Model.DisplayName</strong> to Bingo Online, the ultimate platform for playing and enjoying bingo games from the comfort of your home!</p>
-    <p>To play the game you need to go into the <a href="/Rooms">Rooms</a> page and create your own room or join an existing one.</p>
-</div>
-
-@if (User.Identity != null && User.Identity.IsAuthenticated)
-{
-    <div class="position-absolute end-0 top-0 p-4" style="width: 300px; z-index: 10;">
-        <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
-                Friends
-            </div>
-            <div class="card-body">
-                <form id="add-friend-form" class="mb-3">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Add friend by username" name="friendUsername" autocomplete="off" />
-                        <button class="btn btn-success" type="submit">Add</button>
-                    </div>
-                </form>
-                <h6 class="mb-2">Your Friends</h6>
-                <ul id="friends-list" class="list-group">
-                    <li class="list-group-item text-muted">(No friends yet)</li>
-                </ul>
-            </div>
+<div class="d-flex justify-content-between align-items-start" style="min-height: 300px;">
+    <div class="flex-grow-1">
+        <div class="text-center">
+            <h1 class="display-4">Bingo Online</h1>
+            <p>Welcome <strong>@Model.DisplayName</strong> to Bingo Online, the ultimate platform for playing and enjoying bingo games from the comfort of your home!</p>
+            <p>To play the game you need to go into the <a href="/Rooms">Rooms</a> page and create your own room or join an existing one.</p>
         </div>
     </div>
-}
+    @if (User.Identity != null && User.Identity.IsAuthenticated)
+    {
+        <div style="width: 300px; margin-left: 2rem;">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <span>Friends</span>
+                    <button id="open-add-friend-modal" type="button" class="btn btn-sm btn-light text-primary fw-bold" title="Add Friend" style="font-size: 1.5rem; line-height: 1;">+</button>
+                </div>
+                <div class="card-body">
+                    <h6 class="mb-2">Your Friends</h6>
+                    <ul id="friends-list" class="list-group">
+                        <li class="list-group-item text-muted">(No friends yet)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>
 
+<!-- Add Friend Modal -->
+<div class="modal fade" id="addFriendModal" tabindex="-1" aria-labelledby="addFriendModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addFriendModalLabel">Add Friend</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group mb-2">
+          <input type="text" id="modal-friend-search-box" class="form-control" placeholder="Search users..." autocomplete="off" />
+          <button class="btn btn-primary" id="modal-friend-search-btn" type="button">Search</button>
+        </div>
+        <ul id="modal-friend-search-results" class="list-group"></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
 <script>
 $(function() {
-    // Add friend via AJAX
-    $('#add-friend-form').on('submit', function(e) {
-        e.preventDefault();
-        var $input = $(this).find('input[name="friendUsername"]');
-        var username = $input.val().trim();
-        if (!username) return;
-        $.post('/api/friends/add', { friendUsername: username })
-            .done(function() {
-                $input.val('');
-                loadFriends();
-            })
-            .fail(function(xhr) {
-                alert(xhr.responseText || 'Failed to add friend');
-            });
+    // Check for Bootstrap modal
+    if (typeof bootstrap === 'undefined' || typeof bootstrap.Modal === 'undefined') {
+        alert('Bootstrap JS is required for modal functionality. Please ensure it is loaded after jQuery.');
+    }
+    // Open modal on + click
+    $(document).on('click', '#open-add-friend-modal', function() {
+        $('#modal-friend-search-box').val('');
+        $('#modal-friend-search-results').empty();
+        var modalEl = document.getElementById('addFriendModal');
+        var modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+        modal.show();
     });
-    // Load friends list
-    function loadFriends() {
-        $.get('/api/friends/list', function(friends) {
-            var $list = $('#friends-list');
-            $list.empty();
-            if (friends.length === 0) {
-                $list.append('<li class="list-group-item text-muted">(No friends yet)</li>');
+    // Modal search logic
+    $('#modal-friend-search-btn').on('click', function() {
+        var q = $('#modal-friend-search-box').val().trim();
+        if (q.length < 2) {
+            $('#modal-friend-search-results').html('<li class="list-group-item text-muted">Enter at least 2 characters</li>');
+            return;
+        }
+        $('#modal-friend-search-results').html('<li class="list-group-item text-muted">Searching...</li>');
+        $.get('/api/friends/search?q=' + encodeURIComponent(q), function(users) {
+            var $results = $('#modal-friend-search-results');
+            $results.empty();
+            if (!users || users.length === 0) {
+                $results.append('<li class="list-group-item text-muted">No users found</li>');
             } else {
-                friends.forEach(function(name) {
-                    $list.append('<li class="list-group-item">' + name + '</li>');
+                users.forEach(function(u) {
+                    var name = u.userName || u.UserName || '(Unknown)';
+                    var html = '<li class="list-group-item d-flex justify-content-between align-items-center">' + name;
+                    if (u.alreadyFriend || u.AlreadyFriend) {
+                        var status = u.status || u.Status;
+                        if (status === 'pending') {
+                            html += ' <span class="badge bg-warning text-dark ms-2">Pending</span>';
+                        } else if (status === 'accepted') {
+                            html += ' <span class="badge bg-success ms-2">Already added</span>';
+                        }
+                    } else {
+                        html += ' <button class="btn btn-sm btn-outline-success add-friend-btn" data-username="' + name + '">Add</button>';
+                    }
+                    html += '</li>';
+                    $results.append(html);
                 });
             }
         });
+    });
+    // Add friend from modal search results
+    $('#modal-friend-search-results').on('click', '.add-friend-btn', function() {
+        var username = $(this).data('username');
+        var $btn = $(this);
+        $btn.prop('disabled', true);
+        $.post('/api/friends/add', { friendUsername: username })
+            .done(function() {
+                loadFriends();
+                $btn.closest('li').html('<span class="text-success">Friend added!</span>');
+            })
+            .fail(function(xhr) {
+                alert(xhr.responseText || 'Failed to add friend');
+                $btn.prop('disabled', false);
+            });
+    });
+    // Store all friends for filtering
+    var allFriends = [];
+    // Load friends list
+    function loadFriends() {
+        $.get('/api/friends/list', function(friends) {
+            allFriends = friends;
+            renderFriendsList(friends);
+        });
     }
+    // Render friends list (with optional filter)
+    function renderFriendsList(friends) {
+        var $list = $('#friends-list');
+        $list.empty();
+        if (!Array.isArray(friends) || friends.length === 0) {
+            $list.append('<li class="list-group-item text-muted">(No friends yet)</li>');
+            return;
+        }
+        friends.forEach(function(f) {
+            var name = f.userName || '(Unknown)';
+            var html = '<li class="list-group-item d-flex justify-content-between align-items-center">';
+            html += '<span>' + name + '</span>';
+            var direction = f.direction;
+            var status = f.status;
+            var friendId = f.friendId;
+            if (direction === 'sent' && status === 0) {
+                html += '<span class="badge bg-warning text-dark ms-2">pending</span>';
+            } else if (direction === 'received' && status === 0) {
+                html += '<div class="d-flex gap-1 ms-2">';
+                html += '<button class="btn btn-sm btn-success approve-friend-btn" data-friendid="' + friendId + '">Accept</button>';
+                html += '<button class="btn btn-sm btn-danger decline-friend-btn" data-friendid="' + friendId + '">Decline</button>';
+                html += '</div>';
+            }
+            html += '</li>';
+            $list.append(html);
+        });
+    }
+    // Approve friend request
+    $('#friends-list').on('click', '.approve-friend-btn', function() {
+        var friendId = $(this).data('friendid');
+        var $btn = $(this);
+        $btn.prop('disabled', true);
+        $.post('/api/friends/approve', { friendId: friendId })
+            .done(function() {
+                loadFriends();
+            })
+            .fail(function(xhr) {
+                alert(xhr.responseText || 'Failed to approve friend');
+                $btn.prop('disabled', false);
+            });
+    });
+    // Decline friend request
+    $('#friends-list').on('click', '.decline-friend-btn', function() {
+        var friendId = $(this).data('friendid');
+        var $btn = $(this);
+        $btn.prop('disabled', true);
+        $.post('/api/friends/decline', { friendId: friendId })
+            .done(function() {
+                loadFriends();
+            })
+            .fail(function(xhr) {
+                alert(xhr.responseText || 'Failed to decline friend');
+                $btn.prop('disabled', false);
+            });
+    });
+    // Filter friends as you type
+    $('#friend-list-search-box').on('input', function() {
+        var q = $(this).val().trim().toLowerCase();
+        if (!q) {
+            renderFriendsList(allFriends);
+            return;
+        }
+        var filtered = allFriends.filter(function(f) {
+            return f.UserName.toLowerCase().includes(q);
+        });
+        renderFriendsList(filtered);
+    });
     // Only run if the friends card is present
-    if ($('#add-friend-form').length) {
+    if ($('#friends-list').length) {
         loadFriends();
     }
 });
 </script>
+}
