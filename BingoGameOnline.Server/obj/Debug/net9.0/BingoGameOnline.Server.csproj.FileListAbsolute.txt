@@ -412,3 +412,4 @@ D:\Aplicatii\BingoOnline\BingoGameOnline.Server\obj\Debug\net9.0\compressed\bzf4
 D:\Aplicatii\BingoOnline\BingoGameOnline.Server\obj\Debug\net9.0\compressed\yr2gyu3dlm-6o56u443jj.gz
 D:\Aplicatii\BingoOnline\BingoGameOnline.Server\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.Facebook.dll
 D:\Aplicatii\BingoOnline\BingoGameOnline.Server\obj\Debug\net9.0\compressed\4y2ec29t4a-00czaodxm5.gz
+D:\Aplicatii\BingoOnline\BingoGameOnline.Server\obj\Debug\net9.0\compressed\arrmekbidn-nyt4a04m9m.gz

@@ -47,6 +47,9 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/auth-modal.js" asp-append-version="true"></script>
     <!-- Authentication Modal -->
 <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -84,12 +87,12 @@
           <div class="accordion-item">
             <h2 class="accordion-header" id="headingThree">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Other methods
+                I forgot the password
               </button>
             </h2>
             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#authAccordion">
-              <div class="accordion-body">
-                <div class="text-muted">Other authentication methods coming soon.</div>
+              <div class="accordion-body" id="forgot-step-body">
+                <div class="text-center text-muted">Loading password recovery form...</div>
               </div>
             </div>
           </div>
@@ -98,128 +101,7 @@
     </div>
   </div>
 </div>
-<script>
-    $(document).ready(function() {
-        $('#authModal').on('show.bs.modal', function () {
-            $('#login-step-body').html('<div class="text-center text-muted">Loading login form...</div>');
-            $('#login-step-body').load('/Identity/Account/Login?layout=none', function(response, status, xhr) {
-                if (status == "error") {
-                    $('#login-step-body').html('<div class="text-danger">Failed to load login form: ' + xhr.status + ' ' + xhr.statusText + '</div>');
-                    console.error('Login form load error:', xhr);
-                } else {
-                    if (!response.trim()) {
-                        $('#login-step-body').html('<div class="text-danger">Login form is empty. Check server response and authentication requirements.</div>');
-                        console.error('Login form response was empty.');
-                    }
-                }
-                // Attach AJAX login handler
-                attachLoginAjax();
-            });
-            $('#register-step-body').html('<div class="text-center text-muted">Loading registration form...</div>');
-            $('#register-step-body').load('/Identity/Account/Register?layout=none', function(response, status, xhr) {
-                if (status == "error") {
-                    $('#register-step-body').html('<div class="text-danger">Failed to load registration form: ' + xhr.status + ' ' + xhr.statusText + '</div>');
-                    console.error('Register form load error:', xhr);
-                } else {
-                    if (!response.trim()) {
-                        $('#register-step-body').html('<div class="text-danger">Registration form is empty. Check server response and authentication requirements.</div>');
-                        console.error('Register form response was empty.');
-                    }
-                    attachRegisterAjax();
-                }
-            });
-        });
-        // Optional: clear modal body on close
-        $('#authModal').on('hidden.bs.modal', function () {
-            $('#login-step-body').html('');
-            $('#register-step-body').html('');
-        });
-        // Attach AJAX login handler after login form is loaded
-        function attachLoginAjax() {
-            var $form = $('#login-step-body').find('form#account');
-            if ($form.length === 0) return;
-            $form.off('submit').on('submit', function(e) {
-                e.preventDefault();
-                var $btn = $form.find('button[type=submit]');
-                $btn.prop('disabled', true);
-                $.ajax({
-                    url: $form.attr('action') || '/Identity/Account/Login?layout=none',
-                    type: 'POST',
-                    data: $form.serialize(),
-                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
-                    success: function(data) {
-                        if (data && data.success) {
-                            $('#authModal').modal('hide');
-                            window.location.href = data.redirect || '/';
-                        } else if (typeof data === 'string' && data.indexOf('form') !== -1) {
-                            // Login failed, re-render form with validation
-                            $('#login-step-body').html(data);
-                            attachLoginAjax();
-                        } else {
-                            $('#login-step-body').prepend('<div class="text-danger">Login failed. Please try again.</div>');
-                            $btn.prop('disabled', false);
-                        }
-                    },
-                    error: function(xhr) {
-                        $('#login-step-body').prepend('<div class="text-danger">Login failed. Please try again.</div>');
-                        $btn.prop('disabled', false);
-                    }
-                });
-            });
-        }
-        // Attach AJAX register handler after register form is loaded
-        function attachRegisterAjax() {
-            var $form = $('#register-step-body').find('form#registerForm');
-            if ($form.length === 0) return;
-            $form.off('submit').on('submit', function(e) {
-                e.preventDefault();
-                var $btn = $form.find('button[type=submit]');
-                $btn.prop('disabled', true);
-                $.ajax({
-                    url: $form.attr('action') || '/Identity/Account/Register?layout=none',
-                    type: 'POST',
-                    data: $form.serialize(),
-                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
-                    success: function(data) {
-                        if (data && data.success) {
-                            $('#authModal').modal('hide');
-                            window.location.href = data.redirect || '/';
-                        } else if (typeof data === 'string' && data.indexOf('form') !== -1) {
-                            // Register failed, re-render form with validation
-                            $('#register-step-body').html(data);
-                            if (window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive) {
-                                window.jQuery.validator.unobtrusive.parse($('#register-step-body'));
-                            }
-                            // Scroll to validation summary if present
-                            var $summary = $('#register-step-body').find('[data-valmsg-summary], .validation-summary-errors, [asp-validation-summary]');
-                            if ($summary.length) {
-                                $summary[0].scrollIntoView({behavior: 'smooth', block: 'center'});
-                            }
-                            attachRegisterAjax();
-                        } else if (typeof data === 'string') {
-                            $('#register-step-body').html(data);
-                            if (window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive) {
-                                window.jQuery.validator.unobtrusive.parse($('#register-step-body'));
-                            }
-                            var $summary = $('#register-step-body').find('[data-valmsg-summary], .validation-summary-errors, [asp-validation-summary]');
-                            if ($summary.length) {
-                                $summary[0].scrollIntoView({behavior: 'smooth', block: 'center'});
-                            }
-                            attachRegisterAjax();
-                        } else {
-                            $('#register-step-body').prepend('<div class="text-danger">Registration failed. Please check the form for details.</div>');
-                            $btn.prop('disabled', false);
-                        }
-                    },
-                    error: function(xhr) {
-                        $('#register-step-body').prepend('<div class="text-danger">Registration failed. Please try again.</div>');
-                        $btn.prop('disabled', false);
-                    }
-                });
-            });
-        }
-    });
-</script>
+    <!-- (Authentication modal logic moved to wwwroot/js/auth-modal.js) -->
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

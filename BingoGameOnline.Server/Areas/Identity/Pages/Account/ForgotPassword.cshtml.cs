@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using BingoGameOnline.Server.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -18,10 +19,10 @@ namespace BingoGameOnline.Server.Areas.Identity.Pages.Account
 {
     public class ForgotPasswordModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
 
-        public ForgotPasswordModel(UserManager<IdentityUser> userManager, IEmailSender emailSender)
+        public ForgotPasswordModel(UserManager<ApplicationUser> userManager, IEmailSender emailSender)
         {
             _userManager = userManager;
             _emailSender = emailSender;
@@ -51,17 +52,33 @@ namespace BingoGameOnline.Server.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync()
         {
+            bool isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest" || Request.Query["layout"] == "none";
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(Input.Email);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                if (user == null)
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
+                    ModelState.AddModelError("Input.Email", "Email is not into the database");
+                    if (isAjax)
+                    {
+                        return new PartialViewResult
+                        {
+                            ViewName = "/Areas/Identity/Pages/Account/_ForgotPasswordFormPartial.cshtml",
+                            ViewData = this.ViewData,
+                            TempData = this.TempData
+                        };
+                    }
+                    return Page();
+                }
+                if (!(await _userManager.IsEmailConfirmedAsync(user)))
+                {
+                    if (isAjax)
+                    {
+                        return new JsonResult(new { success = true, confirmation = true });
+                    }
                     return RedirectToPage("./ForgotPasswordConfirmation");
                 }
 
-                // For more information on how to enable account confirmation and password reset please
-                // visit https://go.microsoft.com/fwlink/?LinkID=532713
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                 var callbackUrl = Url.Page(
@@ -75,9 +92,22 @@ namespace BingoGameOnline.Server.Areas.Identity.Pages.Account
                     "Reset Password",
                     $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
+                if (isAjax)
+                {
+                    return new JsonResult(new { success = true, confirmation = true });
+                }
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }
 
+            if (isAjax)
+            {
+                return new PartialViewResult
+                {
+                    ViewName = "/Areas/Identity/Pages/Account/_ForgotPasswordFormPartial.cshtml",
+                    ViewData = this.ViewData,
+                    TempData = this.TempData
+                };
+            }
             return Page();
         }
     }

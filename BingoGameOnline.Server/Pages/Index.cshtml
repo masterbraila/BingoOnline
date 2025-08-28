@@ -4,7 +4,79 @@
     ViewData["Title"] = "Home page";
 }
 
+@if (Model.ShowEmailReminder)
+{
+    <div class="alert alert-warning text-center mt-4" role="alert">
+        <strong>Email not confirmed!</strong> Please check your inbox and confirm your email address.<br />
+        Your account will be deleted in <strong>@Model.DaysLeft day@(Model.DaysLeft == 1 ? "" : "s")</strong> if not confirmed.
+        <br />
+        <a href="/Identity/Account/Manage" class="btn btn-sm btn-primary mt-2">Resend confirmation email</a>
+    </div>
+}
+
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Bingo Online</h1>
+    <p>Welcome <strong>@Model.DisplayName</strong> to Bingo Online, the ultimate platform for playing and enjoying bingo games from the comfort of your home!</p>
+    <p>To play the game you need to go into the <a href="/Rooms">Rooms</a> page and create your own room or join an existing one.</p>
 </div>
+
+@if (User.Identity != null && User.Identity.IsAuthenticated)
+{
+    <div class="position-absolute end-0 top-0 p-4" style="width: 300px; z-index: 10;">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                Friends
+            </div>
+            <div class="card-body">
+                <form id="add-friend-form" class="mb-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Add friend by username" name="friendUsername" autocomplete="off" />
+                        <button class="btn btn-success" type="submit">Add</button>
+                    </div>
+                </form>
+                <h6 class="mb-2">Your Friends</h6>
+                <ul id="friends-list" class="list-group">
+                    <li class="list-group-item text-muted">(No friends yet)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+$(function() {
+    // Add friend via AJAX
+    $('#add-friend-form').on('submit', function(e) {
+        e.preventDefault();
+        var $input = $(this).find('input[name="friendUsername"]');
+        var username = $input.val().trim();
+        if (!username) return;
+        $.post('/api/friends/add', { friendUsername: username })
+            .done(function() {
+                $input.val('');
+                loadFriends();
+            })
+            .fail(function(xhr) {
+                alert(xhr.responseText || 'Failed to add friend');
+            });
+    });
+    // Load friends list
+    function loadFriends() {
+        $.get('/api/friends/list', function(friends) {
+            var $list = $('#friends-list');
+            $list.empty();
+            if (friends.length === 0) {
+                $list.append('<li class="list-group-item text-muted">(No friends yet)</li>');
+            } else {
+                friends.forEach(function(name) {
+                    $list.append('<li class="list-group-item">' + name + '</li>');
+                });
+            }
+        });
+    }
+    // Only run if the friends card is present
+    if ($('#add-friend-form').length) {
+        loadFriends();
+    }
+});
+</script>

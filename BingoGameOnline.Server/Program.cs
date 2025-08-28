@@ -7,12 +7,21 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 6; // or your preferred minimum length
+})
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 builder.Services.AddSession();
 builder.Services.AddSignalR();
 builder.Services.AddSingleton<BingoGameOnline.Server.Hubs.IRoomHubNotifier, BingoGameOnline.Server.Hubs.RoomHubNotifier>();
+builder.Services.AddHostedService<BingoGameOnline.Server.Services.UnconfirmedAccountCleanupService>();
 
 var app = builder.Build();
 
