@@ -415,3 +415,4 @@ D:\Aplicatii\BingoOnline\BingoGameOnline.Server\obj\Debug\net9.0\compressed\4y2e
 D:\Aplicatii\BingoOnline\BingoGameOnline.Server\obj\Debug\net9.0\compressed\arrmekbidn-nyt4a04m9m.gz
 D:\Aplicatii\BingoOnline\BingoGameOnline.Server\obj\Debug\net9.0\compressed\jjqi95qrwl-1s10s8dfqm.gz
 D:\Aplicatii\BingoOnline\BingoGameOnline.Server\obj\Debug\net9.0\compressed\7owtour66y-pccjoepz2b.gz
+D:\Aplicatii\BingoOnline\BingoGameOnline.Server\obj\Debug\net9.0\compressed\4io0a5e2wu-nksdbc34ou.gz

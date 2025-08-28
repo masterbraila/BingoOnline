@@ -64,6 +64,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
 <script type="module" src="/js/presence.js"></script>
 <script type="module" src="/js/friendshub.js"></script>
+<script type="module" src="/js/userchathub.js"></script>
 <script>
 $(function() {
     // Check for Bootstrap modal
@@ -126,18 +127,24 @@ $(function() {
                 $btn.prop('disabled', false);
             });
     });
-    // Store all friends for filtering
     var allFriends = [];
     var onlineUserIds = [];
+    var chatWindows = {};
     var myUserId = null;
-    // Get current user ID for presence
+    // Get current user ID for presence and chat
     $.get('/api/account/me', function(me) {
         myUserId = me.userId;
         import('/js/presence.js').then(mod => {
             mod.startPresenceHub(myUserId, function(onlineIds) {
                 onlineUserIds = onlineIds;
-                console.log('Online user IDs from SignalR:', onlineUserIds);
                 renderFriendsList(allFriends);
+            });
+        });
+        // Start user chat hub
+        import('/js/userchathub.js').then(chatmod => {
+            chatmod.startUserChatHub(myUserId, function(fromUserId, message) {
+                openChatWindow(fromUserId);
+                appendChatMessage(fromUserId, fromUserId === myUserId ? 'You' : getFriendNameById(fromUserId), message);
             });
         });
     });
@@ -213,6 +220,68 @@ $(function() {
                 alert(xhr.responseText || 'Failed to decline friend');
                 $btn.prop('disabled', false);
             });
+    });
+    // Click on friend to open chat
+    $('#friends-list').on('click', 'li', function(e) {
+        // Only open chat if not clicking a button
+        if ($(e.target).is('button')) return;
+        var idx = $(this).index();
+        var f = allFriends[idx];
+        var friendUserId = f.FriendUserId || f.friendUserId;
+        var userId = f.UserId || f.userId;
+        var otherUserId = (f.direction === 'sent') ? friendUserId : userId;
+        openChatWindow(otherUserId);
+    });
+    function getFriendNameById(userId) {
+        var f = allFriends.find(f => (f.FriendUserId || f.friendUserId) === userId || (f.UserId || f.userId) === userId);
+        return f ? (f.userName || f.UserName || '(Unknown)') : userId;
+    }
+    function openChatWindow(userId) {
+        if (chatWindows[userId]) {
+            $('#chat-window-' + userId).show();
+            return;
+        }
+        var friendName = getFriendNameById(userId);
+        var chatHtml = `<div class="chat-window card shadow-sm" id="chat-window-${userId}" style="position:absolute; left:0; bottom:0; width:300px; z-index:1050;">
+            <div class="card-header p-2 d-flex justify-content-between align-items-center">
+                <span>${friendName}</span>
+                <button type="button" class="btn-close btn-close-sm" aria-label="Close" style="font-size:0.9rem;"></button>
+            </div>
+            <div class="card-body p-2" style="height:150px; overflow-y:auto; font-size:0.95rem; background:#f8f9fa;" id="chat-body-${userId}"></div>
+            <div class="card-footer p-2">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control chat-input" placeholder="Type a message..." />
+                    <button class="btn btn-primary send-chat-btn" type="button">Send</button>
+                </div>
+            </div>
+        </div>`;
+        $(chatHtml).appendTo('body');
+        chatWindows[userId] = true;
+    }
+    function appendChatMessage(userId, sender, message) {
+        var $body = $('#chat-body-' + userId);
+        if ($body.length) {
+            $body.append(`<div><strong>${sender}:</strong> ${$('<div>').text(message).html()}</div>`);
+            $body.scrollTop($body[0].scrollHeight);
+        }
+    }
+    // Send chat message
+    $(document).on('click', '.send-chat-btn', function() {
+        var $win = $(this).closest('.chat-window');
+        var userId = $win.attr('id').replace('chat-window-', '');
+        var $input = $win.find('.chat-input');
+        var msg = $input.val().trim();
+        if (msg) {
+            import('/js/userchathub.js').then(chatmod => {
+                chatmod.sendPrivateMessage(userId, msg);
+            });
+            appendChatMessage(userId, 'You', msg);
+            $input.val('');
+        }
+    });
+    // Close chat window
+    $(document).on('click', '.chat-window .btn-close', function() {
+        $(this).closest('.chat-window').hide();
     });
     // Add online/offline dot styles if not present
     if (!document.getElementById('presence-dot-style')) {

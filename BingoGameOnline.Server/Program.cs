@@ -46,6 +46,7 @@ app.MapHub<BingoGameOnline.Server.Hubs.RoomHub>("/roomhub");
 app.MapHub<BingoGameOnline.Server.Hubs.ChatHub>("/chathub");
 app.MapHub<BingoGameOnline.Server.Hubs.PresenceHub>("/presencehub");
 app.MapHub<BingoGameOnline.Server.Hubs.FriendsHub>("/friendshub");
+app.MapHub<BingoGameOnline.Server.Hubs.UserChatHub>("/userchathub");
 app.MapControllers();
 
 app.Run();
