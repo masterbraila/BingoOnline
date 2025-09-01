@@ -837,3 +837,4 @@ D:\Aplicatii\BingoOnline\BingoGameOnline.Server\obj\Debug\net9.0\BingoGameOnline
 D:\Aplicatii\BingoOnline\BingoGameOnline.Server\obj\Debug\net9.0\BingoGameOnline.Server.genruntimeconfig.cache
 D:\Aplicatii\BingoOnline\BingoGameOnline.Server\obj\Debug\net9.0\ref\BingoGameOnline.Server.dll
 D:\Aplicatii\BingoOnline\BingoGameOnline.Server\obj\Debug\net9.0\compressed\phhulwac2z-upd8dk2vrc.gz
+D:\Aplicatii\BingoOnline\BingoGameOnline.Server\obj\Debug\net9.0\compressed\tgswffdva6-qbwqyskjgw.gz

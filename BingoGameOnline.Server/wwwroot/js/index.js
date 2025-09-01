@@ -1,0 +1,286 @@
+// index.js - scripts moved from Index.cshtml
+$(function() {
+    // Check for Bootstrap modal
+    if (typeof bootstrap === 'undefined' || typeof bootstrap.Modal === 'undefined') {
+        alert('Bootstrap JS is required for modal functionality. Please ensure it is loaded after jQuery.');
+    }
+    // Open modal on + click
+    $(document).on('click', '#open-add-friend-modal', function() {
+        $('#modal-friend-search-box').val('');
+        $('#modal-friend-search-results').empty();
+        var modalEl = document.getElementById('addFriendModal');
+        var modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+        modal.show();
+    });
+    // Modal search logic
+    $('#modal-friend-search-btn').on('click', function() {
+        var q = $('#modal-friend-search-box').val().trim();
+        if (q.length < 2) {
+            $('#modal-friend-search-results').html('<li class="list-group-item text-muted">Enter at least 2 characters</li>');
+            return;
+        }
+        $('#modal-friend-search-results').html('<li class="list-group-item text-muted">Searching...</li>');
+        $.get('/api/friends/search?q=' + encodeURIComponent(q), function(users) {
+            var $results = $('#modal-friend-search-results');
+            $results.empty();
+            if (!users || users.length === 0) {
+                $results.append('<li class="list-group-item text-muted">No users found</li>');
+            } else {
+                users.forEach(function(u) {
+                    var name = u.userName || u.UserName || '(Unknown)';
+                    var html = '<li class="list-group-item d-flex justify-content-between align-items-center">' + name;
+                    if (u.alreadyFriend || u.AlreadyFriend) {
+                        var status = u.status || u.Status;
+                        if (status === 'pending') {
+                            html += ' <span class="badge bg-warning text-dark ms-2">Pending</span>';
+                        } else if (status === 'accepted') {
+                            html += ' <span class="badge bg-success ms-2">Already added</span>';
+                        }
+                    } else {
+                        html += ' <button class="btn btn-sm btn-outline-success add-friend-btn" data-username="' + name + '">Add</button>';
+                    }
+                    html += '</li>';
+                    $results.append(html);
+                });
+            }
+        });
+    });
+    // Add friend from modal search results
+    $('#modal-friend-search-results').on('click', '.add-friend-btn', function() {
+        var username = $(this).data('username');
+        var $btn = $(this);
+        $btn.prop('disabled', true);
+        $.post('/api/friends/add', { friendUsername: username })
+            .done(function() {
+                loadFriends();
+                $btn.closest('li').html('<span class="text-success">Friend added!</span>');
+            })
+            .fail(function(xhr) {
+                alert(xhr.responseText || 'Failed to add friend');
+                $btn.prop('disabled', false);
+            });
+    });
+    var allFriends = [];
+    var onlineUserIds = [];
+    var chatWindows = {};
+    var myUserId = null;
+    var lastChatTargetId = null;
+    // Get current user ID for presence and chat
+    $.get('/api/account/me', function(me) {
+        myUserId = me.userId;
+        // Start user chat hub
+        import('/js/userchathub.js').then(chatmod => {
+            chatmod.startUserChatHub(myUserId, function(fromUserId, toUserId, message) {
+                var chatUserId = (fromUserId === myUserId) ? toUserId : fromUserId;
+                openChatWindow(chatUserId, myUserId);
+                appendChatMessage(chatUserId, fromUserId, message, myUserId);
+            });
+        });
+    });
+    // Start FriendsHub for real-time friend list updates
+    import('/js/friendshub.js').then(mod => {
+        mod.startFriendsHub(function() {
+            loadFriends();
+        });
+    });
+    // Listen for global presence updates
+    $(document).on('presence:onlineUsersChanged', function(e, onlineIds) {
+        onlineUserIds = onlineIds;
+        renderFriendsList(allFriends);
+    });
+    // Load friends list
+    function loadFriends() {
+        $.get('/api/friends/list', function(friends) {
+            allFriends = friends;
+            renderFriendsList(friends);
+        });
+    }
+    // Render friends list (with optional filter)
+    function renderFriendsList(friends) {
+        var $list = $('#friends-list');
+        $list.empty();
+        if (!Array.isArray(friends) || friends.length === 0) {
+            $list.append('<li class="list-group-item text-muted">(No friends yet)</li>');
+            return;
+        }
+        friends.forEach(function(f) {
+            var name = f.userName || f.UserName || '(Unknown)';
+            var friendUserId = f.FriendUserId || f.friendUserId;
+            var userId = f.UserId || f.userId;
+            var otherUserId = (f.direction === 'sent') ? friendUserId : userId;
+            var isOnline = onlineUserIds && onlineUserIds.includes(otherUserId);
+            var dot = isOnline ? '<span class="online-dot me-2" title="Online"></span>' : '<span class="offline-dot me-2" title="Offline"></span>';
+            var html = '<li class="list-group-item d-flex align-items-center">';
+            html += dot + '<span class="friend-username flex-grow-1">' + name + '</span>';
+            var direction = f.direction;
+            var status = f.status;
+            var friendId = f.friendId;
+            if (direction === 'sent' && status === 0) {
+                html += '<span class="badge bg-warning text-dark ms-2">pending</span>';
+            } else if (direction === 'received' && status === 0) {
+                html += '<div class="d-flex gap-1 ms-2">';
+                html += '<button class="btn btn-sm btn-success approve-friend-btn" data-friendid="' + friendId + '">Accept</button>';
+                html += '<button class="btn btn-sm btn-danger decline-friend-btn" data-friendid="' + friendId + '">Decline</button>';
+                html += '</div>';
+            }
+            html += '</li>';
+            $list.append(html);
+        });
+    }
+    // Approve friend request (delegated)
+    $('#friends-list').on('click', '.approve-friend-btn', function() {
+        var friendId = $(this).data('friendid');
+        var $btn = $(this);
+        $btn.prop('disabled', true);
+        $.post('/api/friends/approve', { friendId: friendId })
+            .done(function() {
+                loadFriends();
+            })
+            .fail(function(xhr) {
+                alert(xhr.responseText || 'Failed to approve friend');
+                $btn.prop('disabled', false);
+            });
+    });
+    // Decline friend request (delegated)
+    $('#friends-list').on('click', '.decline-friend-btn', function() {
+        var friendId = $(this).data('friendid');
+        var $btn = $(this);
+        $btn.prop('disabled', true);
+        $.post('/api/friends/decline', { friendId: friendId })
+            .done(function() {
+                loadFriends();
+            })
+            .fail(function(xhr) {
+                alert(xhr.responseText || 'Failed to decline friend');
+                $btn.prop('disabled', false);
+            });
+    });
+    // Click on friend to open chat
+    $('#friends-list').on('click', 'li', function(e) {
+        // Only open chat if not clicking a button
+        if ($(e.target).is('button')) return;
+        var idx = $(this).index();
+        var f = allFriends[idx];
+        var friendUserId = f.FriendUserId || f.friendUserId;
+        var userId = f.UserId || f.userId;
+        var otherUserId = (f.direction === 'sent') ? friendUserId : userId;
+        lastChatTargetId = otherUserId;
+        openChatWindow(otherUserId);
+    });
+    // Cache for userId to displayName
+    var userIdNameCache = {};
+    function getFriendNameById(userId, callback) {
+        if (userId === myUserId) return callback('You');
+        // Check cache first
+        if (userIdNameCache[userId]) return callback(userIdNameCache[userId]);
+        // Try to find in friends list
+        var f = allFriends.find(f => {
+            var friendUserId = f.FriendUserId || f.friendUserId;
+            var userIdOther = f.UserId || f.userId;
+            return friendUserId === userId || userIdOther === userId;
+        });
+        if (f) {
+            var possibleNames = [f.friendUserName, f.FriendUserName, f.userName, f.UserName];
+            for (var i = 0; i < possibleNames.length; i++) {
+                var name = possibleNames[i];
+                if (name && name !== '@Model.DisplayName' && name !== 'You') {
+                    userIdNameCache[userId] = name;
+                    return callback(name);
+                }
+            }
+        }
+        // Not found, fetch from server
+        $.get('/api/account/displayname?userId=' + encodeURIComponent(userId), function(data) {
+            var name = data.displayName || userId;
+            userIdNameCache[userId] = name;
+            callback(name);
+        }).fail(function() {
+            callback(userId);
+        });
+    }
+    function openChatWindow(userId, myUserId) {
+        lastChatTargetId = userId;
+        if (chatWindows[userId]) {
+            $('#chat-window-' + userId).show();
+            return;
+        }
+        getFriendNameById(userId, function(friendName) {
+            var chatHtml = `<div class="chat-window card shadow-sm" id="chat-window-${userId}" style="position:absolute; left:0; bottom:0; width:300px; z-index:1050;">
+                <div class="card-header p-2 d-flex justify-content-between align-items-center">
+                    <span class="chat-title">${friendName}</span>
+                    <button type="button" class="btn-close btn-close-sm" aria-label="Close" style="font-size:0.9rem;"></button>
+                </div>
+                <div class="card-body p-2" style="height:150px; overflow-y:auto; font-size:0.95rem; background:#f8f9fa;" id="chat-body-${userId}"></div>
+                <div class="card-footer p-2">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control chat-input" placeholder="Type a message..." />
+                        <button class="btn btn-primary send-chat-btn" type="button">Send</button>
+                    </div>
+                </div>
+            </div>`;
+            $(chatHtml).appendTo('body');
+            chatWindows[userId] = true;
+        });
+    }
+    function appendChatMessage(userId, senderId, message, myUserId) {
+        if (senderId === myUserId) {
+            var senderName = 'You';
+            var $body = $('#chat-body-' + userId);
+            if ($body.length) {
+                $body.append(`<div><strong>${senderName}:</strong> ${$('<div>').text(message).html()}</div>`);
+                $body.scrollTop($body[0].scrollHeight);
+            }
+        } else {
+            getFriendNameById(senderId, function(senderName) {
+                var $body = $('#chat-body-' + userId);
+                if ($body.length) {
+                    $body.append(`<div><strong>${senderName}:</strong> ${$('<div>').text(message).html()}</div>`);
+                    $body.scrollTop($body[0].scrollHeight);
+                }
+            });
+        }
+    }
+    // Send chat message
+    $(document).on('click', '.send-chat-btn', function() {
+        var $win = $(this).closest('.chat-window');
+        var userId = $win.attr('id').replace('chat-window-', '');
+        var $input = $win.find('.chat-input');
+        var msg = $input.val().trim();
+        if (msg) {
+            import('/js/userchathub.js').then(chatmod => {
+                chatmod.sendPrivateMessage(userId, msg);
+            });
+            // Do NOT append immediately; wait for SignalR receive
+            $input.val('');
+        }
+    });
+    // Send chat message on Enter key
+    $(document).on('keydown', '.chat-input', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            $(this).closest('.chat-window').find('.send-chat-btn').click();
+        }
+    });
+    // Close chat window
+    $(document).on('click', '.chat-window .btn-close', function() {
+        $(this).closest('.chat-window').hide();
+    });
+    // Add online/offline dot styles if not present
+    if (!document.getElementById('presence-dot-style')) {
+        var style = document.createElement('style');
+        style.id = 'presence-dot-style';
+        style.innerHTML = `.online-dot { display:inline-block; width:10px; height:10px; border-radius:50%; background:#28a745; margin-right:4px; }\n.offline-dot { display:inline-block; width:10px; height:10px; border-radius:50%; background:#ccc; margin-right:4px; }`;
+        document.head.appendChild(style);
+    }
+    // Add username alignment style
+    if (!document.getElementById('friend-username-style')) {
+        var style = document.createElement('style');
+        style.id = 'friend-username-style';
+        style.innerHTML = `.friend-username { text-align: left; min-width: 0; word-break: break-all; }`;
+        document.head.appendChild(style);
+    }
+    // Only run if the friends card is present
+    if ($('#friends-list').length) {
+        loadFriends();
+    }
+});
