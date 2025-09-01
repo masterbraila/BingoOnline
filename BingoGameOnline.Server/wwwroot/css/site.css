@@ -19,6 +19,8 @@ html {
 
 body {
   margin-bottom: 60px;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%; /* for legacy iOS/Safari */
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
@@ -28,4 +30,22 @@ body {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+
+th {
+    text-align: match-parent;
+    text-align: -webkit-match-parent;
+}
+
+/* External styles for layout and buttons */
+.d-flex-main {
+    min-height: 300px;
+}
+.friends-sidebar {
+    width: 300px;
+    margin-left: 2rem;
+}
+.add-friend-btn-style {
+    font-size: 1.5rem;
+    line-height: 1;
 }

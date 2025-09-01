@@ -14,8 +14,10 @@ namespace BingoGameOnline.Server.Hubs
             var fromUserId = Context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (!string.IsNullOrEmpty(fromUserId) && !string.IsNullOrEmpty(toUserId) && !string.IsNullOrWhiteSpace(message))
             {
-                await Clients.User(toUserId).SendAsync("ReceivePrivateMessage", fromUserId, message);
-                await Clients.User(fromUserId).SendAsync("ReceivePrivateMessage", toUserId, message); // echo to sender
+                // Send to recipient
+                await Clients.User(toUserId).SendAsync("ReceivePrivateMessage", fromUserId, toUserId, message);
+                // Echo to sender
+                await Clients.User(fromUserId).SendAsync("ReceivePrivateMessage", fromUserId, toUserId, message);
             }
         }
     }

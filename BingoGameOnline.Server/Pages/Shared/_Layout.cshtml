@@ -103,6 +103,27 @@
 </div>
     <!-- (Authentication modal logic moved to wwwroot/js/auth-modal.js) -->
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script>
+(function() {
+    if (!window.isAuthenticated) return;
+    // Only run for authenticated users
+    $.get('/api/account/me', function(me) {
+        var myUserId = me.userId;
+        import('/js/presence.js').then(mod => {
+            mod.startPresenceHub(myUserId, function(onlineIds) {
+                window._onlineUserIds = onlineIds; // global for other scripts if needed
+                $(document).trigger('presence:onlineUsersChanged', [onlineIds]);
+            });
+        });
+    });
+})();
+</script>
+@if (User.Identity != null && User.Identity.IsAuthenticated)
+{
+    <script>window.isAuthenticated = true;</script>
+}
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

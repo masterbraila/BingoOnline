@@ -27,5 +27,15 @@ namespace BingoGameOnline.Server.Api
             if (user == null) return Unauthorized();
             return Ok(new { userId = user.Id, userName = user.UserName });
         }
+
+        [HttpGet("displayname")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetDisplayName([FromQuery] string userId)
+        {
+            if (string.IsNullOrWhiteSpace(userId)) return BadRequest();
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null) return NotFound();
+            return Ok(new { displayName = user.UserName });
+        }
     }
 }

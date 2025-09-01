@@ -5,3 +5,11 @@ D:\GitHub\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\BingoGameOnline.Cl
 D:\GitHub\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\BingoGameOnline.Client.csproj.CoreCompileInputs.cache
 D:\GitHub\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\BingoGameOnline.Client.MvcApplicationPartsAssemblyInfo.cache
 D:\GitHub\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\BingoGameOnline.Client.sourcelink.json
+D:\Aplicatii\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\BingoGameOnline.Client.csproj.AssemblyReference.cache
+D:\Aplicatii\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\rpswa.dswa.cache.json
+D:\Aplicatii\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\BingoGameOnline.Client.GeneratedMSBuildEditorConfig.editorconfig
+D:\Aplicatii\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\BingoGameOnline.Client.AssemblyInfoInputs.cache
+D:\Aplicatii\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\BingoGameOnline.Client.AssemblyInfo.cs
+D:\Aplicatii\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\BingoGameOnline.Client.csproj.CoreCompileInputs.cache
+D:\Aplicatii\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\BingoGameOnline.Client.MvcApplicationPartsAssemblyInfo.cache
+D:\Aplicatii\BingoOnline\BingoGameOnline.Client\obj\Debug\net9.0\BingoGameOnline.Client.sourcelink.json

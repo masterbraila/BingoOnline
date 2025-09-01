@@ -9,8 +9,8 @@ export function startUserChatHub(currentUserId, onMessageReceived) {
         .configureLogging(signalR.LogLevel.Warning)
         .build();
 
-    connection.on("ReceivePrivateMessage", (fromUserId, message) => {
-        onMessageReceived(fromUserId, message);
+    connection.on("ReceivePrivateMessage", (fromUserId, toUserId, message) => {
+        onMessageReceived(fromUserId, toUserId, message);
     });
     connection.start();
 }

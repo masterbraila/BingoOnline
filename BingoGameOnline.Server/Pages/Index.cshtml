@@ -14,8 +14,8 @@
     </div>
 }
 
-<div class="d-flex justify-content-between align-items-start" style="min-height: 300px;">
-    <div class="flex-grow-1">
+<div class="d-flex justify-content-between align-items-start d-flex-main">
+    <div style="flex-grow:1">
         <div class="text-center">
             <h1 class="display-4">Bingo Online</h1>
             <p>Welcome <strong>@Model.DisplayName</strong> to Bingo Online, the ultimate platform for playing and enjoying bingo games from the comfort of your home!</p>
@@ -24,11 +24,11 @@
     </div>
     @if (User.Identity != null && User.Identity.IsAuthenticated)
     {
-        <div style="width: 300px; margin-left: 2rem;">
+        <div class="friends-sidebar">
             <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                     <span>Friends</span>
-                    <button id="open-add-friend-modal" type="button" class="btn btn-sm btn-light text-primary fw-bold" title="Add Friend" style="font-size: 1.5rem; line-height: 1;">+</button>
+                    <button id="open-add-friend-modal" type="button" class="btn btn-sm btn-light text-primary fw-bold add-friend-btn-style" title="Add Friend">+</button>
                 </div>
                 <div class="card-body">
                     <h6 class="mb-2">Your Friends</h6>
@@ -131,20 +131,16 @@ $(function() {
     var onlineUserIds = [];
     var chatWindows = {};
     var myUserId = null;
+    var lastChatTargetId = null;
     // Get current user ID for presence and chat
     $.get('/api/account/me', function(me) {
         myUserId = me.userId;
-        import('/js/presence.js').then(mod => {
-            mod.startPresenceHub(myUserId, function(onlineIds) {
-                onlineUserIds = onlineIds;
-                renderFriendsList(allFriends);
-            });
-        });
         // Start user chat hub
         import('/js/userchathub.js').then(chatmod => {
-            chatmod.startUserChatHub(myUserId, function(fromUserId, message) {
-                openChatWindow(fromUserId);
-                appendChatMessage(fromUserId, fromUserId === myUserId ? 'You' : getFriendNameById(fromUserId), message);
+            chatmod.startUserChatHub(myUserId, function(fromUserId, toUserId, message) {
+                var chatUserId = (fromUserId === myUserId) ? toUserId : fromUserId;
+                openChatWindow(chatUserId, myUserId);
+                appendChatMessage(chatUserId, fromUserId, message, myUserId);
             });
         });
     });
@@ -153,6 +149,11 @@ $(function() {
         mod.startFriendsHub(function() {
             loadFriends();
         });
+    });
+    // Listen for global presence updates
+    $(document).on('presence:onlineUsersChanged', function(e, onlineIds) {
+        onlineUserIds = onlineIds;
+        renderFriendsList(allFriends);
     });
     // Load friends list
     function loadFriends() {
@@ -230,39 +231,80 @@ $(function() {
         var friendUserId = f.FriendUserId || f.friendUserId;
         var userId = f.UserId || f.userId;
         var otherUserId = (f.direction === 'sent') ? friendUserId : userId;
+        lastChatTargetId = otherUserId;
         openChatWindow(otherUserId);
     });
-    function getFriendNameById(userId) {
-        var f = allFriends.find(f => (f.FriendUserId || f.friendUserId) === userId || (f.UserId || f.userId) === userId);
-        return f ? (f.userName || f.UserName || '(Unknown)') : userId;
+    // Cache for userId to displayName
+    var userIdNameCache = {};
+    function getFriendNameById(userId, callback) {
+        if (userId === myUserId) return callback('You');
+        // Check cache first
+        if (userIdNameCache[userId]) return callback(userIdNameCache[userId]);
+        // Try to find in friends list
+        var f = allFriends.find(f => {
+            var friendUserId = f.FriendUserId || f.friendUserId;
+            var userIdOther = f.UserId || f.userId;
+            return friendUserId === userId || userIdOther === userId;
+        });
+        if (f) {
+            var possibleNames = [f.friendUserName, f.FriendUserName, f.userName, f.UserName];
+            for (var i = 0; i < possibleNames.length; i++) {
+                var name = possibleNames[i];
+                if (name && name !== '@Model.DisplayName' && name !== 'You') {
+                    userIdNameCache[userId] = name;
+                    return callback(name);
+                }
+            }
+        }
+        // Not found, fetch from server
+        $.get('/api/account/displayname?userId=' + encodeURIComponent(userId), function(data) {
+            var name = data.displayName || userId;
+            userIdNameCache[userId] = name;
+            callback(name);
+        }).fail(function() {
+            callback(userId);
+        });
     }
-    function openChatWindow(userId) {
+    function openChatWindow(userId, myUserId) {
+        lastChatTargetId = userId;
         if (chatWindows[userId]) {
             $('#chat-window-' + userId).show();
             return;
         }
-        var friendName = getFriendNameById(userId);
-        var chatHtml = `<div class="chat-window card shadow-sm" id="chat-window-${userId}" style="position:absolute; left:0; bottom:0; width:300px; z-index:1050;">
-            <div class="card-header p-2 d-flex justify-content-between align-items-center">
-                <span>${friendName}</span>
-                <button type="button" class="btn-close btn-close-sm" aria-label="Close" style="font-size:0.9rem;"></button>
-            </div>
-            <div class="card-body p-2" style="height:150px; overflow-y:auto; font-size:0.95rem; background:#f8f9fa;" id="chat-body-${userId}"></div>
-            <div class="card-footer p-2">
-                <div class="input-group input-group-sm">
-                    <input type="text" class="form-control chat-input" placeholder="Type a message..." />
-                    <button class="btn btn-primary send-chat-btn" type="button">Send</button>
+        getFriendNameById(userId, function(friendName) {
+            var chatHtml = `<div class="chat-window card shadow-sm" id="chat-window-${userId}" style="position:absolute; left:0; bottom:0; width:300px; z-index:1050;">
+                <div class="card-header p-2 d-flex justify-content-between align-items-center">
+                    <span class="chat-title">${friendName}</span>
+                    <button type="button" class="btn-close btn-close-sm" aria-label="Close" style="font-size:0.9rem;"></button>
                 </div>
-            </div>
-        </div>`;
-        $(chatHtml).appendTo('body');
-        chatWindows[userId] = true;
+                <div class="card-body p-2" style="height:150px; overflow-y:auto; font-size:0.95rem; background:#f8f9fa;" id="chat-body-${userId}"></div>
+                <div class="card-footer p-2">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control chat-input" placeholder="Type a message..." />
+                        <button class="btn btn-primary send-chat-btn" type="button">Send</button>
+                    </div>
+                </div>
+            </div>`;
+            $(chatHtml).appendTo('body');
+            chatWindows[userId] = true;
+        });
     }
-    function appendChatMessage(userId, sender, message) {
-        var $body = $('#chat-body-' + userId);
-        if ($body.length) {
-            $body.append(`<div><strong>${sender}:</strong> ${$('<div>').text(message).html()}</div>`);
-            $body.scrollTop($body[0].scrollHeight);
+    function appendChatMessage(userId, senderId, message, myUserId) {
+        if (senderId === myUserId) {
+            var senderName = 'You';
+            var $body = $('#chat-body-' + userId);
+            if ($body.length) {
+                $body.append(`<div><strong>${senderName}:</strong> ${$('<div>').text(message).html()}</div>`);
+                $body.scrollTop($body[0].scrollHeight);
+            }
+        } else {
+            getFriendNameById(senderId, function(senderName) {
+                var $body = $('#chat-body-' + userId);
+                if ($body.length) {
+                    $body.append(`<div><strong>${senderName}:</strong> ${$('<div>').text(message).html()}</div>`);
+                    $body.scrollTop($body[0].scrollHeight);
+                }
+            });
         }
     }
     // Send chat message
@@ -275,8 +317,15 @@ $(function() {
             import('/js/userchathub.js').then(chatmod => {
                 chatmod.sendPrivateMessage(userId, msg);
             });
-            appendChatMessage(userId, 'You', msg);
+            // Do NOT append immediately; wait for SignalR receive
             $input.val('');
+        }
+    });
+    // Send chat message on Enter key
+    $(document).on('keydown', '.chat-input', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            $(this).closest('.chat-window').find('.send-chat-btn').click();
         }
     });
     // Close chat window
